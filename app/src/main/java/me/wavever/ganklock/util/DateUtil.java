@@ -1,0 +1,82 @@
+package me.wavever.ganklock.util;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+/**
+ * Created by WAVE on 2015/12/24.
+ */
+public class DateUtil {
+
+    /**
+     * 将日期格式化为 2015/12/24
+     *
+     * @param date
+     * @return
+     */
+    public static String formatDate(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");  //mm是分钟。。
+        return dateFormat.format(date);
+    }
+
+    /**
+     * 获取当天的日期
+     *
+     * @return
+     */
+    public static Date getTodayDate() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.getTime();
+    }
+
+    public static Date getLastDate(){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(getTodayDate());
+        calendar.add(Calendar.DATE,-1);
+        return calendar.getTime();
+    }
+
+    /**
+     * 获取当天格式化后的日期
+     *
+     * @return
+     */
+    public static String getTodayFormatDate() {
+        return DateUtil.formatDate(DateUtil.getTodayDate());
+    }
+
+    public static String getLastDayFormatDate(){
+        return DateUtil.formatDate(getLastDate());
+    }
+
+    /**
+     * 获取当天的星期
+     *
+     * @return
+     */
+    public static String getWeek() {
+        Calendar calendar = Calendar.getInstance();
+        int week = calendar.get(Calendar.DAY_OF_WEEK);
+        switch (week) {
+            case 1:
+                return "星期日";
+            case 2:
+                return "星期一";
+            case 3:
+                return "星期二";
+            case 4:
+                return "星期三";
+            case 5:
+                return "星期四";
+            case 6:
+                return "星期五";
+            case 7:
+                return "星期六";
+            default:
+                return "null";
+        }
+    }
+
+}
