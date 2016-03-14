@@ -20,10 +20,10 @@ import me.wavever.ganklock.model.Gank;
 import me.wavever.ganklock.presenter.MainPresenter;
 import me.wavever.ganklock.ui.adapter.MainRecycleViewAdapter;
 import me.wavever.ganklock.util.DateUtil;
-import me.wavever.ganklock.util.DialogUtil;
+import me.wavever.ganklock.util.LogUtil;
 import me.wavever.ganklock.view.IMainView;
 
-public class MainActivity extends BaseActivity implements IMainView<Gank>{
+public class MainActivity extends BaseActivity implements IMainView<Gank> {
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -37,7 +37,7 @@ public class MainActivity extends BaseActivity implements IMainView<Gank>{
 
     private List<Gank> mList;
 
-    private MainPresenter mainPresenter = new MainPresenter(this,this);
+    private MainPresenter mainPresenter = new MainPresenter(this, this);
 
     private String mGirl;
 
@@ -48,15 +48,15 @@ public class MainActivity extends BaseActivity implements IMainView<Gank>{
 
 
     @Override protected void initPresenter() {
-        presenter = new MainPresenter(this,this);
+        presenter = new MainPresenter(this, this);
     }
 
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        LogUtil.d(TAG+"onCreat");
         initView();
         getData();
-        MyApplication.getSp().putBoolean(Config.IS_FIRST_RUN,false);
     }
 
 
@@ -70,9 +70,6 @@ public class MainActivity extends BaseActivity implements IMainView<Gank>{
         collapsToolbar.setTitle(DateUtil.getTodayFormatDate());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
-        if(MyApplication.getSp().getBoolean(Config.IS_FIRST_RUN,true)){
-            DialogUtil.showSingleDialog(this,R.string.tips_first_run);
-        }
     }
 
 
@@ -85,10 +82,13 @@ public class MainActivity extends BaseActivity implements IMainView<Gank>{
     @Override public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_setting) {
-            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
+            Intent intent = new Intent(MainActivity.this,
+                    SettingActivity.class);
             startActivity(intent);
-        }else if(id == R.id.action_about){
-        }        return super.onOptionsItemSelected(item);
+        }
+        else if (id == R.id.action_about) {
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
@@ -111,14 +111,14 @@ public class MainActivity extends BaseActivity implements IMainView<Gank>{
      *
      */
     @Override public void completeGetData() {
-       Snackbar.make(mRecyclerView, R.string.tips_load_finish,
+        Snackbar.make(mRecyclerView, R.string.tips_load_finish,
                 Snackbar.LENGTH_LONG).show();
         MyApplication.getSp().putBoolean(Config.GET_DATA, true);
     }
 
 
     @Override public boolean checkIsOpenLock() {
-        return MyApplication.getSp().getBoolean(Config.LOCK_IS_OPEN,false);
+        return MyApplication.getSp().getBoolean(Config.LOCK_IS_OPEN, false);
     }
 
 
@@ -128,12 +128,12 @@ public class MainActivity extends BaseActivity implements IMainView<Gank>{
     }
 
 
-    @Override public void fillData(List<Gank> list,String girlUrl) {
+    @Override public void fillData(List<Gank> list, String girlUrl) {
         mList = list;
         mAdapter = new MainRecycleViewAdapter(this, list);
         mRecyclerView.setAdapter(mAdapter);
         Picasso.with(this).load(girlUrl).into(mImg);
-        MyApplication.getSp().putString("girl",girlUrl);
+        MyApplication.getSp().putString("girl", girlUrl);
     }
 
 
@@ -141,9 +141,8 @@ public class MainActivity extends BaseActivity implements IMainView<Gank>{
         return mainPresenter.isGetData();
     }
 
+
     private void getData() {
         mainPresenter.getData(today);
     }
-
-
 }

@@ -1,7 +1,7 @@
 package me.wavever.ganklock;
 
-import android.app.Application;
 import android.content.Context;
+import com.activeandroid.app.Application;
 import me.wavever.ganklock.util.SharedPreferencesUtil;
 
 /**
@@ -19,7 +19,6 @@ public class MyApplication extends Application {
         context = getApplicationContext();
         sp = new SharedPreferencesUtil(context);
     }
-
 
     /**
      * 获得一个全局的Context对象

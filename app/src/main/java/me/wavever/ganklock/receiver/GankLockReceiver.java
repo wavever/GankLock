@@ -23,12 +23,16 @@ import me.wavever.ganklock.config.Config;
 import me.wavever.ganklock.model.Gank;
 import me.wavever.ganklock.presenter.MainPresenter;
 import me.wavever.ganklock.ui.adapter.MainRecycleViewAdapter;
+import me.wavever.ganklock.ui.widget.SlideUnlockLayout;
 import me.wavever.ganklock.util.DateUtil;
+import me.wavever.ganklock.util.LogUtil;
 
 /**
  * Created by WAVE on 2015/12/24.
  */
 public class GankLockReceiver extends BroadcastReceiver {
+
+    private static final String TAG = GankLockReceiver.class.getSimpleName();
 
     private KeyguardManager keyguardManager;
     private KeyguardManager.KeyguardLock keyguardLock;
@@ -37,10 +41,9 @@ public class GankLockReceiver extends BroadcastReceiver {
     private String girl;
     private MainPresenter mainPresenter;
 
-
     @Override public void onReceive(Context context, Intent intent) {
+        LogUtil.d(TAG+"onReceive()");
         String action = intent.getAction();
-
         if (action.equals(Intent.ACTION_SCREEN_OFF)) {
             keyguardManager = (KeyguardManager) context.getSystemService(
                     Context.KEYGUARD_SERVICE);
@@ -96,14 +99,14 @@ public class GankLockReceiver extends BroadcastReceiver {
         }
 
 
-       /* SlideUnlockLayout slideLayout
+        SlideUnlockLayout slideLayout
                 = (SlideUnlockLayout) lockView.findViewById(R.id.slide_layout);
         slideLayout.setOnUnLockListener(
                 new SlideUnlockLayout.OnUnLockListener() {
                     @Override public void unLock() {
                         windowManager.removeView(lockView);
                     }
-                });*/
+                });
         Button btn = (Button) lockView.findViewById(R.id.btn_test);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -112,7 +115,6 @@ public class GankLockReceiver extends BroadcastReceiver {
         });
 
         rvLock.setAdapter(new MainRecycleViewAdapter(context, lockGanks));
-        Picasso.with(context).load(girl).into(lockImg);
 
         windowManager.addView(mContainer, lp);
     }

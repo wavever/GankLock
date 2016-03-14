@@ -1,20 +1,24 @@
 package me.wavever.ganklock.model;
 
+import com.activeandroid.Model;
+import com.activeandroid.annotation.Column;
+import com.activeandroid.annotation.Table;
 import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Created by WAVE on 2015/12/24.
  */
-public class Gank implements Serializable {
+@Table(name = "Ganks") public class Gank extends Model implements Serializable {
 
-    private String url;
-    private String desc;
-    private String who;
-    private String type;
-    private boolean used;
-    private Date createAt;
-    private Date updateAt;
+    @Column(name = "url") private String url;
+    @Column(name = "desc") private String desc;
+    @Column(name = "who") private String who;
+    @Column(name = "type") private String type;
+    @Column(name = "used") private boolean used;
+    @Column(name = "createAt") private Date createAt;
+    @Column(name = "publishedAt") private Date publishedAt;
+
 
     public String getUrl() {
         return url;
@@ -76,12 +80,12 @@ public class Gank implements Serializable {
     }
 
 
-    public Date getUpdateAt() {
-        return updateAt;
+    public Date getPublishedAt() {
+        return publishedAt;
     }
 
 
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
+    public void setPublishedAt(Date publishedAt) {
+        this.publishedAt = publishedAt;
     }
 }
