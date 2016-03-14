@@ -12,49 +12,58 @@ public class DateUtil {
 
     /**
      * 将日期格式化为 2015/12/24
-     *
-     * @param date
-     * @return
      */
     public static String formatDate(Date date) {
         DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");  //mm是分钟。。
         return dateFormat.format(date);
     }
 
+
     /**
      * 获取当天的日期
-     *
-     * @return
      */
     public static Date getTodayDate() {
         Calendar calendar = Calendar.getInstance();
         return calendar.getTime();
     }
 
-    public static Date getLastDate(){
+
+    public static Date getLastDate() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(getTodayDate());
-        calendar.add(Calendar.DATE,-1);
+        calendar.add(Calendar.DATE, -1);
         return calendar.getTime();
     }
 
+
     /**
      * 获取当天格式化后的日期
-     *
-     * @return
      */
     public static String getTodayFormatDate() {
         return DateUtil.formatDate(DateUtil.getTodayDate());
     }
 
-    public static String getLastDayFormatDate(){
+
+    public static String getYesterdayFormatDate() {
+        return DateUtil.formatDate(DateUtil.getLastDate());
+    }
+
+
+    public static String get2YesterdayFormatDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(getTodayDate());
+        calendar.add(Calendar.DATE, -2);
+        return DateUtil.formatDate(calendar.getTime());
+    }
+
+
+    public static String getLastDayFormatDate() {
         return DateUtil.formatDate(getLastDate());
     }
 
+
     /**
      * 获取当天的星期
-     *
-     * @return
      */
     public static String getWeek() {
         Calendar calendar = Calendar.getInstance();
@@ -79,4 +88,21 @@ public class DateUtil {
         }
     }
 
+
+    /**
+     * 获得上次Gank的时间，只是周末不发
+     */
+    public static String getLastGankDate() {
+        String date = "";
+        Calendar calendar = Calendar.getInstance();
+        int week = calendar.get(Calendar.DAY_OF_WEEK);
+
+        if (week == 7) {
+            date = DateUtil.get2YesterdayFormatDate();
+        }
+        else {
+            date = DateUtil.getYesterdayFormatDate();
+        }
+        return date;
+    }
 }

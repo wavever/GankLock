@@ -13,7 +13,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+import com.activeandroid.query.Select;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,8 +22,7 @@ import me.wavever.ganklock.R;
 import me.wavever.ganklock.config.Config;
 import me.wavever.ganklock.model.Gank;
 import me.wavever.ganklock.presenter.MainPresenter;
-import me.wavever.ganklock.ui.adapter.MainRecycleViewAdapter;
-import me.wavever.ganklock.ui.widget.SlideUnlockLayout;
+import me.wavever.ganklock.ui.adapter.LockRecycleViewAdapter;
 import me.wavever.ganklock.util.DateUtil;
 import me.wavever.ganklock.util.LogUtil;
 
@@ -37,12 +36,14 @@ public class GankLockReceiver extends BroadcastReceiver {
     private KeyguardManager keyguardManager;
     private KeyguardManager.KeyguardLock keyguardLock;
     private View mContainer;
-    private List<Gank> lockGanks;
     private String girl;
     private MainPresenter mainPresenter;
+    private long firstTouch;
+    private long lastTouch;
+    private int count;
+
 
     @Override public void onReceive(Context context, Intent intent) {
-        LogUtil.d(TAG+"onReceive()");
         String action = intent.getAction();
         if (action.equals(Intent.ACTION_SCREEN_OFF)) {
             keyguardManager = (KeyguardManager) context.getSystemService(
@@ -54,8 +55,6 @@ public class GankLockReceiver extends BroadcastReceiver {
             }
         }
         else if (action.equals(Intent.ACTION_SCREEN_ON)) {
-            Toast.makeText(MyApplication.getContext(), "Screen On",
-                    Toast.LENGTH_LONG).show();
         }
     }
 
@@ -63,8 +62,8 @@ public class GankLockReceiver extends BroadcastReceiver {
     private void createLockView(Context context) {
         mContainer = View.inflate(context, R.layout.activity_lock, null);
         final View lockView = View.inflate(MyApplication.getContext(),
-                R.layout.fragment_lock, null);
-        View gankView = View.inflate(context, R.layout.fragment_content, null);
+                R.layout.view_lock, null);
+        View gankView = View.inflate(context, R.layout.view_content, null);
         final WindowManager windowManager
                 = (WindowManager) MyApplication.getContext()
                                                .getSystemService(
@@ -88,7 +87,7 @@ public class GankLockReceiver extends BroadcastReceiver {
         ImageView lockImg = (ImageView) lockView.findViewById(R.id.gank_img);
         RecyclerView rvLock = (RecyclerView) gankView.findViewById(
                 R.id.rv_lock);
-        lockGanks = new ArrayList<>();
+        rvLock.setAdapter(new LockRecycleViewAdapter(loadFromDB(),context));
         week.setText(DateUtil.getWeek());
         date.setText(DateUtil.getTodayFormatDate());
 
@@ -97,16 +96,10 @@ public class GankLockReceiver extends BroadcastReceiver {
         if (!girl.equals("null")) {
             Picasso.with(context).load(girl).into(lockImg);
         }
+        else {
+            lockImg.setImageResource(R.drawable.gank);
+        }
 
-
-        SlideUnlockLayout slideLayout
-                = (SlideUnlockLayout) lockView.findViewById(R.id.slide_layout);
-        slideLayout.setOnUnLockListener(
-                new SlideUnlockLayout.OnUnLockListener() {
-                    @Override public void unLock() {
-                        windowManager.removeView(lockView);
-                    }
-                });
         Button btn = (Button) lockView.findViewById(R.id.btn_test);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
@@ -114,9 +107,14 @@ public class GankLockReceiver extends BroadcastReceiver {
             }
         });
 
-        rvLock.setAdapter(new MainRecycleViewAdapter(context, lockGanks));
-
         windowManager.addView(mContainer, lp);
+    }
+
+
+    private List<Gank> loadFromDB() {
+        List<Gank> ganks = new Select().from(Gank.class).execute();
+        LogUtil.d(TAG + "从数据库查询--->" + ganks.size() + ganks.toString());
+        return ganks;
     }
 
 

@@ -19,6 +19,10 @@
 
         <meta-data android:name="AA_DB_NAME" android:value="GankLock.db" />
         <meta-data android:name="AA_DB_VERSION" android:value="1" />
+        <meta-data
+            android:name="AA_MODELS"
+            android:value="me.wavever.ganklock.Today,me.wavever.ganklock.Gank" />
+
 
         <activity android:name=".ui.activity.BaseActivity"/>
         <activity
@@ -38,6 +42,7 @@
         <service android:name=".service.LockService"/>
 
         <receiver android:name=".receiver.GankLockReceiver"/>
+        <activity android:name=".ui.activity.AboutActivity"/>
     </application>
 
 </manifest>

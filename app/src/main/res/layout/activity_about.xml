@@ -53,34 +53,17 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="16dp"
                 android:background="@drawable/bg_card_nopic">
 
-                <ImageView
-                    android:id="@+id/ig_avatar_drakeet"
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
-                    android:layout_margin="16dp"
-                    android:src="@mipmap/ic_launcher"/>
-
                 <TextView
-                    android:id="@+id/tv_drakeet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@id/ig_avatar_drakeet"
-                    android:layout_toEndOf="@id/ig_avatar_drakeet"
-                    android:layout_toRightOf="@id/ig_avatar_drakeet"
-                    android:text="wavever"
+                    android:autoLink="web"
+                    android:text="@string/me"
                     android:textColor="@color/md_grey_800"
-                    tools:ignore="HardcodedText"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/tv_drakeet"
-                    android:layout_toEndOf="@id/ig_avatar_drakeet"
-                    android:layout_toRightOf="@id/ig_avatar_drakeet"
-                    android:text="博客地址：   http://wavever.cn"
-                    android:textColor="@color/md_grey_600"/>
+                    android:textIsSelectable="true"
+                    android:textSize="14sp"/>
             </RelativeLayout>
 
             <View

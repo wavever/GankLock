@@ -22,7 +22,6 @@ public class SettingFragment extends PreferenceFragment
     Preference isRefresh;
     Preference changeStyle;
 
-
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);

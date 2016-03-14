@@ -7,7 +7,6 @@ public class SharedPreferencesUtil {
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
 
-
     public SharedPreferencesUtil(Context context) {
         prefs = context.getSharedPreferences("data", Context.MODE_PRIVATE);
         editor = prefs.edit();

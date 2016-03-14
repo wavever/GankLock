@@ -11,4 +11,7 @@ import rx.Observable;
 public interface GankService {
     @GET("/api/day/{date}") Observable<GankData> getGankData(
             @Path("date") String date);
+/*
+    @GET("/api/day/{year}/{month}/{day}") Observable<GankData> getGankData(
+            @Path("year") int year,@Path("month")int month,@Path("day")int day);*/
 }

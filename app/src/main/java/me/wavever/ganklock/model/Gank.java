@@ -17,6 +17,7 @@ import java.util.Date;
     @Column(name = "type") private String type;
     @Column(name = "used") private boolean used;
     @Column(name = "createAt") private Date createAt;
+    //2016-03-10T12:54:31.68Z->2016/03/10
     @Column(name = "publishedAt") private Date publishedAt;
 
 

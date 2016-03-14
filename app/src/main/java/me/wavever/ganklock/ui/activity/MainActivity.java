@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.Toast;
 import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ import me.wavever.ganklock.presenter.MainPresenter;
 import me.wavever.ganklock.ui.adapter.MainRecycleViewAdapter;
 import me.wavever.ganklock.util.DateUtil;
 import me.wavever.ganklock.util.LogUtil;
+import me.wavever.ganklock.util.SharedPreferencesUtil;
 import me.wavever.ganklock.view.IMainView;
 
 public class MainActivity extends BaseActivity implements IMainView<Gank> {
@@ -30,6 +32,8 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
     private Toolbar mToolbar;
     private ImageView mImg;
 
+    private SharedPreferencesUtil sp;
+
     private RecyclerView mRecyclerView;
     private CollapsingToolbarLayout collapsToolbar;
     private List<String> mDatas;
@@ -37,7 +41,7 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
 
     private List<Gank> mList;
 
-    private MainPresenter mainPresenter = new MainPresenter(this, this);
+    private MainPresenter mainPresenter;
 
     private String mGirl;
 
@@ -48,13 +52,13 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
 
 
     @Override protected void initPresenter() {
-        presenter = new MainPresenter(this, this);
+        mainPresenter = new MainPresenter(this, this);
     }
 
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtil.d(TAG+"onCreat");
+        LogUtil.d(TAG + "onCreat" + today.toString());
         initView();
         getData();
     }
@@ -67,9 +71,9 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
                 R.id.collapsing_toolbar);
         mRecyclerView = (RecyclerView) findViewById(R.id.rv_main);
         setSupportActionBar(mToolbar);
-        collapsToolbar.setTitle(DateUtil.getTodayFormatDate());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
+        sp = new SharedPreferencesUtil(this);
     }
 
 
@@ -87,6 +91,7 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
             startActivity(intent);
         }
         else if (id == R.id.action_about) {
+            startActivity(new Intent(MainActivity.this, AboutActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
@@ -107,24 +112,33 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
     }
 
 
-    /**
-     *
-     */
     @Override public void completeGetData() {
         Snackbar.make(mRecyclerView, R.string.tips_load_finish,
                 Snackbar.LENGTH_LONG).show();
-        MyApplication.getSp().putBoolean(Config.GET_DATA, true);
+        sp.putBoolean(Config.GET_DATA, true);
+        collapsToolbar.setTitle(
+                sp.getString(Config.LAST_GET_DATE, DateUtil.getLastGankDate()));
     }
 
 
     @Override public boolean checkIsOpenLock() {
-        return MyApplication.getSp().getBoolean(Config.LOCK_IS_OPEN, false);
+        return sp.getBoolean(Config.LOCK_IS_OPEN, false);
     }
 
 
     @Override public void getLastData(String lastDate) {
         mainPresenter.getData(lastDate);
         collapsToolbar.setTitle(lastDate);
+    }
+
+
+    @Override public void saveToDB() {
+
+    }
+
+
+    @Override public void loadFromDB() {
+
     }
 
 
@@ -144,5 +158,14 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
 
     private void getData() {
         mainPresenter.getData(today);
+    }
+
+    @Override public void onBackPressed() {
+        if (System.currentTimeMillis() - time > 2000) {
+            Toast.makeText(this, "再按一次退出Gank锁屏", Toast.LENGTH_SHORT).show();
+            time = System.currentTimeMillis();
+        }else {
+            super.onBackPressed();
+        }
     }
 }

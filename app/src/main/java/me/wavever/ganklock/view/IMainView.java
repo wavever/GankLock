@@ -17,4 +17,8 @@ public interface IMainView<Gank> extends IBaseView {
 
     void getLastData(String lastDate);
 
+    void saveToDB();
+
+    void loadFromDB();
+
 }

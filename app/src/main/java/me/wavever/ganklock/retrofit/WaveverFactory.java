@@ -6,11 +6,9 @@ package me.wavever.ganklock.retrofit;
 public class WaveverFactory {
 
     static GankService sService = null;
-    protected static final Object monitor = new Object();
-
 
     public static GankService getSingle() {
-        synchronized (monitor) {
+        synchronized (GankService.class) {
             if (sService == null) {
                 sService = new WaveverRetrofit().getService();
             }

@@ -1,8 +1,8 @@
 package me.wavever.ganklock.presenter;
 
 import android.content.Context;
-import android.widget.Toast;
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import java.util.ArrayList;
 import java.util.List;
 import me.wavever.ganklock.MyApplication;
@@ -13,7 +13,9 @@ import me.wavever.ganklock.model.GankCategory;
 import me.wavever.ganklock.model.Today;
 import me.wavever.ganklock.retrofit.GankService;
 import me.wavever.ganklock.retrofit.WaveverFactory;
+import me.wavever.ganklock.util.DateUtil;
 import me.wavever.ganklock.util.DialogUtil;
+import me.wavever.ganklock.util.LogUtil;
 import me.wavever.ganklock.view.IMainView;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -37,14 +39,11 @@ public class MainPresenter extends BasePresenter {
 
     private GankService service = WaveverFactory.getSingle();
     private List<Gank> mList;
-
-
     public MainPresenter(Context context, IMainView mainView) {
         mContext = context;
         this.mainView = mainView;
         mList = new ArrayList<>();
     }
-
 
     public void getData(final String date) {
         this.date = date;
@@ -70,13 +69,6 @@ public class MainPresenter extends BasePresenter {
 
                    @Override public void onError(Throwable e) {
                        isGetData = false;
-                       DialogUtil.showSingleDialog(mContext,
-                               "今天的干货还没有更新呢!\n先看看上次的吧~(∩_∩)~");
-                       String lastDate = MyApplication.getSp()
-                                                      .getString(
-                                                              Config.LAST_GET_DATE,
-                                                              "2016/03/11");
-                       mainView.getLastData(lastDate);
                    }
 
 
@@ -89,33 +81,41 @@ public class MainPresenter extends BasePresenter {
                                }
                            }
                            mainView.fillData(ganks, girlUrl);
+                           saveToDB(date, ganks);
                            MyApplication.getSp()
                                         .putString(Config.LAST_GET_DATE, date);
                        }
                        else {
-                           Toast.makeText(MyApplication.getContext(), "咦~没有数据",
-                                   Toast.LENGTH_SHORT).show();
+                           DialogUtil.showSingleDialog(mContext,
+                                   "今天的干货还没有更新呢!\n先看看上次的吧~(∩_∩)~");
+                           String lastDate = MyApplication.getSp()
+                                                          .getString(
+                                                                  Config.LAST_GET_DATE,
+                                                                  DateUtil.getLastGankDate());
+                           getData(lastDate);
                        }
                    }
                });
     }
 
 
-    private boolean saveToDB(String date, List<Gank> ganks) {
+    public void saveToDB(String date, List<Gank> ganks) {
+        new Delete().from(Gank.class).execute();
         Today t = new Today();
         t.todayDate = date;
         t.save();
 
         ActiveAndroid.beginTransaction();
         try {
-            for (int i = 0;i<ganks.size();i++){
-                Gank gank = new Gank();
-
+            for (int i = 0; i < ganks.size(); i++) {
+                ganks.get(i).save();
             }
-        }finally {
-
+            ActiveAndroid.setTransactionSuccessful();
+            LogUtil.d(TAG+"数据保存成功");
+        } finally {
+            ActiveAndroid.endTransaction();
+            LogUtil.d(TAG + "数据保存结束");
         }
-        return false;
     }
 
 
@@ -129,11 +129,6 @@ public class MainPresenter extends BasePresenter {
         if (results.restVideoList != null) mList.addAll(results.restVideoList);
         if (results.girlList != null) mList.addAll(results.girlList);
         return mList;
-    }
-
-    private void saveToDataBase(GankData.Result result){
-        if(result.girlList!=null){
-        }
     }
 
 
