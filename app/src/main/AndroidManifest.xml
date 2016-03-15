@@ -24,6 +24,10 @@
             android:name="AA_MODELS"
             android:value="me.wavever.ganklock.Today,me.wavever.ganklock.Gank" />
 
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="${UMENG_CHANNEL_VALUE}" />
+
 
         <activity android:name=".ui.activity.BaseActivity"/>
         <activity
