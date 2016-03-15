@@ -1,6 +1,8 @@
 package me.wavever.ganklock.ui.activity;
 
 import android.os.Bundle;
+import android.widget.TextView;
+import me.wavever.ganklock.BuildConfig;
 import me.wavever.ganklock.R;
 
 /**
@@ -8,11 +10,13 @@ import me.wavever.ganklock.R;
  */
 public class AboutActivity extends BaseActivity{
 
+    private TextView mTvVersion;
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle("关于");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mTvVersion = (TextView) findViewById(R.id.tv_version);
+        mTvVersion.setText("版本："+BuildConfig.VERSION_NAME);
     }
 
     @Override protected int getLayoutId() {

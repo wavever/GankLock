@@ -41,4 +41,12 @@ public class StringStyleUtils {
                         .style.ViaTextAppearance));
         return builder.subSequence(0, builder.length());
     }
+
+    public static CharSequence getLockInfoSequence(Context context,Gank mGank) {
+        SpannableStringBuilder builder = new SpannableStringBuilder(mGank.getDesc())
+                .append(
+                        StringStyleUtils.format(context, " (" + mGank.getWho() + ")", R
+                                .style.ViaTextAppearance));
+        return builder.subSequence(0, builder.length());
+    }
 }

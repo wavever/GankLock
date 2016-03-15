@@ -125,12 +125,10 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
         return sp.getBoolean(Config.LOCK_IS_OPEN, false);
     }
 
-
     @Override public void getLastData(String lastDate) {
         mainPresenter.getData(lastDate);
         collapsToolbar.setTitle(lastDate);
     }
-
 
     @Override public void saveToDB() {
 

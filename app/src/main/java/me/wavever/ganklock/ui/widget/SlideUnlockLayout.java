@@ -7,11 +7,12 @@ import android.view.MotionEvent;
 import android.view.WindowManager;
 import android.widget.RelativeLayout;
 import android.widget.Scroller;
+import me.wavever.ganklock.util.LogUtil;
 
 /**
  * Created by WAVE on 2016/3/10.
  */
-public class SlideUnlockLayout extends RelativeLayout {
+public class SlideUnlockLayout extends RelativeLayout{
 
     //解锁屏幕的滑动距离
     private int unlockYoffset;
@@ -23,7 +24,7 @@ public class SlideUnlockLayout extends RelativeLayout {
     private Scroller mScroller;
 
     public SlideUnlockLayout(Context context) {
-        this(context, null, 0);
+        this(context, null);
     }
 
 
@@ -51,7 +52,6 @@ public class SlideUnlockLayout extends RelativeLayout {
         this.onUnLockListener = onUnLockListener;
     }
 
-
     int lastY;
     int startY;
     int endY;
@@ -59,13 +59,15 @@ public class SlideUnlockLayout extends RelativeLayout {
     @Override public boolean onTouchEvent(MotionEvent event) {
         int action = event.getAction();
         int y = (int) event.getY();
-        getParent().requestDisallowInterceptTouchEvent(true);
         switch (action) {
             case MotionEvent.ACTION_DOWN:
+                LogUtil.d("按下ACTION_DOWN");
                 lastY = y;
                 startY = getScrollY();
                 break;
             case MotionEvent.ACTION_MOVE:
+                LogUtil.d("移动ACTION_MOVE");
+                getParent().requestDisallowInterceptTouchEvent(true);
                 int moveY = y - lastY;
                 if(!mScroller.isFinished()){
                     mScroller.abortAnimation();
@@ -78,6 +80,7 @@ public class SlideUnlockLayout extends RelativeLayout {
                 }
                 break;
             case MotionEvent.ACTION_UP:
+                LogUtil.d("松开ACTION_UP");
                 endY = getScrollY();
                 int scrollY = endY - startY;
                 if(scrollY>0){

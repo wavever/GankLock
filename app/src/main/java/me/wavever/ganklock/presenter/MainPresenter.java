@@ -32,18 +32,21 @@ public class MainPresenter extends BasePresenter {
     private String date;
     private String girlUrl;
 
-    private boolean isGetData;
+    private boolean isGetTodayGank;
 
     private IMainView mainView;
     private Context mContext;
 
     private GankService service = WaveverFactory.getSingle();
     private List<Gank> mList;
+
+
     public MainPresenter(Context context, IMainView mainView) {
         mContext = context;
         this.mainView = mainView;
         mList = new ArrayList<>();
     }
+
 
     public void getData(final String date) {
         this.date = date;
@@ -63,14 +66,12 @@ public class MainPresenter extends BasePresenter {
                .subscribe(new Subscriber<List<Gank>>() {
                    @Override public void onCompleted() {
                        mainView.completeGetData();
-                       isGetData = true;
                    }
 
 
                    @Override public void onError(Throwable e) {
-                       isGetData = false;
+                       mainView.showErrorSnack("哎呀妈呀，出岔劈了");
                    }
-
 
                    @Override public void onNext(List<Gank> ganks) {
                        if (!ganks.isEmpty()) {
@@ -92,6 +93,7 @@ public class MainPresenter extends BasePresenter {
                                                           .getString(
                                                                   Config.LAST_GET_DATE,
                                                                   DateUtil.getLastGankDate());
+                           isGetTodayGank = false;
                            getData(lastDate);
                        }
                    }
@@ -99,19 +101,23 @@ public class MainPresenter extends BasePresenter {
     }
 
 
+    /**
+     * 保存到数据库
+     * @param date
+     * @param ganks
+     */
     public void saveToDB(String date, List<Gank> ganks) {
         new Delete().from(Gank.class).execute();
         Today t = new Today();
         t.todayDate = date;
         t.save();
-
         ActiveAndroid.beginTransaction();
         try {
             for (int i = 0; i < ganks.size(); i++) {
                 ganks.get(i).save();
             }
             ActiveAndroid.setTransactionSuccessful();
-            LogUtil.d(TAG+"数据保存成功");
+            LogUtil.d(TAG + "数据保存成功");
         } finally {
             ActiveAndroid.endTransaction();
             LogUtil.d(TAG + "数据保存结束");
@@ -138,6 +144,6 @@ public class MainPresenter extends BasePresenter {
 
 
     public boolean isGetData() {
-        return isGetData;
+        return isGetTodayGank;
     }
 }

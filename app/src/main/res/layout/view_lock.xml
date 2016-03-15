@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<me.wavever.ganklock.ui.widget.DoubleBackLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/slide_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/gank_img"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,24 +38,19 @@
             android:textColor="#fff"
             android:textSize="20sp"/>
 
-        <Button
-            android:id="@+id/btn_test"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="change"
-            android:layout_gravity="center_horizontal"/>
-
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_unlock"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/btn_unlock"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:text="双击解锁"
-        android:textColor="#fff"
+        android:text="解  锁"
+        android:background="@drawable/bg_btn_unlock"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="7dp"
         android:textSize="20sp"/>
 
-</RelativeLayout>
+</me.wavever.ganklock.ui.widget.DoubleBackLayout>

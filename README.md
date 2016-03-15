@@ -16,18 +16,18 @@ FIR
 app采用了MVP架构，Rxjava响应式编程和Retrofit，这也是时下比较流行的组合，图片加载使用Picasso，就像自己前面说的，因为自己也是学习使用这么库，所以代码方面还是有点稚嫩。
 
 ##感谢
-Rxjava和retrofit部分参考了@drakeet 的[妹纸](https://github.com/drakeet/Meizhi)，MVP架构参考了@maoruibing的[GankDialy]()，还有就是一个锁屏的开源项目[]()，感谢这些开发者对于开源世界的贡献。   
+Rxjava和retrofit部分参考了@drakeet 的[妹纸](https://github.com/drakeet/Meizhi)，MVP架构参考了@maoruibing的[GankDialy](https://github.com/maoruibin/GankDaily)，还有@Rogero0o开源锁屏项目[Mr.Locker](https://github.com/Rogero0o/ScreenLocker)，感谢这些开发者对于开源世界的贡献。   
 ##所使用的依赖库   
 
 * [RxJava](https://github.com/ReactiveX/RxJava) 
 * [Picasso](https://github.com/square/picasso)
 * [Retrofit](https://github.com/square/retrofit)
-* [activeandroid]()
-* [materialpreference]()
+* [activeandroid](https://github.com/pardom/ActiveAndroid)
+* [materialpreference](https://github.com/jenzz/Android-MaterialPreference)
 
-###参考资料
+##参考资料
 
-* [drakeet/Meizhi](https://github.com/drakeet/Meizhi)
+* [给Android开发者的RxJava详解](http://gank.io/post/560e15be2dca930e00da1083)
 * [浅谈 MVP in Android](http://blog.csdn.net/lmj623565791/article/details/46596109)
 
 

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,6 @@ import me.wavever.ganklock.model.Gank;
 import me.wavever.ganklock.presenter.MainPresenter;
 import me.wavever.ganklock.ui.adapter.LockRecycleViewAdapter;
 import me.wavever.ganklock.util.DateUtil;
-import me.wavever.ganklock.util.LogUtil;
 
 /**
  * Created by WAVE on 2015/12/24.
@@ -72,9 +72,9 @@ public class GankLockReceiver extends BroadcastReceiver {
         lp.width = -1;
         lp.height = -1;
         lp.type = 2010;
-        lp.flags |= WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
-                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
+        lp.flags |= WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
 
+        //设置viewpager
         ViewPager viewPager = (ViewPager) mContainer.findViewById(
                 R.id.lock_viewpager);
         List<View> viewList = new ArrayList<>();
@@ -82,12 +82,16 @@ public class GankLockReceiver extends BroadcastReceiver {
         viewList.add(gankView);
         viewPager.setAdapter(new LockViewPager(viewList));
 
+        //设置时间
         TextView week = (TextView) lockView.findViewById(R.id.tv_week);
         TextView date = (TextView) lockView.findViewById(R.id.tv_year);
-        ImageView lockImg = (ImageView) lockView.findViewById(R.id.gank_img);
+        ImageView lockImg = (ImageView) mContainer.findViewById(
+                R.id.img_pager_bg);
+        //设置RcycleView
         RecyclerView rvLock = (RecyclerView) gankView.findViewById(
                 R.id.rv_lock);
-        rvLock.setAdapter(new LockRecycleViewAdapter(loadFromDB(),context));
+        rvLock.setLayoutManager(new LinearLayoutManager(context));
+        rvLock.setAdapter(new LockRecycleViewAdapter(loadFromDB(), context));
         week.setText(DateUtil.getWeek());
         date.setText(DateUtil.getTodayFormatDate());
 
@@ -100,7 +104,7 @@ public class GankLockReceiver extends BroadcastReceiver {
             lockImg.setImageResource(R.drawable.gank);
         }
 
-        Button btn = (Button) lockView.findViewById(R.id.btn_test);
+        Button btn = (Button) lockView.findViewById(R.id.btn_unlock);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override public void onClick(View v) {
                 windowManager.removeView(mContainer);
@@ -113,7 +117,6 @@ public class GankLockReceiver extends BroadcastReceiver {
 
     private List<Gank> loadFromDB() {
         List<Gank> ganks = new Select().from(Gank.class).execute();
-        LogUtil.d(TAG + "从数据库查询--->" + ganks.size() + ganks.toString());
         return ganks;
     }
 
