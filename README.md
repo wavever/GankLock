@@ -8,10 +8,10 @@
 数据来源于[代码家](http://weibo.com/daimajia?from=usercardnew&refer_flag=0000020001_&is_all=1)建立的[干货集中营](http://gank.io/)。
 
 ##截图
-![](http://ww1.sinaimg.cn/mw690/ace35ee1gw1f1ylqor6d3j20k00zkwjo.jpg)
-![](http://ww2.sinaimg.cn/mw690/ace35ee1gw1f1yltg88blj20k00zkjvn.jpg)
-![](http://ww2.sinaimg.cn/mw690/ace35ee1gw1f1yltpn94aj20k00zk77s.jpg)
-![](http://ww3.sinaimg.cn/mw690/ace35ee1gw1f1ylu6y8hzj20k00zk430.jpg)
+![](http://ww2.sinaimg.cn/large/ace35ee1gw1f1ynmmkadhj207i0dcq3x.jpg)
+![](http://ww2.sinaimg.cn/large/ace35ee1gw1f1ynnndoc2j207i0dcq3u.jpg)
+![](http://ww2.sinaimg.cn/large/ace35ee1gw1f1ynnw6hdsj207i0dcwf8.jpg)
+![](http://ww3.sinaimg.cn/large/ace35ee1gw1f1yno27j3cj207i0dcmxx.jpg)
 ##下载
 [Fir.im](http://fir.im/ganklock)<br>
 ![](http://ww2.sinaimg.cn/large/ace35ee1gw1f1ylxqhxidj205l05c3yr.jpg)
