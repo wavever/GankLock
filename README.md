@@ -8,12 +8,15 @@
 数据来源于[代码家](http://weibo.com/daimajia?from=usercardnew&refer_flag=0000020001_&is_all=1)建立的[干货集中营](http://gank.io/)。
 
 ##截图
+![](http://ww1.sinaimg.cn/mw690/ace35ee1gw1f1ylqor6d3j20k00zkwjo.jpg)
+![](http://ww2.sinaimg.cn/mw690/ace35ee1gw1f1yltg88blj20k00zkjvn.jpg)
+![](http://ww2.sinaimg.cn/mw690/ace35ee1gw1f1yltpn94aj20k00zk77s.jpg)
+![](http://ww3.sinaimg.cn/mw690/ace35ee1gw1f1ylu6y8hzj20k00zk430.jpg)
 ##下载
-FIR
-[豌豆荚]()
-[小米]()
+[Fir.im](http://fir.im/ganklock)<br>
+![](http://ww2.sinaimg.cn/large/ace35ee1gw1f1ylxqhxidj205l05c3yr.jpg)
 ##代码
-app采用了MVP架构，Rxjava响应式编程和Retrofit，这也是时下比较流行的组合，图片加载使用Picasso，就像自己前面说的，因为自己也是学习使用这么库，所以代码方面还是有点稚嫩。
+app采用了MVP架构，Rxjava响应式编程和Retrofit，这也是时下比较流行的组合，图片加载使用Picasso，就像自己前面说的，因为自己也是学习使用这些优秀的库和架构，所以代码方面还是有点稚嫩。
 
 ##感谢
 Rxjava和retrofit部分参考了@drakeet 的[妹纸](https://github.com/drakeet/Meizhi)，MVP架构参考了@maoruibing的[GankDialy](https://github.com/maoruibin/GankDaily)，还有@Rogero0o开源锁屏项目[Mr.Locker](https://github.com/Rogero0o/ScreenLocker)，感谢这些开发者对于开源世界的贡献。   
