@@ -19,7 +19,7 @@
 app采用了MVP架构，Rxjava响应式编程和Retrofit，这也是时下比较流行的组合，图片加载使用Picasso，就像自己前面说的，因为自己也是学习使用这些优秀的库和架构，所以代码方面还是有点稚嫩。
 
 ##感谢
-Rxjava和retrofit部分参考了@drakeet 的[妹纸](https://github.com/drakeet/Meizhi)，MVP架构参考了@maoruibing的[GankDialy](https://github.com/maoruibin/GankDaily)，还有@Rogero0o开源锁屏项目[Mr.Locker](https://github.com/Rogero0o/ScreenLocker)，感谢这些开发者对于开源世界的贡献。   
+Rxjava和Retrofit部分参考了[@drakeet](https://github.com/drakeet) 的[妹纸](https://github.com/drakeet/Meizhi)，MVP 架构参考了@[咕咚](https://github.com/maoruibin)的[GankDialy](https://github.com/maoruibin/GankDaily)，还有@[Rogero0o](https://github.com/Rogero0o)的开源锁屏项目[Mr.Locker](https://github.com/Rogero0o/ScreenLocker)，感谢这些开发者对于开源世界的贡献。   
 ##所使用的依赖库   
 
 * [RxJava](https://github.com/ReactiveX/RxJava) 
@@ -39,7 +39,7 @@ Rxjava和retrofit部分参考了@drakeet 的[妹纸](https://github.com/drakeet/
     /*
      *      
      * Copyright (C) 2015 Drakeet <drakeet.me@gmail.com>
-     * Copyright (C) 2015 GuDong <maoruibin9035@gmail.com>
+     * Copyright (C) 2015 GuDong <gudong.name@gmail.com>
      * Copyright (C) 2016 Wavever <wavever.ht@gmail.com> 
      *
      * Meizhi is free software: you can redistribute it and/or modify
