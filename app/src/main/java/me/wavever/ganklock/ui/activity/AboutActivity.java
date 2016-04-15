@@ -23,7 +23,4 @@ public class AboutActivity extends BaseActivity{
         return R.layout.activity_about ;
     }
 
-    @Override protected void initPresenter() {
-
-    }
 }

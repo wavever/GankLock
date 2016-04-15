@@ -5,20 +5,17 @@ package me.wavever.ganklock.view;
  */
 public interface IMainView<Gank> extends IBaseView {
 
-    boolean isGetData();
-
     void showErrorSnack(String msg);
 
-    void showUpdate();
+    void completeGetData(String date);
 
-    void completeGetData();
+    void showLoading();
 
-    boolean checkIsOpenLock();
+    void dismissLoading();
 
-    void getLastData(String lastDate);
-
-    void saveToDB();
-
-    void loadFromDB();
-
+    /**
+     * 是否获取到今日数据
+     * @return
+     */
+    boolean isGetTodayData();
 }

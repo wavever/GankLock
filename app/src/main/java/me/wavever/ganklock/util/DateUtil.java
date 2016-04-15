@@ -97,10 +97,10 @@ public class DateUtil {
         Calendar calendar = Calendar.getInstance();
         int week = calendar.get(Calendar.DAY_OF_WEEK);
 
-        if (week == 7) {
+        if (week == 1) {
             date = DateUtil.get2YesterdayFormatDate();
         }
-        else {
+        else if(week == 7){
             date = DateUtil.getYesterdayFormatDate();
         }
         return date;

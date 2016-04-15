@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<me.wavever.ganklock.ui.widget.DoubleBackLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/slide_layout"
     android:layout_width="match_parent"
+    android:background="@drawable/bg_lock_rv"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -42,9 +43,9 @@
 
     <Button
         android:id="@+id/btn_unlock"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="解  锁"
+        android:text="解 锁"
         android:background="@drawable/bg_btn_unlock"
         android:textColor="@color/white"
         android:layout_centerHorizontal="true"
@@ -53,4 +54,4 @@
         android:layout_marginBottom="7dp"
         android:textSize="20sp"/>
 
-</me.wavever.ganklock.ui.widget.DoubleBackLayout>
+</RelativeLayout>

@@ -24,7 +24,7 @@ import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.TextAppearanceSpan;
 import me.wavever.ganklock.R;
-import me.wavever.ganklock.model.Gank;
+import me.wavever.ganklock.model.bean.Gank;
 
 public class StringStyleUtils {
 

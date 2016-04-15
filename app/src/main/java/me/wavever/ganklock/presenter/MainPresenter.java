@@ -1,21 +1,20 @@
 package me.wavever.ganklock.presenter;
 
 import android.content.Context;
-import com.activeandroid.ActiveAndroid;
-import com.activeandroid.query.Delete;
 import java.util.ArrayList;
 import java.util.List;
 import me.wavever.ganklock.MyApplication;
+import me.wavever.ganklock.R;
 import me.wavever.ganklock.config.Config;
-import me.wavever.ganklock.data.GankData;
-import me.wavever.ganklock.model.Gank;
-import me.wavever.ganklock.model.GankCategory;
-import me.wavever.ganklock.model.Today;
-import me.wavever.ganklock.retrofit.GankService;
-import me.wavever.ganklock.retrofit.WaveverFactory;
+import me.wavever.ganklock.model.GankDataImpl;
+import me.wavever.ganklock.model.IGankModel;
+import me.wavever.ganklock.model.bean.GankData;
+import me.wavever.ganklock.model.bean.Gank;
+import me.wavever.ganklock.model.bean.GankCategory;
+import me.wavever.ganklock.model.http.RetrofitUtil;
+import me.wavever.ganklock.model.http.GankService;
 import me.wavever.ganklock.util.DateUtil;
 import me.wavever.ganklock.util.DialogUtil;
-import me.wavever.ganklock.util.LogUtil;
 import me.wavever.ganklock.view.IMainView;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -35,24 +34,23 @@ public class MainPresenter extends BasePresenter {
     private boolean isGetTodayGank;
 
     private IMainView mainView;
+    private IGankModel gankModel;
     private Context mContext;
 
-    private GankService service = WaveverFactory.getSingle();
+    private GankService service = RetrofitUtil.getSingleton();
     private List<Gank> mList;
 
 
     public MainPresenter(Context context, IMainView mainView) {
         mContext = context;
         this.mainView = mainView;
+        gankModel = new GankDataImpl();
         mList = new ArrayList<>();
     }
-
 
     public void getData(final String date) {
         this.date = date;
         service.getGankData(date)
-               .subscribeOn(Schedulers.newThread())
-               .observeOn(AndroidSchedulers.mainThread())
                .map(new Func1<GankData, GankData.Result>() {
                    @Override public GankData.Result call(GankData gankData) {
                        return gankData.results;
@@ -63,15 +61,17 @@ public class MainPresenter extends BasePresenter {
                        return addAllResult(result);
                    }
                })
+               .subscribeOn(Schedulers.io())   //在io线程进行数据的读取
+               .observeOn(AndroidSchedulers.mainThread())  //在主线程处理数据
                .subscribe(new Subscriber<List<Gank>>() {
                    @Override public void onCompleted() {
-                       mainView.completeGetData();
+                       mainView.completeGetData(date);
                    }
-
 
                    @Override public void onError(Throwable e) {
-                       mainView.showErrorSnack("哎呀妈呀，出岔劈了");
+                       mainView.showErrorSnack("出了一个小问题~");
                    }
+
 
                    @Override public void onNext(List<Gank> ganks) {
                        if (!ganks.isEmpty()) {
@@ -82,48 +82,23 @@ public class MainPresenter extends BasePresenter {
                                }
                            }
                            mainView.fillData(ganks, girlUrl);
-                           saveToDB(date, ganks);
+                           gankModel.saveToDB(date, ganks);
                            MyApplication.getSp()
                                         .putString(Config.LAST_GET_DATE, date);
                        }
                        else {
-                           DialogUtil.showSingleDialog(mContext,
-                                   "今天的干货还没有更新呢!\n先看看上次的吧~(∩_∩)~");
+                           mainView.showErrorSnack("今天的干货还没有更新呢，先看看上次的吧(∩_∩)");
+                          /* DialogUtil.showSingleDialog(mContext,
+                                   R.string.tips_load_today_empty);*/
                            String lastDate = MyApplication.getSp()
                                                           .getString(
                                                                   Config.LAST_GET_DATE,
                                                                   DateUtil.getLastGankDate());
-                           isGetTodayGank = false;
                            getData(lastDate);
                        }
                    }
                });
     }
-
-
-    /**
-     * 保存到数据库
-     * @param date
-     * @param ganks
-     */
-    public void saveToDB(String date, List<Gank> ganks) {
-        new Delete().from(Gank.class).execute();
-        Today t = new Today();
-        t.todayDate = date;
-        t.save();
-        ActiveAndroid.beginTransaction();
-        try {
-            for (int i = 0; i < ganks.size(); i++) {
-                ganks.get(i).save();
-            }
-            ActiveAndroid.setTransactionSuccessful();
-            LogUtil.d(TAG + "数据保存成功");
-        } finally {
-            ActiveAndroid.endTransaction();
-            LogUtil.d(TAG + "数据保存结束");
-        }
-    }
-
 
     private List<Gank> addAllResult(GankData.Result results) {
         if (!mList.isEmpty()) mList.clear();
@@ -137,13 +112,18 @@ public class MainPresenter extends BasePresenter {
         return mList;
     }
 
-
     public String getGirlUrl() {
         return girlUrl;
     }
 
-
     public boolean isGetData() {
         return isGetTodayGank;
+    }
+
+    public void loadFromDB(){
+        mainView.completeGetData( MyApplication.getSp().getString(Config
+                .LAST_GET_DATE,""));
+        mainView.fillData(gankModel.loadFromDB(),
+                MyApplication.getSp().getString("girl","null"));
     }
 }

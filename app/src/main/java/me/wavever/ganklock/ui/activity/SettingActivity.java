@@ -26,13 +26,6 @@ public class SettingActivity extends BaseActivity {
         return R.layout.activity_setting;
     }
 
-
-    @Override protected void initPresenter() {
-
-
-    }
-
-
     public void replaceFragment(int resId, Fragment fragment) {
         FragmentManager manager = getFragmentManager();
         manager.beginTransaction().replace(resId, fragment).commit();

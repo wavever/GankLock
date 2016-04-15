@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import java.util.List;
 import me.wavever.ganklock.R;
-import me.wavever.ganklock.model.Gank;
+import me.wavever.ganklock.model.bean.Gank;
 import me.wavever.ganklock.util.StringStyleUtils;
 
 /**

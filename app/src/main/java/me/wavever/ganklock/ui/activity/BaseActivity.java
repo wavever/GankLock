@@ -21,13 +21,10 @@ public abstract class BaseActivity<P extends BasePresenter>
 
     protected abstract int getLayoutId();
 
-    protected abstract void initPresenter();
-
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
-        initPresenter();
         initToolbar();
     }
 

@@ -21,7 +21,7 @@ import java.util.List;
 import me.wavever.ganklock.MyApplication;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.config.Config;
-import me.wavever.ganklock.model.Gank;
+import me.wavever.ganklock.model.bean.Gank;
 import me.wavever.ganklock.presenter.MainPresenter;
 import me.wavever.ganklock.ui.adapter.LockRecycleViewAdapter;
 import me.wavever.ganklock.util.DateUtil;
@@ -44,12 +44,12 @@ public class GankLockReceiver extends BroadcastReceiver {
 
 
     @Override public void onReceive(Context context, Intent intent) {
+        keyguardManager = (KeyguardManager) context.getSystemService(
+                Context.KEYGUARD_SERVICE);
+        keyguardLock = keyguardManager.newKeyguardLock("");
+        keyguardLock.disableKeyguard();
         String action = intent.getAction();
         if (action.equals(Intent.ACTION_SCREEN_OFF)) {
-            keyguardManager = (KeyguardManager) context.getSystemService(
-                    Context.KEYGUARD_SERVICE);
-            keyguardLock = keyguardManager.newKeyguardLock("");
-            keyguardLock.disableKeyguard();
             if (MyApplication.getSp().getBoolean(Config.LOCK_IS_OPEN, false)) {
                 createLockView(context);
             }
@@ -72,7 +72,8 @@ public class GankLockReceiver extends BroadcastReceiver {
         lp.width = -1;
         lp.height = -1;
         lp.type = 2010;
-        lp.flags |= WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED;
+        lp.flags |= WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
+                WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
 
         //设置viewpager
         ViewPager viewPager = (ViewPager) mContainer.findViewById(

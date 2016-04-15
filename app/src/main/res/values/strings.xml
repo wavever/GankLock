@@ -13,13 +13,15 @@
     <string name="key_is_open">key_is_open</string>
     <string name="key_change_style">key_change_style</string>
 
-    <string name="tips_load_success">今日数据已加载成功 </string>
+    <string name="tips_load_success">今日数据已加载成功</string>
     <string name="tips_load_failure">加载失败</string>
     <string name="tips_load_finish">加载已经完成了，主人</string>
+    <string name="tips_load_today_empty">今天的干货还没有更新呢!\n先看看上次的吧~(∩_∩)~</string>
 
     <string name="tpis_load_lastdate">今天的干货还没有更新呢!\n先看看上次的吧~(∩_∩)~</string>
 
-    <string name="tips_first_run">开启前请关闭系统锁屏，避免双锁屏\nMIUI请在 授权管理->应用权限管理->Gank锁屏
+    <string name="tips_first_run">请在右上角的设置内开启锁屏，开启前请确认关闭系统锁屏，避免双锁屏\nMIUI请在
+        授权管理->应用权限管理->Gank锁屏
         中打开悬浮窗权限\nFlyme请在待机耗电管理中开启本应用\n请在一切优化软件中设置为白名单</string>
 
     <string name="introduce">Gank
@@ -32,4 +34,16 @@
 
     <string name="me">wavever\n博客：http://wavever.cn\n项目开源地址：http://github.com/wavever/GankLock</string>
     <string name="thx">所有干货数据来自代码家的干货集中营\nhttp://gank.io</string>
+
+
+    <string name="title">Planets!</string>
+    <string name="mercury">Mercury</string>
+    <string name="venus">Venus</string>
+    <string name="earth">Earth</string>
+    <string name="home">(Home)</string>
+    <string name="mars">Mars</string>
+    <string name="jupiter">Jupiter</string>
+    <string name="saturn">Saturn</string>
+    <string name="uranus">Uranus</string>
+    <string name="neptune">Neptune</string>
 </resources>

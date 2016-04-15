@@ -1,5 +1,6 @@
 package me.wavever.ganklock.ui.activity;
 
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -17,10 +18,11 @@ import java.util.List;
 import me.wavever.ganklock.MyApplication;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.config.Config;
-import me.wavever.ganklock.model.Gank;
+import me.wavever.ganklock.model.bean.Gank;
 import me.wavever.ganklock.presenter.MainPresenter;
 import me.wavever.ganklock.ui.adapter.MainRecycleViewAdapter;
 import me.wavever.ganklock.util.DateUtil;
+import me.wavever.ganklock.util.DialogUtil;
 import me.wavever.ganklock.util.LogUtil;
 import me.wavever.ganklock.util.SharedPreferencesUtil;
 import me.wavever.ganklock.view.IMainView;
@@ -31,8 +33,6 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
 
     private Toolbar mToolbar;
     private ImageView mImg;
-
-    private SharedPreferencesUtil sp;
 
     private RecyclerView mRecyclerView;
     private CollapsingToolbarLayout collapsToolbar;
@@ -45,20 +45,16 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
 
     private String mGirl;
 
+    private SharedPreferencesUtil sp = MyApplication.getSp();
+
 
     @Override protected int getLayoutId() {
         return R.layout.activity_main;
     }
 
 
-    @Override protected void initPresenter() {
-        mainPresenter = new MainPresenter(this, this);
-    }
-
-
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LogUtil.d(TAG + "onCreat" + today.toString());
         initView();
         getData();
     }
@@ -73,7 +69,7 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
         setSupportActionBar(mToolbar);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mList = new ArrayList<>();
-        sp = new SharedPreferencesUtil(this);
+        mainPresenter = new MainPresenter(this, this);
     }
 
 
@@ -97,46 +93,30 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
     }
 
 
-    @Override public boolean isGetData() {
-        return mainPresenter.isGetData();
-    }
-
-
     @Override public void showErrorSnack(String msg) {
         Snackbar.make(mRecyclerView, msg, Snackbar.LENGTH_LONG).show();
     }
 
 
-    @Override public void showUpdate() {
-
+    @Override public void completeGetData(String date) {
+        dismissLoading();
+       /* Snackbar.make(mRecyclerView, R.string.tips_load_finish,
+                Snackbar.LENGTH_LONG).show();*/
+        collapsToolbar.setTitle(date);
     }
 
 
-    @Override public void completeGetData() {
-        Snackbar.make(mRecyclerView, R.string.tips_load_finish,
-                Snackbar.LENGTH_LONG).show();
-        sp.putBoolean(Config.GET_DATA, true);
-        collapsToolbar.setTitle(
-                sp.getString(Config.LAST_GET_DATE, DateUtil.getLastGankDate()));
+    @Override public void showLoading() {
+        DialogUtil.showLoadingDialog(this);
     }
 
 
-    @Override public boolean checkIsOpenLock() {
-        return sp.getBoolean(Config.LOCK_IS_OPEN, false);
-    }
-
-    @Override public void getLastData(String lastDate) {
-        mainPresenter.getData(lastDate);
-        collapsToolbar.setTitle(lastDate);
-    }
-
-    @Override public void saveToDB() {
-
-    }
-
-
-    @Override public void loadFromDB() {
-
+    @Override public void dismissLoading() {
+        DialogUtil.dismissLoadingDialog(this);
+        if(sp.getBoolean(Config.IS_FIRST_RUN, true)){
+            DialogUtil.showSingleDialog(this,R.string.tips_first_run);
+            sp.putBoolean(Config.IS_FIRST_RUN,false);
+        }
     }
 
 
@@ -155,14 +135,23 @@ public class MainActivity extends BaseActivity implements IMainView<Gank> {
 
 
     private void getData() {
-        mainPresenter.getData(today);
+        if (today.equals(
+                sp.getString(Config.LAST_GET_DATE, ""))) {
+            mainPresenter.loadFromDB();
+        }
+        else {
+            showLoading();
+            mainPresenter.getData(today);
+        }
     }
+
 
     @Override public void onBackPressed() {
         if (System.currentTimeMillis() - time > 2000) {
             Toast.makeText(this, "再按一次退出Gank锁屏", Toast.LENGTH_SHORT).show();
             time = System.currentTimeMillis();
-        }else {
+        }
+        else {
             super.onBackPressed();
         }
     }
