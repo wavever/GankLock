@@ -12,11 +12,11 @@
 
     <dimen name="setting_tv_size">24sp</dimen>
 
+    <!--width&height-->
     <dimen name="toolbar_shadow_height">6dp</dimen>
-
-    <dimen name="app_bar_height">400dp</dimen>
-    
     <dimen name="about_app_bar_height">230dp</dimen>
+    <dimen name="app_bar_height">400dp</dimen>
+    <dimen name="item_img_list_height">180dp</dimen>
 
 
     <!--darkeet-->

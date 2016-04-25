@@ -48,7 +48,6 @@
         </activity>
         <activity android:name=".ui.activity.SettingActivity"/>
         <activity android:name=".ui.activity.AboutActivity"/>
-        <activity android:name=".ui.activity.SplashActivity"/>
 
         <service android:name=".service.LockService"/>
 

@@ -7,7 +7,9 @@
             format="dimension"/>
     </declare-styleable>
 
-    <declare-styleable name="TintImageView">
-
+    <declare-styleable name="TagCornerImageView">
+        <attr name="tag_text" format="string"/>
+        <attr name="tag_text_color" format="color"/>
+        <attr name="tag_background_color" format="color|reference"/>
     </declare-styleable>
 </resources>
