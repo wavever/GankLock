@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="UnlockArrow">
-        <attr name="arrow_width"
-            format="dimension"/>
-        <attr name="arrow_height"
-            format="dimension"/>
-    </declare-styleable>
-
-    <declare-styleable name="TagCornerImageView">
-        <attr name="tag_text" format="string"/>
-        <attr name="tag_text_color" format="color"/>
-        <attr name="tag_background_color" format="color|reference"/>
+        <attr name="arrow_width" format="dimension" />
+        <attr name="arrow_height" format="dimension" />
     </declare-styleable>
 </resources>

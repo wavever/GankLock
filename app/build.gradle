@@ -41,36 +41,34 @@ android {
         }
 
         debug {
-          /*  storeFile file(keyProps["store"])
-            keyAlias keyProps["alias"]
-            storePassword keyProps["keyStorePassword"]
-            keyPassword keyProps["keyPassword"]*/
+            /*  storeFile file(keyProps["store"])
+              keyAlias keyProps["alias"]
+              storePassword keyProps["keyStorePassword"]
+              keyPassword keyProps["keyPassword"]*/
         }
 
-        release {
-            // release版本使用assert确保存在该属性否则报错，避免错误打包
-            assert localProps['keystore.props.file'];
-            storeFile file(keyProps["store"])
-            keyAlias keyProps["alias"]
-            storePassword keyProps["keyStorePassword"]
-            keyPassword keyProps["keyPassword"]
-        }
+        /* release {
+             // release版本使用assert确保存在该属性否则报错，避免错误打包
+             assert localProps['keystore.props.file'];
+             storeFile file(keyProps["store"])
+             keyAlias keyProps["alias"]
+             storePassword keyProps["keyStorePassword"]
+             keyPassword keyProps["keyPassword"]
+         }*/
     }
 
-
-
     buildTypes {
-
-        debug   {
+        debug {
             //显示Log
             buildConfigField "boolean", "LOG_DEBUG", "true"
             versionNameSuffix "-debug"
             minifyEnabled false
             zipAlignEnabled false
             shrinkResources false
+            signingConfig signingConfigs.debug
+            debuggable true
         }
-
-        release {
+        /*release {
             //不显示LOG
             buildConfigField "boolean", "LOG_DEBUG", "false"
             minifyEnabled true
@@ -80,7 +78,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'),
                     'proguard-rules.pro'
             signingConfig signingConfigs.release
-
             //apk输出格式
             applicationVariants.all { variant ->
                 variant.outputs.each { output ->
@@ -92,13 +89,14 @@ android {
                     }
                 }
             }
-        }
+        }*/
     }
 
     //友盟多渠道打包
     productFlavors {
         xiaomi {}
         wandoujia {}
+        baidu {}
         fir {}
     }
 
@@ -120,12 +118,16 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile rootProject.ext.dependencies["appcompat-v7"]
     compile rootProject.ext.dependencies["recyclerview-v7"]
+    compile rootProject.ext.dependencies["cardview-v7"]
     compile rootProject.ext.dependencies["design"]
+    compile rootProject.ext.dependencies["gson"]
     compile rootProject.ext.dependencies["rxandroid"]
     compile rootProject.ext.dependencies["retrofit"]
     compile rootProject.ext.dependencies["converter-gson"]
     compile rootProject.ext.dependencies["adapter-rxjava"]
     compile rootProject.ext.dependencies["materialpreference"]
     compile rootProject.ext.dependencies["activeandroid"]
-    compile rootProject.ext.dependencies["parallaxpager"]
+    compile rootProject.ext.dependencies["patternlock"]
+    compile rootProject.ext.dependencies["mvp"]
+    compile rootProject.ext.dependencies["bottomnavigation"]
 }

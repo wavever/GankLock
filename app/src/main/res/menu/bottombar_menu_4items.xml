@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/black"
+    app:bbn_badgeColor="#FFFF0000"
+    app:bbn_rippleColor="#33ffffff">
+    <item
+        android:id="@+id/bbn_daliy"
+        android:color="@color/colorPrimary"
+        android:icon="@drawable/ic_cloud_off_white_24dp"
+        android:title="@string/bottom_bar_gank" />
+    <item
+        android:id="@+id/bbn_like"
+        android:color="@color/colorPrimary"
+        android:icon="@drawable/ic_star_white_24dp"
+        android:title="@string/bottom_bar_like" />
+    <item
+        android:id="@+id/bbn_meizhi"
+        android:color="@color/colorPrimary"
+        android:icon="@drawable/ic_mail_white_24dp"
+        android:title="@string/bottom_bar_meizhi" />
+    <item
+        android:id="@+id/bbn_more"
+        android:color="@color/colorPrimary"
+        android:icon="@drawable/ic_format_list_numbered_white_24dp"
+        android:title="@string/bottom_bar_more" />
+</menu>

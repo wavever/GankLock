@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+
 import me.wavever.ganklock.MyApplication;
 import me.wavever.ganklock.config.Config;
 import me.wavever.ganklock.receiver.GankLockReceiver;

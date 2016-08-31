@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginTop="60dp"
+    android:layout_marginBottom="60dp">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/gank"
+        android:scaleType="centerCrop"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/daily_mask"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/DailyCardTitleStyle"
+        android:text="今日力推：Android 漂亮的画廊效果 / Android 着色器和过滤器详解 / Canvas 粒子动画 / iOS 轻量级 Note 开元项目 Dropnote"
+        />
+</android.support.v7.widget.CardView>

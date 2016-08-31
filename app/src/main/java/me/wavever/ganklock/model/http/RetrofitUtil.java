@@ -2,29 +2,30 @@ package me.wavever.ganklock.model.http;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.squareup.okhttp.OkHttpClient;
+
 import me.wavever.ganklock.config.GankApi;
-import retrofit.GsonConverterFactory;
-import retrofit.Retrofit;
-import retrofit.RxJavaCallAdapterFactory;
+import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * Created by wavever on 2016/3/26.
  */
 public class RetrofitUtil {
 
-    private static  GankService sService;
-    private static String api =GankApi.BASE_URL;
+    private static GankService sService;
 
-    static Gson gson = new GsonBuilder().setDateFormat
-            ("yyyy-MM-dd'T'HH:mm:ss" +
-            ".SSS'Z'").serializeNulls().create();
+    static Gson gson = new GsonBuilder()
+            .setDateFormat("yyyy-MM-dd'T'HH:mm:ss" + ".SSS'Z'")
+            .serializeNulls() //导出null值
+            .create();
 
-    public static GankService getSingleton(){
-
-        if(sService == null){
-            synchronized (RetrofitUtil.class){
-                if(sService == null){
+    public static GankService getSingleton() {
+        if (sService == null) {
+            synchronized (RetrofitUtil.class) {
+                if (sService == null) {
+                    String api = GankApi.BASE_URL;
                     Retrofit retrofit = new Retrofit.Builder()
                             .baseUrl(api)
                             .addConverterFactory(GsonConverterFactory.create(gson))

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="280dp"
+    android:layout_height="wrap_content"
+    android:paddingBottom="15dp"
+    android:background="@drawable/backgroundbox">
+    <TextView
+        android:id="@+id/tv_tips1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请按照以下方式关闭系统锁屏"
+        android:layout_marginTop="15dp"
+        android:gravity="center_horizontal"
+        android:textSize="18sp"/>
+    <ImageView
+        android:id="@+id/img_guide1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv_tips1"
+        android:src="@drawable/guide_disable_sys_locker_miuiv6_step1"/>
+    <ImageView
+        android:id="@+id/img_guide2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:adjustViewBounds="true"
+        android:layout_below="@id/img_guide1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/guide_disable_sys_locker_miuiv6_step2"/>
+    <Button
+        android:id="@+id/btn_guide_confirm"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:textSize="18sp"
+        android:layout_below="@id/img_guide2"
+        android:layout_centerHorizontal="true"
+        android:background="@color/md_green_300"
+        android:textColor="@color/white"
+        android:text="确 认"/>
+
+</RelativeLayout>

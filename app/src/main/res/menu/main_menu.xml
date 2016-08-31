@@ -3,10 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_setting"
-        app:showAsAction="never"
-        android:title="@string/action_setting"/>
+        android:title="@string/action_setting"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_about"
-        app:showAsAction="never"
-        android:title="@string/action_about"/>
+        android:title="@string/action_about"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_share"
+        android:title="@string/action_share"
+        app:showAsAction="never"/>
 </menu>

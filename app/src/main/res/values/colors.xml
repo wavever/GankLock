@@ -8,4 +8,6 @@
     <color name="black">#000</color>
 
     <color name="list_item_press">#216b74ff</color>
+
+    <color name="colorButton">#991041</color>
 </resources>

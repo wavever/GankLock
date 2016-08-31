@@ -12,4 +12,5 @@ public class Config {
     public static final String LAST_GET_DATE = "LAST_GET_DATE";
 
     public static final String GET_TODAY_DATA = "GET_DATA";
+
 }

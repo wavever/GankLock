@@ -6,6 +6,7 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowTranslucentNavigation">true</item>
     </style>
 
     <style name="ViaTextAppearance">
@@ -21,6 +22,14 @@
     <style name="CollapsingToolbarTitleStyle"
         parent="@android:style/TextAppearance">
         <item name="android:textColor">@android:color/transparent</item>
+    </style>
+
+    <style name="DailyCardTitleStyle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:padding">10dp</item>
     </style>
 
 </resources>

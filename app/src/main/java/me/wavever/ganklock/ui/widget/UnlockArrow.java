@@ -7,25 +7,23 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
+
 import me.wavever.ganklock.R;
 
 /**
- * Created by WAVE on 2016/2/20.
+ * Created by wavevr on 2016/2/20.
  */
 public class UnlockArrow extends View {
 
     private int width;
     private int height;
     private int strokeWidth;
-    private int locate;
     private Paint paint;
     private Path path;
-
 
     public UnlockArrow(Context context) {
         this(context, null);
     }
-
 
     public UnlockArrow(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -34,89 +32,67 @@ public class UnlockArrow extends View {
 
     public UnlockArrow(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        this.height = 0;
-        this.width = 0;
-        this.strokeWidth = 0;
-        this.locate = 0;
-        this.paint = new Paint();
-        this.path = new Path();
         init(context);
     }
 
 
     private void init(Context context) {
-
-        this.strokeWidth = context.getResources()
-                                  .getDimensionPixelSize(
-                                          R.dimen.unlock_arrow_stroke_width);
-        this.locate = context.getResources()
-                             .getDimensionPixelOffset(
-                                     R.dimen.unlock_arrow_locate);
-        this.paint.setStrokeJoin(Paint.Join.ROUND);
-        this.paint.setStrokeCap(Paint.Cap.ROUND);
-        this.paint.setStrokeWidth((float) this.strokeWidth);
-        this.paint.setStyle(Paint.Style.STROKE);
-        this.paint.setAntiAlias(true);
-        this.paint.setColor(Color.BLUE);
+        paint = new Paint();
+        path = new Path();
+        strokeWidth = context.getResources().getDimensionPixelSize(R.dimen.unlock_arrow_stroke_width);
+        width = context.getResources().getDimensionPixelSize(R.dimen.unlock_arrow_width);
+        height = context.getResources().getDimensionPixelSize(R.dimen.unlock_arrow_height);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeWidth((float) this.strokeWidth);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setAntiAlias(true);
+        paint.setColor(Color.WHITE);
     }
-
-
-    @Override protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        this.width = getMeasuredWidth();
-        this.height = getMeasuredHeight();
-        this.path.reset();
-        this.path.moveTo((float) this.locate, (float) this.locate);
-        this.path.lineTo((float) (this.width / 2 + this.locate),
-                (float) (this.locate - this.height));
-        this.path.lineTo((float) (this.locate + this.width),
-                (float) this.locate);
-
-      /*  this.path.lineTo((float) (this.width + this.strokeWidth), (float) (
-                (this.height / 2) + this.strokeWidth));
-        this.path.lineTo((float) this.strokeWidth, (float) (this.height + this.strokeWidth));*/
-
-        canvas.drawPath(this.path, this.paint);
-    }
-
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        setMeasuredDimension(measureWidth(widthMeasureSpec),
-                measureHeight(heightMeasureSpec));
-    }
 
+        setMeasuredDimension(measureWidth(widthMeasureSpec), measureHeight(heightMeasureSpec));
+
+    }
 
     private int measureWidth(int widthMeasureSpec) {
-        int width;
-        int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-        int widthSize = MeasureSpec.getSize(widthMeasureSpec);
-        if (widthMode == MeasureSpec.EXACTLY) {
-            width = widthSize;
-        }
-        else {
-            width = 120;
-            if (widthMode == MeasureSpec.AT_MOST) {
-                width = Math.min(width, widthSize);
+        int result = 0;
+        int width = MeasureSpec.getSize(widthMeasureSpec);
+        int mode = MeasureSpec.getMode(widthMeasureSpec);
+        if(mode == MeasureSpec.EXACTLY){
+            result = width;
+        }else{
+            if(mode == MeasureSpec.AT_MOST){
+                result = this.width+strokeWidth;
             }
         }
-        return width;
+        return result;
     }
-
 
     private int measureHeight(int heightMeasureSpec) {
-        int height;
-        int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-        int heightSize = MeasureSpec.getSize(heightMeasureSpec);
-        if (heightMode == MeasureSpec.EXACTLY) {
-            height = heightSize;
-        }
-        else {
-            height = 50;
-            if (heightMode == MeasureSpec.AT_MOST) {
-                height = Math.min(height, heightSize);
+        int result = 0;
+        int height = MeasureSpec.getSize(heightMeasureSpec);
+        int mode = MeasureSpec.getMode(heightMeasureSpec);
+        if(mode == MeasureSpec.EXACTLY){
+            result = height;
+        }else{
+            if(mode == MeasureSpec.AT_MOST){
+                result = this.height+strokeWidth;
             }
         }
-        return height;
+        return result;
     }
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        path.reset();
+        path.moveTo(0, 0);
+        path.lineTo(width, height / 2);
+        path.lineTo(0, height);
+        canvas.drawPath(path, paint);
+    }
+
 }

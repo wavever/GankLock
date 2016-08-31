@@ -3,13 +3,11 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
-    <dimen name="unlock_right_arrow_width">5dp</dimen>
-    <dimen name="unlock_right_arrow_height">12dp</dimen>
-    <dimen name="unlock_up_arrow_width">120dp</dimen>
-    <dimen name="unlock_up_arrow_height">50dp</dimen>
-    <dimen name="unlock_arrow_stroke_width">3dp</dimen>
-    <dimen name="unlock_arrow_locate">10dp</dimen>
-
+    <dimen name="unlock_arrow_width">7dp</dimen>
+    <dimen name="unlock_arrow_height">13dp</dimen>
+    <dimen name="unlock_arrow_stroke_width">1.5dp</dimen>
+    <dimen name="unlock_arrow_animation_distance">18dp</dimen>
+    <dimen name="unlock_arrow_gap">8dp</dimen>
     <dimen name="setting_tv_size">24sp</dimen>
 
     <!--width&height-->

@@ -1,6 +1,7 @@
 package me.wavever.ganklock.model;
 
 import java.util.List;
+
 import me.wavever.ganklock.model.bean.Gank;
 
 /**
@@ -8,7 +9,10 @@ import me.wavever.ganklock.model.bean.Gank;
  */
 public interface IGankModel {
     void getGankData(String today);
+
     boolean isGetToday();
+
     void saveToDB(String date, List<Gank> ganks);
+
     List<Gank> loadFromDB();
 }

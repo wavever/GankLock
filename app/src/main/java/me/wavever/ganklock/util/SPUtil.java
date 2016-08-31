@@ -3,11 +3,11 @@ package me.wavever.ganklock.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SharedPreferencesUtil {
+public class SPUtil {
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
 
-    public SharedPreferencesUtil(Context context) {
+    public SPUtil(Context context) {
         prefs = context.getSharedPreferences("data", Context.MODE_PRIVATE);
         editor = prefs.edit();
     }

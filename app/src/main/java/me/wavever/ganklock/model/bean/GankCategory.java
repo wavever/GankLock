@@ -10,5 +10,6 @@ public enum GankCategory {
     福利,
     拓展资源,
     App,
-    休息视频;
+    休息视频,
+    前端;
 }

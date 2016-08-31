@@ -16,7 +16,7 @@ import java.util.Date;
     @Column(name = "who") private String who;
     @Column(name = "type") private String type;
     @Column(name = "used") private boolean used;
-    @Column(name = "createAt") private Date createAt;
+    @Column(name = "createdAt") private Date createdAt;
     //2016-03-10T12:54:31.68Z->2016/03/10
     @Column(name = "publishedAt") private Date publishedAt;
 
@@ -72,12 +72,12 @@ import java.util.Date;
 
 
     public Date getCreateAt() {
-        return createAt;
+        return createdAt;
     }
 
 
     public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
+        this.createdAt = createAt;
     }
 
 
