@@ -10,19 +10,21 @@ public abstract class BasePresenter<V> {
 
     protected Reference<V> mViewRef;
 
-    protected void attachView(V view) {
+    public BasePresenter(){}
+
+    public void attachView(V view) {
         mViewRef = new WeakReference<>(view);
     }
 
-    protected V getView() {
+    public V getView() {
         return mViewRef.get();
     }
 
-    protected boolean isViewAttached() {
+    public boolean isViewAttached() {
         return mViewRef != null && mViewRef.get() != null;
     }
 
-    protected void detachView() {
+    public void detachView() {
         if (mViewRef.get() != null) {
             mViewRef.clear();
             mViewRef = null;
@@ -30,16 +32,35 @@ public abstract class BasePresenter<V> {
     }
 
     //在Presenter中实现Activity的生命周期
-    protected void onActivityLifeCreate() {}
+    public void onActivityLifeCreate() {}
 
-    protected void onActivityLifeStart() {}
+    public void onActivityLifeStart() {}
 
-    protected void onActivityLifeResume() {}
+    public void onActivityLifeResume() {}
 
-    protected void onActivityLifePause() {}
+    public void onActivityLifePause() {}
 
-    protected void onActivityLifeStop() {}
+    public void onActivityLifeStop() {}
 
-    protected void onActivityLifeDestory() {}
+    public void onActivityLifeDestory() {}
+
+
+    //在Presenter中实现Fragment的生命周期
+
+    public void onFragmentLifeCreateView(){}
+
+    public void onFragmentLifeCreate(){}
+
+    public void onFragmentLifeActivityCreated(){}
+
+    public void onFragmentLifeResume(){}
+
+    public void onFragmentLifeStart(){}
+
+    public void onFragmentLifePause(){}
+
+    public void onFragmentLifeStop(){}
+
+    public void onFragmentLifeDestory(){}
 }
 
