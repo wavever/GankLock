@@ -20,8 +20,11 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
     </android.support.design.widget.AppBarLayout>
 
-    <include
-        layout="@layout/item_daily_recycler_view"/>
+    <FrameLayout
+        android:id="@+id/main_activity_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behaviot="@string/appbar_scrolling_view_behavior"/>
 
     <it.sephiroth.android.library.bottomnavigation.BottomNavigation
         android:id="@+id/BottomNavigation"

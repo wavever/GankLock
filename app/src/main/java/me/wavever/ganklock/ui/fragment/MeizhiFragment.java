@@ -9,20 +9,26 @@ import android.view.ViewGroup;
 import com.hannesdorfmann.mosby.mvp.MvpPresenter;
 
 import me.wavever.ganklock.R;
+import me.wavever.ganklock.presenter.MeiZhiPresenter;
+import me.wavever.ganklock.view.IMeiZhiView;
 
 /**
  * Created by wavever on 2016/8/12.
  */
-public class MeizhiFragment extends BaseFragment{
+public class MeizhiFragment extends BaseFragment<IMeiZhiView,MeiZhiPresenter> implements IMeiZhiView{
 
-    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_meizhi,container);
+    protected int loadView() {
+        return R.layout.fragment_meizhi;
     }
 
     @Override
-    public MvpPresenter createPresenter() {
-        return null;
+    public MeiZhiPresenter createPresenter() {
+        return new MeiZhiPresenter();
+    }
+
+    @Override
+    public void initViews() {
+
     }
 }

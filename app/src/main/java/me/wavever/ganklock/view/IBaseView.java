@@ -9,5 +9,4 @@ public interface IBaseView extends MvpView{
 
     void initViews();
 
-
 }

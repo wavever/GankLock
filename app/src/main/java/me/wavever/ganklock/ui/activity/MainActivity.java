@@ -13,15 +13,21 @@ import android.widget.Toast;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.ui.fragment.DailyGankFragment;
+import me.wavever.ganklock.ui.fragment.LikeFragment;
+import me.wavever.ganklock.ui.fragment.MeizhiFragment;
 import me.wavever.ganklock.ui.fragment.SettingFragment;
 import me.wavever.ganklock.util.ToastUtil;
 
 /**
  * Created by wavever on 2016/5/28.
  */
-public class MainActivity extends AppCompatActivity implements BottomNavigation.OnMenuItemSelectionListener{
+public class MainActivity extends BaseActivity implements BottomNavigation.OnMenuItemSelectionListener{
 
     private BottomNavigation mBottomNavigation;
+    private DailyGankFragment dailyGankFragment;
+    private LikeFragment likeFragment;
+    private MeizhiFragment meizhiFragment;
+    private SettingFragment settingFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements BottomNavigation.
         if (null != mBottomNavigation) {
             mBottomNavigation.setOnMenuItemClickListener(this);
         }
-        //replaceFragment(R.id.main_activity_container,new DailyGankFragment());
+        dailyGankFragment = DailyGankFragment.getInstance();
+        replaceFragment(R.id.main_activity_container,dailyGankFragment);
     }
 
     @Override
@@ -94,5 +101,10 @@ public class MainActivity extends AppCompatActivity implements BottomNavigation.
     public void replaceFragment(int resId,Fragment fragment) {
         FragmentManager manager = getFragmentManager();
         manager.beginTransaction().replace(resId, fragment).commit();
+    }
+
+    @Override
+    public Object createPresenter() {
+        return null;
     }
 }
