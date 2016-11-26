@@ -1,17 +1,17 @@
 package me.wavever.ganklock.model.data;
 
+import com.activeandroid.query.Select;
 import java.util.List;
-
-import me.wavever.ganklock.MyApplication;
-import me.wavever.ganklock.config.Config;
-import me.wavever.ganklock.model.bean.Gank;
-import me.wavever.ganklock.model.bean.GankCategory;
-import me.wavever.ganklock.model.bean.GankData;
+import me.wavever.ganklock.model.bean.GankDaily;
+import me.wavever.ganklock.model.bean.GankDailyContent;
 import me.wavever.ganklock.model.http.GankService;
 import me.wavever.ganklock.model.http.RetrofitUtil;
-import me.wavever.ganklock.util.DateUtil;
+import me.wavever.ganklock.utils.LogUtil;
+import rx.Observable;
+import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
@@ -20,61 +20,63 @@ import rx.schedulers.Schedulers;
  */
 public class DailyGankData {
 
-    private List<Gank> mList;
+    private static String TAG = DailyGankData.class.getSimpleName() + "-->";
+
     private GankService service = RetrofitUtil.getSingleton();
-    private OnGetDailyGankDataListener onGetDailyGankDataListener;
 
-    public DailyGankData(OnGetDailyGankDataListener listener){
-        onGetDailyGankDataListener = listener;
-    }
+    private List<GankDaily> mList;
 
-    public void getDailyGankData(final String date) {
-        service.getGankData(date)
-                .map(new Func1<GankData, GankData.Result>() {
-                    @Override
-                    public GankData.Result call(GankData gankData) {
-                        return gankData.results;
-                    }
-                })
-                .map(new Func1<GankData.Result, List<Gank>>() {
-                    @Override
-                    public List<Gank> call(GankData.Result result) {
-                        return addAllResult(result);
-                    }
-                })
-                .subscribeOn(Schedulers.io())   //在io线程进行数据的读取  放在任何地方都可以
-                .observeOn(AndroidSchedulers.mainThread())  //在主线程处理数据  指定的是它之后的操作的线程，因此如果需要多次切换线程，可指定多次
-                .subscribe(new Subscriber<List<Gank>>() {
-                    @Override
-                    public void onCompleted() {
-                    }
 
-                    @Override
-                    public void onError(Throwable e) {
-                        onGetDailyGankDataListener.onGetFailure();
-                    }
-
-                    @Override
-                    public void onNext(List<Gank> ganks) {
-                        onGetDailyGankDataListener.onGetSuccess(ganks);
-                    }
-                });
-    }
-
-    private List<Gank> addAllResult(GankData.Result results) {
-        if (!mList.isEmpty()) mList.clear();
-        if (results.androidList != null) mList.addAll(0, results.androidList);
-        if (results.iosList != null) mList.addAll(results.iosList);
-        if (results.htmlList != null) mList.addAll(results.htmlList);
-        if (results.appList != null) mList.addAll(results.appList);
-        if (results.recommendList != null) mList.addAll(results.recommendList);
-        if (results.restVideoList != null) mList.addAll(results.restVideoList);
-        if (results.girlList != null) mList.addAll(results.girlList);
+    public List<GankDaily> getDailyDataFromDB(Observer<List<GankDaily>> observer) {
+        Observable.create(new Observable.OnSubscribe<List<GankDaily>>() {
+            @Override public void call(Subscriber<? super List<GankDaily>> subscriber) {
+                List<GankDaily> list = new Select().from(GankDaily.class)
+                    .orderBy("publishedAt DESC")//DESC ASC
+                    .execute();
+                subscriber.onNext(list);
+            }
+        }).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(observer);
         return mList;
     }
 
-    public interface OnGetDailyGankDataListener{
-        void onGetSuccess(List<Gank> ganks);
-        void onGetFailure();
+
+    public void getDailyDataFromServer(Observer<GankDaily> observer, int count, int pager) {
+        service.getDailyData(count, pager)
+            .flatMap(new Func1<GankDailyContent, Observable<GankDaily>>() {
+                @Override public Observable<GankDaily> call(GankDailyContent gankDailyContent) {
+                    return Observable.from(gankDailyContent.results);
+                }
+            }).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(observer);
     }
+
+
+    public void saveDailyDataToDB(List<GankDaily> datas) {
+        Observable.from(datas)
+            .doOnNext(new Action1<GankDaily>() {
+                @Override public void call(GankDaily gankDaily) {
+                    if (!new Select().from(GankDaily.class)
+                        .where("_id=?", gankDaily._id)
+                        .exists()) {
+                        gankDaily.save();
+                        LogUtil.d(TAG + "保存成功" + gankDaily.publishedAt);
+                    }
+                    LogUtil.d(TAG + "已经存在" + gankDaily.publishedAt);
+                }
+            }).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Action1<GankDaily>() {
+                @Override public void call(GankDaily gankDaily) {
+
+                }
+            }, new Action1<Throwable>() {
+                @Override public void call(Throwable throwable) {
+                    LogUtil.d(TAG + "保存失败" + throwable.getMessage());
+                }
+            });
+    }
+
 }

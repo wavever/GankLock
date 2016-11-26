@@ -4,71 +4,48 @@
     <!--Dialog-->
     <string name="dialog_tip">可爱的提示</string>
     <string name="dialog_confirm">确认~</string>
-    <string name="dialog_cancle">取消</string>
 
     <!--menu-->
     <string name="action_setting">设置</string>
     <string name="action_about">关于</string>
     <string name="action_share">分享</string>
-    <string name="action_brower">在浏览器中打开</string>
-    <string name="action_copy_link">复制链接</string>
-    <string name="copy_link_finish">链接已复制到剪切板</string>
 
     <!--Setting-->
-    <string name="title_activity_setting">设置</string>
+    <string name="title_setting_base">基本设置</string>
     <string name="setting_lock">锁屏设置</string>
-    <string name="setting_open_lock">打开锁屏</string>
-    <string name="setting_change_style">主题</string>
     <string name="setting_lock_style">锁屏样式</string>
     <string name="setting_auto_refresh">每次进入自动刷新</string>
-    <string name="setting_lock_pic">锁屏壁纸每日更新</string>
     <string name="setting_statusbar">状态栏设置</string>
     <string name="setting_statusbar_hide">隐藏状态栏</string>
     <string name="setting_statusbar_hide_summary">仅在Android 4.1 以上有效</string>
     <string name="setting_statusbar_transparent">透明状态栏</string>
     <string name="setting_statusbar_transparent_summary">仅在Android 4.4 以上有效</string>
+    <string name="setting_shake_feed_back">摇一摇发送反馈</string>
+    <string name="setting_shake_feed_back_summary">发现了Bug？摇一摇就能反馈了哦</string>
+    <string name="setting_clear_cache">清除缓存</string>
+    <string name="setting_clear_cache_summary">包括图片、文字缓存</string>
     
     <string name="key_preference_category_lock">key_preference_category_lock</string>
     <string name="key_auto_refresh">key_auto_refresh</string>
     <string name="key_is_open">key_is_open</string>
-    <string name="key_change_style">key_change_style</string>
-    <string name="key_lock_pic">key_lock_pic</string>
     <string name="key_preference_category_statusbar">key_preference_category_statusbar</string>
     <string name="key_statusbar_hide">key_statusbar_hide</string>
     <string name="key_statusbar_transparent">key_statusbar_transparent</string>
+    <string name="key_shake_feed_back">key_shake_feed_back</string>
+    <string name="key_clear_cache">key_clear_cache</string>
     
     <string name="key_lock_style">key_lock_style</string>
 
-    <string name="app_version_code">版本号:</string>
-
-    <!--guide for close system lock-->
+    <string name="app_version_code">当前版本:</string>
 
     <!--Tips about lock-->
-    <string name="tips_first_run">请在右上角的设置内开启锁屏，开启前请确认关闭系统锁屏，避免双锁屏\nMIUI请在
-        授权管理->应用权限管理->Gank锁屏
-        中打开悬浮窗权限\nFlyme请在待机耗电管理中开启本应用\n请在一切优化软件中设置为白名单</string>
-
     <string name="introduce">Gank
-        锁屏是一款专属于程序猿的锁屏软件，锁屏界面由每天的高清无码的妹子图片和程序猿干货组成。\n
-        \n使用前请关闭系统锁屏，避免造成双锁屏，MIUI用户请在
-        授权管理->应用权限管理->Gank锁屏
-        中打开悬浮窗权限，Flyme请在待机耗电管理中开启本应用。\n </string>
+        锁屏是一款专属于程序猿的锁屏软件，锁屏界面由每天的高清无码的妹子图片和程序猿干货组成。\n</string>
 
-    <string name="open_source_libraries_list">Picasso\nGson\ncom.android.support:appcompat-v7:23.0.1\ncom.android.support:recyclerview-v7:23.0.1\nio.reactivex:rxandroid:1.1.0\ncom.squareup.retrofit2:retrofit:2.0.0-beta4\ncom.squareup.retrofit:converter-gson:2.0.0-beta2\ncom.squareup.retrofit:adapter-rxjava:2.0.0-beta2\ncom.android.support:design:23.2.0</string>
-    <string name="me">wavever\n博客：http://wavever.cn\n项目开源地址：http://github.com/wavever/GankLock</string>
+    <string name="me">wavever 博客：http://wavever.cn\n项目开源地址：http://github.com/wavever/GankLock</string>
     <string name="thx">所有干货数据来自代码家的干货集中营\nhttp://gank.io</string>
 
     <!--xml-->
-    <string name="lock_view_week">星期四</string>
-    <string name="lock_view_date">2016/05/05</string>
-    <string name="lock_view_unlock_button">解 锁</string>
-
-
-    <string name="main_activity_choose_girl">选择一张妹纸作为锁屏壁纸吧</string>
-    <string name="main_activity_see_girl">去看妹纸</string>
-    <string name="main_activity_see_gank">去看干货</string>
-    <string name="main_activity_setting">设置锁屏</string>
-    <string name="main_activity_share">分享给好友</string>
     <string name="exit_with_two_click">再按一次退出Gank锁屏</string>
 
     <!--bottom bar-->
@@ -76,5 +53,26 @@
     <string name="bottom_bar_like">收藏</string>
     <string name="bottom_bar_meizhi">妹纸</string>
     <string name="bottom_bar_more">更多</string>
+
+    <!--DailyFragment-->
+    <string name="daily_fragment_get_data_failure_tip">嗨呀！好气啊，加载失败了。</string>
+
+    <!--LikeFragment-->
+    <string name="like_fragment_empty_tip">空空如也~</string>
+
+    <!--meizhiFragment-->
+    <string name="meizhi_fragment_empty_tip">你不下载妹纸我展示啥</string>
+
+    <!--MoreFragment-->
+    <string name="more_fragment_item_style_setting">主题</string>
+    <string name="more_fragment_item_feedback">意见反馈</string>
+    <string name="more_fragment_item_open_source">开源许可</string>
+    <string name="more_fragment_item_evaluate">去评价</string>
+    <string name="more_fragment_item_about">关于</string>
+
+    <!--GankContentActivity-->
+    <string name="content_activity_empty_tip">我说加载失败了你信么</string>
+
+    <!--PhotoActivity-->
 
 </resources>

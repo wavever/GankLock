@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:orientation="vertical">
+    <TextClock
+        android:id="@+id/lock_view_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
+        android:format24Hour="H:mm"
+        android:paddingLeft="10dp"
+        android:textSize="70sp"/>
+    <TextView
+        android:id="@+id/lock_view_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="10月9日 星期日"
+        android:textColor="@color/white"
+        android:paddingLeft="10dp"
+        android:textSize="18sp"/>
+    <Button
+        android:id="@+id/lock_view_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="解锁"/>
+</LinearLayout>

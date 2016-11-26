@@ -5,10 +5,6 @@
         android:key="@string/key_preference_category_lock"
         android:title="@string/setting_lock">
 
-        <com.jenzz.materialpreference.SwitchPreference
-            android:defaultValue="false"
-            android:key="@string/key_is_open"
-            android:title="@string/setting_open_lock" />
         <com.jenzz.materialpreference.Preference
             android:key="@string/key_lock_style"
             android:summary="默认为滑动解锁"
@@ -19,15 +15,6 @@
             android:summaryOff="当前为关闭"
             android:summaryOn="当前为开启（默认）"
             android:title="@string/setting_auto_refresh" />
-        <com.jenzz.materialpreference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/key_lock_pic"
-            android:title="@string/setting_lock_pic" />
-
-        <com.jenzz.materialpreference.Preference
-            android:key="@string/key_change_style"
-            android:summary="默认为Material绿色"
-            android:title="@string/setting_change_style" />
     </com.jenzz.materialpreference.PreferenceCategory>
 
     <com.jenzz.materialpreference.PreferenceCategory
@@ -45,4 +32,17 @@
             android:title="@string/setting_statusbar_transparent" />
     </com.jenzz.materialpreference.PreferenceCategory>
 
+    <com.jenzz.materialpreference.PreferenceCategory
+        android:title="@string/title_setting_base">
+        <com.jenzz.materialpreference.SwitchPreference
+            android:defaultValue="false"
+            android:key="@string/key_shake_feed_back"
+            android:title="@string/setting_shake_feed_back"
+            android:summary="@string/setting_shake_feed_back_summary"/>
+        <com.jenzz.materialpreference.Preference
+            android:key="@string/key_clear_cache"
+            android:title="@string/setting_clear_cache"
+            android:summary="@string/setting_clear_cache_summary"/>
+
+    </com.jenzz.materialpreference.PreferenceCategory>
 </PreferenceScreen>

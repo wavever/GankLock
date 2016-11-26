@@ -7,7 +7,35 @@
     <color name="white">#fff</color>
     <color name="black">#000</color>
 
-    <color name="list_item_press">#216b74ff</color>
+    <!--material setting-->
 
-    <color name="colorButton">#991041</color>
+    <!--MoreFragment-->
+    <color name="more_fragment_item_text_color">#838383</color>
+    <color name="more_fragment_item_divider_color">#54a9a5a5</color>
+    <color name="more_fragment_item_bg_pressed_color">#54a9a5a5</color>
+
+    <!--Multi Theme-->
+    <color name="theme_color_primary">#009688</color>
+    <color name="theme_color_primary_dark">#00796b</color>
+    <color name="theme_color_primary_trans">#9e00796b</color>
+    <color name="window_background">#eaeaea</color>
+
+    <color name="gray_dark">#999999</color>
+
+    <!-- theme color -->
+    <color name="main">#009688</color>
+
+    <color name="pink">#fb7299</color>
+
+    <color name="blue">#2196F3</color>
+
+    <color name="green">#4CAF50</color>
+
+    <color name="green_light">#8BC34A</color>
+
+    <color name="yellow">#FDD835</color>
+
+    <color name="orange">#FF9800</color>
+
+    <color name="red">#F44336</color>
 </resources>

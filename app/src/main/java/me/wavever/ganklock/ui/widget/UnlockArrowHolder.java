@@ -86,7 +86,7 @@ public class UnlockArrowHolder extends RelativeLayout {
         super.onAttachedToWindow();
     }
 
-    private void startAnim() {
+    public void startAnim() {
         setVisibility(VISIBLE);
         for (int i = 0; i < 3; i++) {
             arrows[i].setLayerType(LAYER_TYPE_HARDWARE, null);
@@ -94,7 +94,7 @@ public class UnlockArrowHolder extends RelativeLayout {
         animationSet.start();
     }
 
-    private void stopAnim() {
+    public void stopAnim() {
         setVisibility(GONE);
         for (int i = 0; i < 3; i++) {
             arrows[i].setLayerType(LAYER_TYPE_NONE, null);

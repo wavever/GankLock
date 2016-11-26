@@ -5,13 +5,13 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
-
-import me.wavever.ganklock.MyApplication;
 import me.wavever.ganklock.config.Config;
+import me.wavever.ganklock.keyguard.LockManager;
 import me.wavever.ganklock.receiver.GankLockReceiver;
+import me.wavever.ganklock.utils.PreferenceUtil;
 
 /**
- * Created by WAVE on 2015/12/26.
+ * Created by wavever on 2015/12/26.
  */
 public class LockService extends Service {
 
@@ -27,7 +27,6 @@ public class LockService extends Service {
         registerReceiver(receiver, intentFilter);
     }
 
-
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         return Service.START_STICKY;
@@ -36,10 +35,13 @@ public class LockService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        unregisterReceiver(receiver);
-        if(MyApplication.getSp().getBoolean(Config.LOCK_IS_OPEN,false)){
+        if(PreferenceUtil.getBoolean(Config.GANK_LOCK_IS_OPEN)){
+            //LockManager.startLock(false);
             startService(new Intent(LockService.this,LockService.class));
+            return;
         }
+        LockManager.cancleLock();
+        unregisterReceiver(receiver);
     }
 
     @Override

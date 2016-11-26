@@ -1,51 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<me.wavever.ganklock.ui.widget.HorizonalSlideUnLockLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/slide_layout"
-    android:layout_width="match_parent"
-    android:background="@drawable/bg_lock_rv"
-    android:layout_height="match_parent">
-
-    <LinearLayout
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/gank2"/>
 
-        <TextClock
-            android:id="@+id/tc_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:format24Hour="H:mm"
-            android:textColor="@color/white"
-            android:gravity="center_horizontal"
-            android:textSize="70sp"/>
-
-        <TextView
-            android:id="@+id/tv_week"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/lock_view_week"
-            android:textColor="#fff"
-            android:textSize="18sp"/>
-
-        <TextView
-            android:id="@+id/tv_year"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="@string/lock_view_date"
-            android:textColor="#fff"
-            android:textSize="20sp"/>
-
-    </LinearLayout>
-
-    <me.wavever.ganklock.ui.widget.UnlockArrowHolder
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:gravity="center"
-        android:layout_marginBottom="30dp"/>
+        android:layout_height="match_parent"
+        android:background="@drawable/lock_view_mask"/>
 
-</me.wavever.ganklock.ui.widget.HorizonalSlideUnLockLayout>
+    <me.wavever.ganklock.ui.widget.HorizonalSlideUnLockLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/layout_lock_time"/>
+
+        <me.wavever.ganklock.ui.widget.UnlockArrowHolder
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center|bottom"
+            android:layout_marginBottom="30dp"/>
+    </me.wavever.ganklock.ui.widget.HorizonalSlideUnLockLayout>
+</merge>

@@ -8,15 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowTranslucentNavigation">true</item>
     </style>
-
-    <style name="ViaTextAppearance">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#000</item>
-    </style>
-
-    <style name="LockViaTextAppearance">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">#fff</item>
+    <style name="AppTheme.Translate" parent="AppTheme">
     </style>
 
     <style name="CollapsingToolbarTitleStyle"
@@ -28,8 +20,38 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">16sp</item>
         <item name="android:gravity">center</item>
-        <item name="android:layout_gravity">bottom</item>
         <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="MoreFragmentItemStyle" parent="Base.TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/more_fragment_item_text_color</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:padding">20dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:background">@drawable/bg_more_fragment_item</item>
+    </style>
+
+    <style name="PhotoActivityBottomOption" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:layout_marginRight">20dp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="EmptyTipStyle" parent="Base.TextAppearance.AppCompat.Title">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/gray_dark</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:drawableTop">@drawable/empty2</item>
+        <item name="android:drawablePadding">30dp</item>
+    </style>
+
+    <style name="AppTheme.AppCompat.Dialog.Alert" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:maxWidth">1080px</item>
     </style>
 
 </resources>

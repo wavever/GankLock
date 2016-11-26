@@ -2,71 +2,91 @@ package me.wavever.ganklock.ui.activity;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
-
+import android.support.design.widget.Snackbar;
+import android.view.View;
+import com.bilibili.magicasakura.utils.ThemeUtils;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.ui.fragment.DailyGankFragment;
 import me.wavever.ganklock.ui.fragment.LikeFragment;
 import me.wavever.ganklock.ui.fragment.MeizhiFragment;
-import me.wavever.ganklock.ui.fragment.SettingFragment;
-import me.wavever.ganklock.util.ToastUtil;
+import me.wavever.ganklock.ui.fragment.MoreFragment;
 
 /**
  * Created by wavever on 2016/5/28.
  */
-public class MainActivity extends BaseActivity implements BottomNavigation.OnMenuItemSelectionListener{
+public class MainActivity extends BaseActivity
+    implements BottomNavigation.OnMenuItemSelectionListener {
+
+    private static final String CURRENT_FRAGMENT_TAG = "=CurrentFragmentTag";
+    private static final String CURRENT_FRAGMENT_INDEX = "=CurrentFragmentIndex";
 
     private BottomNavigation mBottomNavigation;
+    private Fragment mCurrentFragment;
+    private int mCurrentFragmentIndex;
     private DailyGankFragment dailyGankFragment;
     private LikeFragment likeFragment;
     private MeizhiFragment meizhiFragment;
-    private SettingFragment settingFragment;
+    private MoreFragment moreFragment;
+    private FragmentManager manager;
+
+    private View mContainer;
+
+
+    @Override protected int loadView() {
+        return R.layout.activity_main;
+    }
+
+    @Override protected void initView() {
+        mContainer = findViewById(R.id.main_activity_container);
+        mBottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
+        if (mBottomNavigation != null) {
+            mBottomNavigation.setOnMenuItemClickListener(this);
+            mBottomNavigation.setBackgroundColor(
+                ThemeUtils.getColorById(this, R.color.theme_color_primary));
+        }
+        manager = getFragmentManager();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        initUI();
-    }
-
-    private void initUI(){
-        Toolbar mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mToolbar);
-        setTitle(R.string.app_name);
-        mBottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
-        if (null != mBottomNavigation) {
-            mBottomNavigation.setOnMenuItemClickListener(this);
+        //解决内存重启导致Fragment重叠的问题
+        if (savedInstanceState != null) {
+            dailyGankFragment = (DailyGankFragment) manager.findFragmentByTag(
+                DailyGankFragment.class.getSimpleName());
+            likeFragment = (LikeFragment) manager.findFragmentByTag(
+                LikeFragment.class.getSimpleName());
+            meizhiFragment = (MeizhiFragment) manager.findFragmentByTag(
+                MeizhiFragment.class.getSimpleName());
+            moreFragment = (MoreFragment) manager.findFragmentByTag(
+                MeizhiFragment.class.getSimpleName());
+            //TODO 只是展示一个，如果有另外的，没有hide，会不会出现重叠？
+            switch (savedInstanceState.getInt(CURRENT_FRAGMENT_TAG)) {
+                case 0:
+                    manager.beginTransaction().show(dailyGankFragment).commit();
+                    mCurrentFragmentIndex = 0;
+                    break;
+                case 1:
+                    manager.beginTransaction().show(likeFragment).commit();
+                    mCurrentFragmentIndex = 1;
+                    break;
+                case 2:
+                    manager.beginTransaction().show(meizhiFragment).commit();
+                    mCurrentFragmentIndex = 2;
+                    break;
+                case 3:
+                    manager.beginTransaction().show(moreFragment).commit();
+                    mCurrentFragmentIndex = 3;
+                    break;
+            }
+        } else {
+            dailyGankFragment = DailyGankFragment.getInstance();
+            replaceFragmentByTag(dailyGankFragment);
+            mCurrentFragmentIndex = 0;
         }
-        dailyGankFragment = DailyGankFragment.getInstance();
-        replaceFragment(R.id.main_activity_container,dailyGankFragment);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_setting) {
-            Intent intent = new Intent(this,
-                    SettingActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.action_about) {
-            startActivity(new Intent(this, AboutActivity.class));
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     long time = 0;
@@ -74,37 +94,100 @@ public class MainActivity extends BaseActivity implements BottomNavigation.OnMen
     @Override
     public void onBackPressed() {
         if (System.currentTimeMillis() - time > 2000) {
-            ToastUtil.showToastShort(this,R.string.exit_with_two_click);
+            //ToastUtil.showToastShort(this, R.string.exit_with_two_click);
+            Snackbar.make(mContainer, R.string.exit_with_two_click, Snackbar.LENGTH_SHORT).show();
             time = System.currentTimeMillis();
         } else {
             super.onBackPressed();
         }
     }
 
+
+    @Override protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(CURRENT_FRAGMENT_TAG, mCurrentFragment.getClass().getSimpleName());
+        outState.putInt(CURRENT_FRAGMENT_INDEX, mCurrentFragmentIndex);
+    }
+
+
     @Override
     public void onMenuItemSelect(int itemId, int position) {
-       /* if(itemId == R.id.bbn_more){
-            FragmentManager manager = getFragmentManager();
-            manager.beginTransaction().replace(R.id.main_activity_container, new SettingFragment()).commit();
-        }else if(itemId == R.id.bbn_daliy){
-            setTitle("干货");
-            replaceFragment(R.id.main_activity_container,new DailyGankFragment());
-        }*/
+        switch (itemId) {
+            case R.id.bbn_daliy:
+                if (mCurrentFragment != dailyGankFragment) {
+                    if (dailyGankFragment == null) {
+                        dailyGankFragment = DailyGankFragment.getInstance();
+                    }
+                    replaceFragmentByTag(dailyGankFragment);
+                    mCurrentFragmentIndex = 0;
+                }
+                break;
+            case R.id.bbn_like:
+                if (mCurrentFragment != likeFragment) {
+                    if (likeFragment == null) {
+                        likeFragment = new LikeFragment();
+                    }
+                    replaceFragmentByTag(likeFragment);
+                    mCurrentFragmentIndex = 1;
+                }
+                break;
+            case R.id.bbn_meizhi:
+                if (mCurrentFragment != meizhiFragment) {
+                    if (meizhiFragment == null) {
+                        meizhiFragment = new MeizhiFragment();
+                    }
+                    replaceFragmentByTag(meizhiFragment);
+                    mCurrentFragmentIndex = 2;
+                }
+
+                break;
+            case R.id.bbn_more:
+                if (mCurrentFragment != moreFragment) {
+                    if (moreFragment == null) {
+                        moreFragment = new MoreFragment();
+                    }
+                    replaceFragmentByTag(moreFragment);
+                    mCurrentFragmentIndex = 3;
+                }
+                break;
+            default:
+                break;
+        }
     }
+
 
     //双击
     @Override
     public void onMenuItemReselect(int itemId, int position) {
-
+        switch (itemId) {
+            case R.id.bbn_daliy:
+                dailyGankFragment.loadTodayDailyData();
+                break;
+            case R.id.bbn_like:
+                break;
+            case R.id.bbn_meizhi:
+                break;
+            case R.id.bbn_more:
+                break;
+        }
     }
 
-    public void replaceFragment(int resId,Fragment fragment) {
-        FragmentManager manager = getFragmentManager();
-        manager.beginTransaction().replace(resId, fragment).commit();
+
+    public void replaceFragmentByTag(Fragment fragment) {
+        if (mCurrentFragment == null) {
+            manager.beginTransaction().add(R.id.main_activity_container, fragment,
+                fragment.getClass().getSimpleName()).commit();
+        } else {
+            if (fragment.isAdded()) {
+                manager.beginTransaction().hide(mCurrentFragment).show(fragment).commit();
+            } else {
+                manager.beginTransaction().hide(mCurrentFragment)
+                    .add(R.id.main_activity_container, fragment,
+                        fragment.getClass().getSimpleName())
+                    .commit();
+            }
+        }
+        mCurrentFragment = fragment;
     }
 
-    @Override
-    public Object createPresenter() {
-        return null;
-    }
 }

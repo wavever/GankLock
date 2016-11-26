@@ -47,20 +47,26 @@ public abstract class BasePresenter<V> {
 
     //在Presenter中实现Fragment的生命周期
 
-    public void onFragmentLifeCreateView(){}
+    public void onFragmentLifeAttach(){}//Fragment与Activity关联时调用
 
     public void onFragmentLifeCreate(){}
 
+    public void onFragmentLifeCreateView(){}//Fragment加载布局时调用
+
     public void onFragmentLifeActivityCreated(){}
 
-    public void onFragmentLifeResume(){}
-
     public void onFragmentLifeStart(){}
+
+    public void onFragmentLifeResume(){}
 
     public void onFragmentLifePause(){}
 
     public void onFragmentLifeStop(){}
 
+    public void onFragmentLifeDestroyView(){}//Fragment中的布局被移除时调用
+
     public void onFragmentLifeDestory(){}
+
+    public void onFragmentLifeDetach(){}//Fragment与Activity解除关联时调用
 }
 

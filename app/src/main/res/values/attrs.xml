@@ -4,4 +4,15 @@
         <attr name="arrow_width" format="dimension" />
         <attr name="arrow_height" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="ColorfulCircleView">
+        <attr name="ccv_icon" format="reference"/>
+        <attr name="ccv_text" format="string|reference"/>
+        <attr name="ccv_text_color" format="color"/>
+        <attr name="ccv_text_size" format="dimension"/>
+        <attr name="ccv_background_color" format="color"/>
+        <attr name="ccv_padding" format="dimension"/>
+        <attr name="ccv_auto_capital" format="boolean"/>
+        <attr name="ccv_random_color_bg" format="boolean"/>
+    </declare-styleable>
 </resources>

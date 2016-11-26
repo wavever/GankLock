@@ -3,29 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/AppBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fitsSystemWindows="false"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-    </android.support.design.widget.AppBarLayout>
-
     <FrameLayout
         android:id="@+id/main_activity_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behaviot="@string/appbar_scrolling_view_behavior"/>
-
+        android:layout_height="match_parent"/>
     <it.sephiroth.android.library.bottomnavigation.BottomNavigation
         android:id="@+id/BottomNavigation"
         android:layout_width="match_parent"
@@ -34,5 +15,5 @@
         app:bbn_badgeProvider="@string/bbn_badgeProvider"
         app:bbn_entries="@menu/bottombar_menu_4items"
         app:bbn_scrollEnabled="true"
-        app:layout_behavior="@string/bbn_phone_view_behavior" />
+        app:layout_behavior="@string/bbn_phone_view_behavior"/>
 </android.support.design.widget.CoordinatorLayout>

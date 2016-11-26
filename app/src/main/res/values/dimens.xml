@@ -8,29 +8,25 @@
     <dimen name="unlock_arrow_stroke_width">1.5dp</dimen>
     <dimen name="unlock_arrow_animation_distance">18dp</dimen>
     <dimen name="unlock_arrow_gap">8dp</dimen>
-    <dimen name="setting_tv_size">24sp</dimen>
 
     <!--width&height-->
     <dimen name="toolbar_shadow_height">6dp</dimen>
     <dimen name="about_app_bar_height">230dp</dimen>
-    <dimen name="app_bar_height">400dp</dimen>
-    <dimen name="item_img_list_height">180dp</dimen>
 
+    <!--DailyGankFragment-->
 
-    <!--darkeet-->
-    <dimen name="text_size_gank_title">14sp</dimen>
-    <dimen name="padding_gank_item">14dp</dimen>
-    <dimen name="padding_vertical_gank_item">8dp</dimen>
-    <dimen name="text_size_gank_category">18sp</dimen>
+    <!--LikeFragment-->
 
+    <!--MeizhiFragment-->
 
-    <dimen name="text_size">20sp</dimen>
-    <dimen name="margin_size">10dp</dimen>
-    <item name="parallax_speed_slow" format="float" type="dimen">2.5</item>
-    <item name="parallax_speed_medium" format="float" type="dimen">5.0</item>
-    <item name="parallax_speed_fast" format="float" type="dimen">10.0</item>
-    <item name="parallax_speed_very_fast" format="float" type="dimen">20.0</item>
-    <item name="parallax_speed_slow_rev" format="float" type="dimen">-2.5</item>
-    <item name="parallax_speed_medium_rev" format="float" type="dimen">-5.0</item>
-    <item name="parallax_speed_fast_rev" format="float" type="dimen">-10.0</item>
+    <!--MoreFragment-->
+    <dimen name="more_fragment_app_bar_layout">200dp</dimen>
+    <dimen name="padding">16dp</dimen>
+    <dimen name="textsize_large">18sp</dimen>
+
+    <!--PhotoActivity-->
+    <dimen name="photo_activity_option_padding_bottom">10dp</dimen>
+    <dimen name="photo_activity_save_text_size">16sp</dimen>
+    <dimen name="photo_activity_save_margin_right">20dp</dimen>
+    <dimen name="photo_activity_save_margin_bottom">12dp</dimen>
 </resources>

@@ -46,15 +46,14 @@ android {
               storePassword keyProps["keyStorePassword"]
               keyPassword keyProps["keyPassword"]*/
         }
-
-        /* release {
+         release {
              // release版本使用assert确保存在该属性否则报错，避免错误打包
              assert localProps['keystore.props.file'];
              storeFile file(keyProps["store"])
              keyAlias keyProps["alias"]
              storePassword keyProps["keyStorePassword"]
              keyPassword keyProps["keyPassword"]
-         }*/
+         }
     }
 
     buildTypes {
@@ -68,15 +67,16 @@ android {
             signingConfig signingConfigs.debug
             debuggable true
         }
-        /*release {
+        release {
             //不显示LOG
             buildConfigField "boolean", "LOG_DEBUG", "false"
-            minifyEnabled true
+            //混淆
+            minifyEnabled false
             //移除无用的res
-            shrinkResources true
+            shrinkResources false
             zipAlignEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'),
-                    'proguard-rules.pro'
+           /* proguardFiles getDefaultProguardFile('proguard-android.txt'),
+                    'proguard-rules.pro'*/
             signingConfig signingConfigs.release
             //apk输出格式
             applicationVariants.all { variant ->
@@ -89,7 +89,7 @@ android {
                     }
                 }
             }
-        }*/
+        }
     }
 
     //友盟多渠道打包
@@ -98,6 +98,7 @@ android {
         wandoujia {}
         baidu {}
         fir {}
+        qihu360 {}
     }
 
     productFlavors.all {
@@ -116,18 +117,24 @@ repositories {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile rootProject.ext.dependencies["appcompat-v7"]
-    compile rootProject.ext.dependencies["recyclerview-v7"]
-    compile rootProject.ext.dependencies["cardview-v7"]
-    compile rootProject.ext.dependencies["design"]
-    compile rootProject.ext.dependencies["gson"]
-    compile rootProject.ext.dependencies["rxandroid"]
-    compile rootProject.ext.dependencies["retrofit"]
-    compile rootProject.ext.dependencies["converter-gson"]
-    compile rootProject.ext.dependencies["adapter-rxjava"]
-    compile rootProject.ext.dependencies["materialpreference"]
-    compile rootProject.ext.dependencies["activeandroid"]
-    compile rootProject.ext.dependencies["patternlock"]
-    compile rootProject.ext.dependencies["mvp"]
-    compile rootProject.ext.dependencies["bottomnavigation"]
+    compile 'com.android.support:appcompat-v7:25.0.0'
+    compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'com.android.support:cardview-v7:25.0.0'
+    compile 'com.android.support:design:25.0.0'
+    compile 'com.google.code.gson:gson:2.7'
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'com.squareup.retrofit2:retrofit:2.1.0'
+    compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    compile 'com.jenzz:materialpreference:1.3'
+    compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
+    compile 'it.sephiroth.android.library.bottomnavigation:bottom-navigation:1.0.7'
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.2'
+    compile 'com.github.chrisbanes:PhotoView:1.3.0'
+    compile 'com.bilibili:magicasakura:0.1.1@aar'
+    compile 'com.artit-k:license-fragment:1.3.0'
+    //debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
+    //releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
 }

@@ -2,23 +2,21 @@ package me.wavever.ganklock.ui.widget;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
-
-import me.wavever.ganklock.util.DisplayUtil;
+import me.wavever.ganklock.keyguard.LockManager;
+import me.wavever.ganklock.utils.UIUtil;
 
 /**
  * Created by wavever on 2016/7/24.
- * TODO 还要解决：滑动的机制，滑动时arrow抖动
  */
 public class HorizonalSlideUnLockLayout extends RelativeLayout {
 
     private float mStartX;
-    private int mWidth = DisplayUtil.getScreenSize()[0];
+    private int mWidth = UIUtil.getScreenSize()[0];
     private HorizonalSlideUnLockLayout mMoveView;
-    private OnHorizonalLayoutUnLock onHorizonalLayoutUnLock;
+    private OnSwipeUnLockListener onHorizonalLayoutUnLock;
 
     public HorizonalSlideUnLockLayout(Context context) {
         this(context, null);
@@ -31,12 +29,14 @@ public class HorizonalSlideUnLockLayout extends RelativeLayout {
     public HorizonalSlideUnLockLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         mMoveView = this;
-        setBackgroundColor(Color.TRANSPARENT);
+        //setBackgroundColor(Color.TRANSPARENT);
     }
 
-    public OnHorizonalLayoutUnLock getOnHorizonalLayoutUnLock() {
-        return onHorizonalLayoutUnLock;
+
+    public void setOnHorizonalLayoutUnLock(OnSwipeUnLockListener onHorizonalLayoutUnLock) {
+        this.onHorizonalLayoutUnLock = onHorizonalLayoutUnLock;
     }
+
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
@@ -51,8 +51,8 @@ public class HorizonalSlideUnLockLayout extends RelativeLayout {
                 handlerMoveView(x);
                 break;
             case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_CANCEL:
                 doTriggerEvent(x);
+            case MotionEvent.ACTION_CANCEL:
                 break;
         }
 
@@ -79,16 +79,18 @@ public class HorizonalSlideUnLockLayout extends RelativeLayout {
     private void doTriggerEvent(float x) {
         float moveX = x - mStartX;
         ObjectAnimator animator;
-        if(moveX > mWidth / 4){
+        if(moveX > mWidth / 3){
             animator = ObjectAnimator.ofFloat(mMoveView,"translationX",mWidth-mMoveView.getLeft());
             onHorizonalLayoutUnLock.onUnLock();//回调解锁事件
+            LockManager.removeLockView();
         }else{
             animator = ObjectAnimator.ofFloat(mMoveView,"translationX",-mMoveView.getLeft());
         }
         animator.setDuration(250).start();
     }
 
-    public interface OnHorizonalLayoutUnLock{
+    public interface OnSwipeUnLockListener{
+        void onSwipe();
         void onUnLock();
     }
 }

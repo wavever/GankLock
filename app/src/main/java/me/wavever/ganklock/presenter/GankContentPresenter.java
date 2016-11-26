@@ -1,50 +1,40 @@
 package me.wavever.ganklock.presenter;
 
 
-import java.util.ArrayList;
 import java.util.List;
-
-import me.wavever.ganklock.MyApplication;
-import me.wavever.ganklock.config.Config;
-import me.wavever.ganklock.model.GankDataImpl;
-import me.wavever.ganklock.model.IGankModel;
 import me.wavever.ganklock.model.bean.Gank;
+import me.wavever.ganklock.model.data.ContentGankData;
+import me.wavever.ganklock.utils.LogUtil;
 import me.wavever.ganklock.view.IGankContentView;
+import rx.Subscriber;
 
 /**
  * Created by wavever on 2016/3/4.
  */
 public class GankContentPresenter extends BasePresenter<IGankContentView>{
 
-    private static final String TAG = GankContentPresenter.class.getSimpleName();
+    private static String TAG = GankContentPresenter.class.getSimpleName()+"-->";
+    private ContentGankData contentGankData = new ContentGankData();
 
-    private String date;
-    private String girlUrl;
+    public void loadContentData(String date){
+        Subscriber<List<Gank>> subscriber = new Subscriber<List<Gank>>() {
+            @Override public void onCompleted() {
+            }
 
-    private IGankModel gankModel;
+            @Override public void onError(Throwable e) {
+                LogUtil.d(TAG+e.getMessage());
+                getView().showError();
+            }
 
 
-    private List<Gank> mList;
-    private IGankContentView gankContentView;
-
-
-    public GankContentPresenter() {
-        gankModel = new GankDataImpl();
-        mList = new ArrayList<>();
-        gankContentView = getView();
+            @Override public void onNext(List<Gank> list) {
+                getView().showData(list);
+            }
+        };
+        contentGankData.getDailyGankDataFromServer(date,subscriber);
     }
 
 
-    public String getGirlUrl() {
-        return girlUrl;
-    }
 
-
-    public void loadFromDB() {
-        gankContentView.completeGetData(MyApplication.getSp().getString(Config
-                .LAST_GET_DATE, ""));
-        gankContentView.fillData(gankModel.loadFromDB(),
-                MyApplication.getSp().getString("girl", "null"));
-    }
 
 }

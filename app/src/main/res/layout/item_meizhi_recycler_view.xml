@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <me.wavever.ganklock.ui.widget.RatioImageView
+        android:id="@+id/item_photo"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_margin="4dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"/>
+</FrameLayout>

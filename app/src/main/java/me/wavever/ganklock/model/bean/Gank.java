@@ -7,10 +7,11 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by WAVE on 2015/12/24.
+ * Created by wavever on 2015/12/24.
  */
 @Table(name = "Ganks") public class Gank extends Model implements Serializable {
 
+    @Column(name = "_id") private String _id;
     @Column(name = "url") private String url;
     @Column(name = "desc") private String desc;
     @Column(name = "who") private String who;
@@ -19,15 +20,21 @@ import java.util.Date;
     @Column(name = "createdAt") private Date createdAt;
     //2016-03-10T12:54:31.68Z->2016/03/10
     @Column(name = "publishedAt") private Date publishedAt;
+    private boolean isLike;
+
+
+    public String get_id() {
+        return _id;
+    }
+
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
 
 
     public String getUrl() {
         return url;
-    }
-
-
-    public void setUrl(String url) {
-        this.url = url;
     }
 
 
@@ -36,18 +43,8 @@ import java.util.Date;
     }
 
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
-
-
     public String getWho() {
         return who;
-    }
-
-
-    public void setWho(String who) {
-        this.who = who;
     }
 
 
@@ -56,18 +53,8 @@ import java.util.Date;
     }
 
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-
     public boolean isUsed() {
         return used;
-    }
-
-
-    public void setUsed(boolean used) {
-        this.used = used;
     }
 
 
@@ -76,17 +63,16 @@ import java.util.Date;
     }
 
 
-    public void setCreateAt(Date createAt) {
-        this.createdAt = createAt;
-    }
-
-
     public Date getPublishedAt() {
         return publishedAt;
     }
 
 
-    public void setPublishedAt(Date publishedAt) {
-        this.publishedAt = publishedAt;
+    public void setIsLike(boolean like) {
+        isLike = like;
+    }
+
+    public boolean getIsLike() {
+        return isLike;
     }
 }
