@@ -38,6 +38,9 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
     public static final String KEY_PHOTO_URL = "key_photo_url";
     public static final String KEY_PHOTO_ID = "key_photo_id";
     public static final String KEY_ACTIVITY_JUMPED = "key_activity_jumped";
+    public static final int ACTIVITY_JUMPER_FROM_DAILY = 0;
+    public static final int ACTIVITY_JUMPER_FROM_MEIZHI = 1;
+
     private static final int REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 1;
 
     private ImageView mPhoto;
@@ -78,32 +81,36 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
 
 
     @Override protected void initView() {
-        photoUrl = getIntent().getStringExtra(KEY_PHOTO_URL);
-        photoID = getIntent().getStringExtra(KEY_PHOTO_ID);
         mPhoto = (ImageView) findViewById(R.id.photo_view);
+        photoUrl = getIntent().getStringExtra(KEY_PHOTO_URL);
         mOptionLayout = (LinearLayout) findViewById(R.id.photo_bottom_option);
-        if(getIntent().getIntExtra(KEY_ACTIVITY_JUMPED,-1)==0){
-            mOptionLayout.setVisibility(GONE);
-        }
-        mSend = (TextView) findViewById(R.id.photo_share);
-        mSend.setOnClickListener(this);
-        mSetWallPaper = (TextView) findViewById(R.id.photo_wallpaper);
-        mSetWallPaper.setOnClickListener(this);
         mSave = (TextView) findViewById(R.id.photo_save);
         mSave.setOnClickListener(this);
-        mLockWallPaper = (TextView) findViewById(R.id.photo_lock);
-        mLockWallPaper.setOnClickListener(this);
-        //TODO:可以添加到PhotoUtil中
-        new Thread(new Runnable() {
-            @Override public void run() {
-                try {
-                    //同步加载一张图片,注意只能在子线程中调用并且Bitmap不会被缓存到内存里.
-                    mBitmap = Picasso.with(PhotoActivity.this).load(photoUrl).get();
-                } catch (IOException e) {
-                    e.printStackTrace();
+        if(getIntent().getIntExtra(KEY_ACTIVITY_JUMPED,0)==0){
+            mOptionLayout.setVisibility(GONE);
+            photoID = getIntent().getStringExtra(KEY_PHOTO_ID);
+            //TODO:可以添加到PhotoUtil中
+            new Thread(new Runnable() {
+                @Override public void run() {
+                    try {
+                        //同步加载一张图片,注意只能在子线程中调用并且Bitmap不会被缓存到内存里.
+                        mBitmap = Picasso.with(PhotoActivity.this).load(photoUrl).get();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
-            }
-        }).start();
+            }).start();
+        }else {
+            mSave.setVisibility(GONE);
+            mSend = (TextView) findViewById(R.id.photo_share);
+            mSend.setOnClickListener(this);
+            mSetWallPaper = (TextView) findViewById(R.id.photo_wallpaper);
+            mSetWallPaper.setOnClickListener(this);
+            mLockWallPaper = (TextView) findViewById(R.id.photo_lock);
+            mLockWallPaper.setOnClickListener(this);
+        }
+
+
     }
 
 
@@ -128,7 +135,7 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
                 break;
             case R.id.photo_wallpaper:
                 break;
-            case R.id.photo_download:
+            case R.id.photo_save:
                 if(SystemUtil.isNetworkAvailable()){
                     downLoadMeizhi();
                 }else{

@@ -1,5 +1,6 @@
 package me.wavever.ganklock.ui.fragment;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,8 +12,8 @@ import java.util.List;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.event.ClickEvent;
 import me.wavever.ganklock.event.RxBus;
-import me.wavever.ganklock.event.StatusEvent;
 import me.wavever.ganklock.presenter.MeiZhiPresenter;
+import me.wavever.ganklock.ui.activity.PhotoActivity;
 import me.wavever.ganklock.ui.adapter.MeizhiRecyclerViewAdapter;
 import me.wavever.ganklock.utils.LogUtil;
 import me.wavever.ganklock.utils.ToastUtil;
@@ -26,6 +27,8 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
     implements IMeiZhiView {
 
     private static final String TAG = MeizhiFragment.class.getSimpleName() + "-->";
+
+    private static int sClickCount = 0;
 
     private RecyclerView mRecyclerView;
     private MeizhiRecyclerViewAdapter mAdapter;
@@ -56,7 +59,10 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
                 @Override public void call(ClickEvent clickEvent) {
                     if (clickEvent.eventType == ClickEvent.CLICK_TYPE_MEIZHI) {
                         ToastUtil.showToastShort(mContext, "点击了" + clickEvent.position);
-
+                        Intent intent = new Intent(mContext, PhotoActivity.class);
+                        intent.putExtra(PhotoActivity.KEY_ACTIVITY_JUMPED,PhotoActivity.ACTIVITY_JUMPER_FROM_MEIZHI);
+                        intent.putExtra(PhotoActivity.KEY_PHOTO_URL,clickEvent.position);
+                        startActivity(intent);
                     }
                 }
             });
@@ -101,17 +107,12 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
     @Override public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
-            LogUtil.d(TAG + "onHiddenChanged执行--》展示");
-            mSubscrition = RxBus.getInstance().tObservable(StatusEvent.class).subscribe(
-                new Action1<StatusEvent>() {
-                    @Override public void call(StatusEvent statusEvent) {
-                        if (statusEvent.type == StatusEvent.TYPE_ON_PHOTO_FILE_CHANGE) {
-                            getPresenter().loadMeizhi();
-                            LogUtil.d(TAG + "File变化，重新加载Meizhi数据");
-                        }
-                    }
-                });
-
+            sClickCount++;
+            LogUtil.d(TAG + "onHiddenChanged执行--》展示+****点击第"+sClickCount+"次");
+            if(sClickCount%2==0){
+                getPresenter().loadMeizhi();
+                LogUtil.d(TAG+"Meizhi重新加载");
+            }
         } else {
             LogUtil.d(TAG + "onHiddenChanged执行--》隐藏");
         }

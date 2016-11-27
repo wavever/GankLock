@@ -3,18 +3,28 @@
     android:id="@+id/slide_layout_test"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
+
+    <me.wavever.ganklock.ui.widget.RatioImageView
         android:id="@+id/lock_view_img_test"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        />
+        android:scaleType="centerCrop"/>
+
+    <me.wavever.ganklock.ui.widget.UnlockArrowHolder
+        android:id="@+id/lock_view_arrow_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="20dp"/>
+
     <LinearLayout
         android:id="@+id/lock_view_time_layout_test"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:orientation="vertical">
+
         <TextClock
             android:id="@+id/lock_view_time_test"
             android:layout_width="match_parent"
@@ -22,7 +32,9 @@
             android:fontFamily="sans-serif-thin"
             android:format24Hour="H:mm"
             android:paddingLeft="10dp"
+            android:textColor="@color/white"
             android:textSize="70sp"/>
+
         <TextView
             android:id="@+id/lock_view_date_test"
             android:layout_width="match_parent"
@@ -31,11 +43,4 @@
             android:paddingLeft="10dp"
             android:textSize="18sp"/>
     </LinearLayout>
-    <me.wavever.ganklock.ui.widget.UnlockArrowHolder
-        android:id="@+id/lock_view_arrow_test"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-        android:layout_gravity="center|bottom"
-        android:layout_marginBottom="20dp"/>
 </me.wavever.ganklock.ui.widget.SwipeUnLockLayout>

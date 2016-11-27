@@ -11,8 +11,6 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import me.wavever.ganklock.event.RxBus;
-import me.wavever.ganklock.event.StatusEvent;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
@@ -57,7 +55,6 @@ public class PhotoUtil {
             .subscribe(new Action1<String>() {
                 @Override public void call(String s) {
                     Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
-                    RxBus.getInstance().post(new StatusEvent(StatusEvent.TYPE_ON_PHOTO_FILE_CHANGE));
                 }
             });
     }
