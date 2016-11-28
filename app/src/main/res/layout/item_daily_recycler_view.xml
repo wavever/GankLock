@@ -18,7 +18,7 @@
         android:id="@+id/daily_item_image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/gank2"
+        android:src="@drawable/test_image"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"/>
 

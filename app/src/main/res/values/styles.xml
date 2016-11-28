@@ -44,7 +44,7 @@
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/gray_dark</item>
         <item name="android:textSize">16sp</item>
-        <item name="android:drawableTop">@drawable/empty2</item>
+        <item name="android:drawableTop">@drawable/empty_icon</item>
         <item name="android:drawablePadding">30dp</item>
     </style>
 

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.RelativeLayout;
-import me.wavever.ganklock.keyguard.LockManager;
 import me.wavever.ganklock.utils.UIUtil;
 
 /**
@@ -82,7 +81,6 @@ public class HorizonalSlideUnLockLayout extends RelativeLayout {
         if(moveX > mWidth / 3){
             animator = ObjectAnimator.ofFloat(mMoveView,"translationX",mWidth-mMoveView.getLeft());
             onHorizonalLayoutUnLock.onUnLock();//回调解锁事件
-            LockManager.removeLockView();
         }else{
             animator = ObjectAnimator.ofFloat(mMoveView,"translationX",-mMoveView.getLeft());
         }

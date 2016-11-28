@@ -1,6 +1,6 @@
 package me.wavever.ganklock.view;
 
-import android.graphics.Bitmap;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -8,7 +8,7 @@ import java.util.List;
  */
 public interface IMeiZhiView extends IBaseView{
 
-    void showMeizhi(List<Bitmap> list);
+    void showMeizhi(List<File> list);
     void showEmptyView();
     void showErrorView();
 }

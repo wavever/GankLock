@@ -1,0 +1,1 @@
+ALTER TABLE Ganks ADD COLUMN _id text;

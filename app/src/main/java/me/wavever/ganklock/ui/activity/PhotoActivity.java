@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
-import java.io.IOException;
+import java.io.File;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.utils.LogUtil;
 import me.wavever.ganklock.utils.PhotoUtil;
@@ -45,13 +45,14 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
 
     private ImageView mPhoto;
     private Bitmap mBitmap;
-    private String photoUrl;
-    private String photoID;
+    private String mPhotoUrl;
+    private String mPhotoID;
+    private File mFile;
     private PhotoViewAttacher mAttacher;
     private LinearLayout mOptionLayout;
     private TextView mSend;
     private TextView mSetWallPaper;
-    private TextView mLockWallPaper;
+    private TextView mDeleteWallPaper;
     private TextView mSave;
 
 
@@ -65,7 +66,6 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
                     View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                     View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE);
         }
-        Picasso.with(this).load(photoUrl).into(mPhoto);
         mAttacher = new PhotoViewAttacher(mPhoto);
         mAttacher.setOnViewTapListener(new OnViewTapListener() {
             @Override public void onViewTap(View view, float x, float y) {
@@ -82,39 +82,34 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
 
     @Override protected void initView() {
         mPhoto = (ImageView) findViewById(R.id.photo_view);
-        photoUrl = getIntent().getStringExtra(KEY_PHOTO_URL);
         mOptionLayout = (LinearLayout) findViewById(R.id.photo_bottom_option);
         mSave = (TextView) findViewById(R.id.photo_save);
         mSave.setOnClickListener(this);
-        if(getIntent().getIntExtra(KEY_ACTIVITY_JUMPED,0)==0){
+        if (getIntent().getIntExtra(KEY_ACTIVITY_JUMPED, 0) == 0) {
             mOptionLayout.setVisibility(GONE);
-            photoID = getIntent().getStringExtra(KEY_PHOTO_ID);
-            //TODO:可以添加到PhotoUtil中
-            new Thread(new Runnable() {
-                @Override public void run() {
-                    try {
-                        //同步加载一张图片,注意只能在子线程中调用并且Bitmap不会被缓存到内存里.
-                        mBitmap = Picasso.with(PhotoActivity.this).load(photoUrl).get();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-        }else {
+            mPhotoUrl = getIntent().getStringExtra(KEY_PHOTO_URL);
+            mPhotoID = getIntent().getStringExtra(KEY_PHOTO_ID);
+            Picasso.with(this).load(mPhotoUrl).into(mPhoto);
+        } else {
+            mFile = (File) getIntent().getSerializableExtra(KEY_PHOTO_URL);
+            mPhoto.setImageBitmap(
+                PhotoUtil.decodeSampledBitmapFromFile(mFile.getAbsolutePath(), mPhoto.getWidth(),
+                    mPhoto.getHeight()));
             mSave.setVisibility(GONE);
             mSend = (TextView) findViewById(R.id.photo_share);
             mSend.setOnClickListener(this);
             mSetWallPaper = (TextView) findViewById(R.id.photo_wallpaper);
             mSetWallPaper.setOnClickListener(this);
-            mLockWallPaper = (TextView) findViewById(R.id.photo_lock);
-            mLockWallPaper.setOnClickListener(this);
+            mDeleteWallPaper = (TextView) findViewById(R.id.photo_delete);
+            mDeleteWallPaper.setOnClickListener(this);
         }
-
 
     }
 
 
     boolean isHide;
+
+
     private void hideBottomOption() {
         if (!isHide) {
             mOptionLayout.animate()
@@ -131,15 +126,15 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
     @Override public void onClick(View v) {
         switch (v.getId()) {
             case R.id.photo_share:
-                PhotoUtil.sharePhoto(this, photoUrl);
+                PhotoUtil.sharePhoto(this, mFile);
                 break;
             case R.id.photo_wallpaper:
                 break;
             case R.id.photo_save:
-                if(SystemUtil.isNetworkAvailable()){
+                if (SystemUtil.isNetworkAvailable()) {
                     downLoadMeizhi();
-                }else{
-                    Snackbar.make(mPhoto,"好像没网哎~",Snackbar.LENGTH_SHORT).show();
+                } else {
+                    Snackbar.make(mPhoto, "好像没网哎~", Snackbar.LENGTH_SHORT).show();
                 }
                 break;
         }
@@ -149,7 +144,7 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
     private void downLoadMeizhi() {
         LogUtil.d(TAG + Build.VERSION.SDK_INT);
         if (VERSION.SDK_INT < Build.VERSION_CODES.M) {
-            PhotoUtil.savePhotoByBitmap(this, mBitmap, photoID);
+            PhotoUtil.savePhotoByBitmap(this, mBitmap, mPhotoID);
             return;
         }
         //没有授权
@@ -160,7 +155,7 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
                 new String[] { Manifest.permission.WRITE_EXTERNAL_STORAGE },
                 REQUEST_CODE_WRITE_EXTERNAL_STORAGE);
         } else {
-            PhotoUtil.savePhotoByBitmap(this, mBitmap, photoID);
+            PhotoUtil.savePhotoByBitmap(this, mBitmap, mPhotoID);
         }
     }
 
@@ -174,7 +169,7 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
             case REQUEST_CODE_WRITE_EXTERNAL_STORAGE:
                 if (grantResults.length > 0 &&
                     grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    PhotoUtil.savePhotoByBitmap(this, mBitmap, photoID);
+                    PhotoUtil.savePhotoByBitmap(this, mBitmap, mPhotoID);
                 } else {
                     Snackbar.make(mPhoto, "我的天哪！拒绝了怎么存？", Snackbar.LENGTH_LONG).setAction("点错啦..",
                         new View.OnClickListener() {

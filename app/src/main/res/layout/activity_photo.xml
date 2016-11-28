@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:src="@drawable/gank2"/>
+        tools:src="@drawable/test_image"/>
 
     <LinearLayout
         android:id="@+id/photo_bottom_option"
@@ -39,11 +39,11 @@
 
         <TextView
             style="@style/PhotoActivityBottomOption"
-            android:id="@+id/photo_lock"
+            android:id="@+id/photo_delete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableTop="@drawable/ic_settings_white_36dp"
-            android:text="设为锁屏"/>
+            android:text="删除"/>
     </LinearLayout>
 
     <TextView

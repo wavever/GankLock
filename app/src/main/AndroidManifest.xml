@@ -61,10 +61,7 @@
             android:name=".ui.activity.PhotoActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name=".ui.activity.TestActivity"
-            android:screenOrientation="portrait"/>
-        <activity
-            android:name=".ui.activity.JustLockActivity"
+            android:name=".ui.activity.LockActivity"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.activity.LicenseActivity"

@@ -11,16 +11,15 @@ import me.wavever.ganklock.R;
 import me.wavever.ganklock.ui.widget.SwipeUnLockLayout;
 import me.wavever.ganklock.ui.widget.SwipeUnLockLayout.OnSwipeListener;
 import me.wavever.ganklock.utils.DateUtil;
-import me.wavever.ganklock.utils.LogUtil;
 import me.wavever.ganklock.utils.PreferenceUtil;
 
 /**
  * Created by wavever on 2016/10/14.
  */
 
-public class JustLockActivity extends BaseActivity implements OnSwipeListener {
+public class LockActivity extends BaseActivity implements OnSwipeListener {
 
-    private static final String TAG = JustLockActivity.class.getSimpleName();
+    private static final String TAG = LockActivity.class.getSimpleName();
 
     private TextView mLockViewDate;
     private ImageView mImg;
@@ -29,9 +28,8 @@ public class JustLockActivity extends BaseActivity implements OnSwipeListener {
 
 
     @Override protected int loadView() {
-        return R.layout.view_lock_test;
+        return R.layout.activity_lock;
     }
-
 
     @Override protected void initView() {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
@@ -42,21 +40,19 @@ public class JustLockActivity extends BaseActivity implements OnSwipeListener {
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                 View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE);
         SwipeUnLockLayout swipeUnLockLayout = (SwipeUnLockLayout) findViewById(
-            R.id.slide_layout_test);
+            R.id.slide_layout);
         swipeUnLockLayout.setOnSwipeListener(this);
-        mLockViewDate = (TextView) findViewById(R.id.lock_view_date_test);
+        mLockViewDate = (TextView) findViewById(R.id.lock_view_date);
         mLockViewDate.setText(DateUtil.getLockDateText());
-        mImg = (ImageView) findViewById(R.id.lock_view_img_test);
+        mImg = (ImageView) findViewById(R.id.lock_view_img);
         url = PreferenceUtil.getString("url");
-        LogUtil.d(TAG + url);
         if (url.isEmpty()) {
-            mImg.setImageResource(R.drawable.gank2);
+            mImg.setImageResource(R.drawable.test_image);
         } else {
             new Thread(new Runnable() {
                 @Override public void run() {
                     try {
-                        //同步加载一张图片,注意只能在子线程中调用并且Bitmap不会被缓存到内存里.
-                        bitmap = Picasso.with(JustLockActivity.this).load(url).get();
+                        bitmap = Picasso.with(LockActivity.this).load(url).get();
                         runOnUiThread(new Runnable() {
                             @Override public void run() {
                                 mImg.setImageBitmap(bitmap);

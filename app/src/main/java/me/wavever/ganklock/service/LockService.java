@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
 import me.wavever.ganklock.config.Config;
-import me.wavever.ganklock.keyguard.LockManager;
 import me.wavever.ganklock.receiver.GankLockReceiver;
 import me.wavever.ganklock.utils.PreferenceUtil;
 
@@ -40,7 +39,6 @@ public class LockService extends Service {
             startService(new Intent(LockService.this,LockService.class));
             return;
         }
-        LockManager.cancleLock();
         unregisterReceiver(receiver);
     }
 

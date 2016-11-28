@@ -106,11 +106,11 @@ public class SwipeUnLockLayout extends FrameLayout {
 
     @Override protected void onFinishInflate() {
         super.onFinishInflate();
-        mTimeLayout = findViewById(R.id.lock_view_time_layout_test);
-        mCLockView = findViewById(R.id.lock_view_time_test);
-        mDateView = findViewById(R.id.lock_view_date_test);
-        mArrow = findViewById(R.id.lock_view_arrow_test);
-        mImg = findViewById(R.id.lock_view_img_test);
+        mTimeLayout = findViewById(R.id.lock_view_time_layout);
+        mCLockView = findViewById(R.id.lock_view_time);
+        mDateView = findViewById(R.id.lock_view_date);
+        mArrow = findViewById(R.id.lock_view_arrow);
+        mImg = findViewById(R.id.lock_view_img);
     }
 
 

@@ -1,12 +1,12 @@
 package me.wavever.ganklock.ui.fragment;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 import com.bilibili.magicasakura.widgets.TintProgressBar;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import me.wavever.ganklock.R;
@@ -16,7 +16,6 @@ import me.wavever.ganklock.presenter.MeiZhiPresenter;
 import me.wavever.ganklock.ui.activity.PhotoActivity;
 import me.wavever.ganklock.ui.adapter.MeizhiRecyclerViewAdapter;
 import me.wavever.ganklock.utils.LogUtil;
-import me.wavever.ganklock.utils.ToastUtil;
 import me.wavever.ganklock.view.IMeiZhiView;
 import rx.functions.Action1;
 
@@ -27,14 +26,12 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
     implements IMeiZhiView {
 
     private static final String TAG = MeizhiFragment.class.getSimpleName() + "-->";
-
     private static int sClickCount = 0;
-
     private RecyclerView mRecyclerView;
     private MeizhiRecyclerViewAdapter mAdapter;
     private TextView mEmptyTip;
     private TintProgressBar mProgressBar;
-    private List<Bitmap> mList;
+    private List<File> mList;
 
 
     @Override
@@ -50,7 +47,7 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
         mRecyclerView.setLayoutManager(manager);
         mEmptyTip = (TextView) mContext.findViewById(R.id.empty_tip_meizhi_fragment);
         mProgressBar = (TintProgressBar) mContext.findViewById(R.id.progress_bar_meizhi_fragment);
-        mAdapter = new MeizhiRecyclerViewAdapter();
+        mAdapter = new MeizhiRecyclerViewAdapter(mContext);
         mRecyclerView.setAdapter(mAdapter);
         mProgressBar.setVisibility(View.VISIBLE);
         getPresenter().loadMeizhi();
@@ -58,10 +55,9 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
             new Action1<ClickEvent>() {
                 @Override public void call(ClickEvent clickEvent) {
                     if (clickEvent.eventType == ClickEvent.CLICK_TYPE_MEIZHI) {
-                        ToastUtil.showToastShort(mContext, "点击了" + clickEvent.position);
                         Intent intent = new Intent(mContext, PhotoActivity.class);
                         intent.putExtra(PhotoActivity.KEY_ACTIVITY_JUMPED,PhotoActivity.ACTIVITY_JUMPER_FROM_MEIZHI);
-                        intent.putExtra(PhotoActivity.KEY_PHOTO_URL,clickEvent.position);
+                        intent.putExtra(PhotoActivity.KEY_PHOTO_URL,mList.get(clickEvent.position));
                         startActivity(intent);
                     }
                 }
@@ -75,7 +71,7 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
     }
 
 
-    @Override public void showMeizhi(List<Bitmap> list) {
+    @Override public void showMeizhi(List<File> list) {
         mProgressBar.setVisibility(View.GONE);
         mEmptyTip.setVisibility(View.GONE);
         if (mList != null) {
@@ -99,10 +95,9 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
 
     @Override public void showErrorView() {
         mProgressBar.setVisibility(View.GONE);
-        mEmptyTip.setText("好像出问题了哎");
+        mEmptyTip.setText("出问题了");
         mEmptyTip.setVisibility(View.VISIBLE);
     }
-
 
     @Override public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);

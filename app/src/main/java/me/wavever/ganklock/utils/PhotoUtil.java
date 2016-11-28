@@ -3,6 +3,7 @@ package me.wavever.ganklock.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -60,12 +61,16 @@ public class PhotoUtil {
     }
 
 
-    public static void sharePhoto(Context context, String url) {
+    public static void sharePhoto(Context context,File file) {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
-        intent.putExtra(Intent.EXTRA_STREAM, "");
+        intent.putExtra(Intent.EXTRA_STREAM,Uri.fromFile(file));
         intent.setType("image/*");
         context.startActivity(Intent.createChooser(intent, "分享到"));
+    }
+
+    public static void setWallPaper(){
+
     }
 
 
@@ -93,5 +98,48 @@ public class PhotoUtil {
             file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - 4));*/
         return file.getAbsolutePath();
     }
+
+    /**
+     * 从File中加载缩放过的图片
+     *
+     * @param path
+     * @param reqWidth
+     * @param reqHeight
+     * @return
+     */
+    public static Bitmap decodeSampledBitmapFromFile(String path, int reqWidth, int reqHeight) {
+        final BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;  //BitmapFactory只会解析图片的原始宽高，不会真正的加载图片
+        BitmapFactory.decodeFile(path,options);
+        options.inSampleSize = calculateInSampleSize(options, reqWidth, reqHeight);
+        options.inJustDecodeBounds = false;
+        return BitmapFactory.decodeFile(path, options);
+    }
+
+    /**
+     * 计算合适的采样率inSampleSize
+     *
+     * @param options
+     * @param reqWidth
+     * @param reqHeight
+     */
+    private static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
+        if(reqWidth == 0 || reqHeight == 0){
+            return 1;
+        }
+        final int width = options.outWidth;
+        final int height = options.outHeight;
+        int inSampleSize = 1;
+        if (width > reqWidth || height > reqHeight) {
+            final int halfWidth = width / 2;
+            final int halfHeight = height / 2;
+            while (halfWidth / inSampleSize >= reqWidth && halfHeight / inSampleSize >= reqHeight) {
+                inSampleSize *= 2;          //inSampleSize的值为2的指数
+            }
+        }
+
+        return inSampleSize;
+    }
+
 
 }
