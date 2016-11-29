@@ -1,7 +1,9 @@
 package me.wavever.ganklock.ui.fragment;
 
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.bilibili.magicasakura.utils.ThemeUtils;
 import com.bilibili.magicasakura.utils.ThemeUtils.ExtraRefreshable;
 import me.wavever.ganklock.MyApplication;
@@ -104,7 +107,13 @@ public class MoreFragment extends BaseFragment<IMoreView, MorePresenter>
                 startActivity(new Intent(mContext, LicenseActivity.class));
                 break;
             case R.id.more_fragment_item_evaluate:
-                ToastUtil.showToastShort(mContext,"评价");
+                Uri uri = Uri.parse("market://details?id=" + mContext.getPackageName());
+                Intent goToMarket = new Intent(Intent.ACTION_VIEW, uri);
+                try {
+                    startActivity(goToMarket);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(mContext, "Couldn't launch the market !", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.more_fragment_item_about:
                 startActivity(new Intent(mContext, AboutActivity.class));

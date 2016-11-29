@@ -42,8 +42,7 @@ public class MeizhiRecyclerViewAdapter extends Adapter<MeizhiViewHolder> {
     @Override
     public void onBindViewHolder(MeizhiViewHolder holder, int position) {
         holder.position = position;
-        Picasso.with(mContext).load(mList.get(position)).resize(140,170).into(holder.img);
-        //holder.img.setImageBitmap(decodeSampledBitmapFromFile(mList.get(position).getAbsolutePath(),90,170));
+        Picasso.with(mContext).load(mList.get(position)).resize(300,300).into(holder.img);
     }
 
 

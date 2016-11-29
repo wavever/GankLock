@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.TextView;
 import com.bilibili.magicasakura.widgets.TintProgressBar;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.event.ClickEvent;
@@ -74,14 +73,7 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
     @Override public void showMeizhi(List<File> list) {
         mProgressBar.setVisibility(View.GONE);
         mEmptyTip.setVisibility(View.GONE);
-        if (mList != null) {
-            mList.clear();
-            LogUtil.d(TAG + "List清理");
-        }else{
-            mList = new ArrayList<>();
-            LogUtil.d(TAG + "初次加载");
-        }
-        mList.addAll(list);
+        mList = list;
         mAdapter.setList(mList);
         mAdapter.notifyDataSetChanged();
     }

@@ -17,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 import java.io.File;
+import java.io.IOException;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.utils.LogUtil;
 import me.wavever.ganklock.utils.PhotoUtil;
@@ -103,6 +104,16 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
             mDeleteWallPaper = (TextView) findViewById(R.id.photo_delete);
             mDeleteWallPaper.setOnClickListener(this);
         }
+        new Thread(new Runnable() {
+            @Override public void run() {
+                try {
+                    //同步加载一张图片,注意只能在子线程中调用并且Bitmap不会被缓存到内存里.
+                    mBitmap = Picasso.with(PhotoActivity.this).load(mPhotoUrl).get();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
     }
 
@@ -129,6 +140,8 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
                 PhotoUtil.sharePhoto(this, mFile);
                 break;
             case R.id.photo_wallpaper:
+                PhotoUtil.setWallPaper(this,mFile);
+                Snackbar.make(mPhoto, "设置成功", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.photo_save:
                 if (SystemUtil.isNetworkAvailable()) {

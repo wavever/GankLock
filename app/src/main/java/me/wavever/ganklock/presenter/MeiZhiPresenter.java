@@ -27,6 +27,9 @@ public class MeiZhiPresenter extends BasePresenter<IMeiZhiView> {
             getView().showEmptyView();
             return;
         }
+        if(!mList.isEmpty()){
+            mList.clear();
+        }
         Observable.from(fileDir.listFiles())
             .filter(new Func1<File, Boolean>() {
                 @Override public Boolean call(File file) {

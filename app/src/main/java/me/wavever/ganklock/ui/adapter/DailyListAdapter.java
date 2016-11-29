@@ -15,7 +15,7 @@ import me.wavever.ganklock.R;
 import me.wavever.ganklock.event.ClickEvent;
 import me.wavever.ganklock.event.RxBus;
 import me.wavever.ganklock.model.bean.GankDaily;
-import me.wavever.ganklock.utils.StringUtil;
+import me.wavever.ganklock.utils.DateUtil;
 
 /**
  * Created by wavever on 2016/9/8.
@@ -42,7 +42,7 @@ public class DailyListAdapter extends Adapter<DailyListAdapter.DailyListViewHold
         public void onBindViewHolder(DailyListViewHolder holder, int position) {
         holder.gankDaily = mDatas.get(position);
         holder.title.setText(mDatas.get(position).title);
-        holder.date.setText(StringUtil.convertDateNum(mDatas.get(position).publishedAt));
+        holder.date.setText(DateUtil.convertDateNum(mDatas.get(position).publishedAt));
         Picasso.with(mContext).load(mDatas.get(position).content).into(holder.img);
     }
 

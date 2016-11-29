@@ -1,18 +1,18 @@
 package me.wavever.ganklock.utils;
 
+import android.app.WallpaperManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.widget.Toast;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import rx.Observable;
+import rx.Observable.OnSubscribe;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -25,7 +25,6 @@ import rx.schedulers.Schedulers;
 public class PhotoUtil {
 
     public static final String KEY_PHOTO_URL = "key_photo_url";
-    private static Bundle bundle = null;
 
     /**
      * @param name 图片的_id
@@ -44,11 +43,9 @@ public class PhotoUtil {
                 }
             }
         }
-        Observable.create(new Observable.OnSubscribe<String>() {
+        Observable.create(new OnSubscribe<String>() {
             @Override public void call(Subscriber<? super String> subscriber) {
                 String photoUrl = createPhoto(context, fileDir, fileName, bitmap);
-                bundle = new Bundle();
-                bundle.putString(KEY_PHOTO_URL,photoUrl);
                 subscriber.onNext("图片已保存至" + photoUrl);
             }
         }).subscribeOn(Schedulers.io())
@@ -69,8 +66,13 @@ public class PhotoUtil {
         context.startActivity(Intent.createChooser(intent, "分享到"));
     }
 
-    public static void setWallPaper(){
-
+    public static void setWallPaper(Context context,File file){
+        WallpaperManager manager = WallpaperManager.getInstance(context);
+        try {
+            manager.setBitmap(BitmapFactory.decodeFile(file.getAbsolutePath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -84,18 +86,16 @@ public class PhotoUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        //把文件插入系统图库
+        /*//把文件插入系统图库
         try {
-            MediaStore.Images.Media.insertImage(context.getContentResolver(),
+            Media.insertImage(context.getContentResolver(),
                 file.getAbsolutePath(), fileName, null);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
         //通知图库更新
         context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
-            Uri.parse("file://" + file.getAbsolutePath())));
-       /* subscriber.onNext(
-            file.getAbsolutePath().substring(0, file.getAbsolutePath().length() - 4));*/
+            Uri.parse("file://" + file.getAbsolutePath())));*/
         return file.getAbsolutePath();
     }
 
