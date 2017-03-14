@@ -42,7 +42,7 @@ public class MeizhiRecyclerViewAdapter extends Adapter<MeizhiViewHolder> {
     @Override
     public void onBindViewHolder(MeizhiViewHolder holder, int position) {
         holder.position = position;
-        Picasso.with(mContext).load(mList.get(position)).resize(300,300).into(holder.img);
+        Picasso.with(mContext).load(mList.get(position)).resize(300,300).centerCrop().into(holder.img);
     }
 
 

@@ -9,7 +9,7 @@ import me.wavever.ganklock.model.bean.GankDaily;
  */
 public interface IDailyGankView extends IBaseView{
     void showLoading();
-    void loadDailyData();
+    void loadDailyData(int page);
     void loadFailure();
     void loadTodayDailyData();
     void showDailyData(List<GankDaily> ganks);

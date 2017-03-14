@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import me.wavever.ganklock.model.bean.GankDaily;
 import me.wavever.ganklock.model.data.DailyGankData;
-import me.wavever.ganklock.utils.LogUtil;
 import me.wavever.ganklock.utils.PreferenceUtil;
 import me.wavever.ganklock.utils.SystemUtil;
 import me.wavever.ganklock.view.IDailyGankView;
@@ -22,23 +21,18 @@ public class DailyGankPresenter extends BasePresenter<IDailyGankView> {
     private DailyGankData dailyGankData = new DailyGankData();
     private List<GankDaily> mList = new ArrayList<>();
 
-
     public void loadDailyData(int page) {
         if (!SystemUtil.isNetworkAvailable()) {
             Observer<List<GankDaily>> observer = new Observer<List<GankDaily>>() {
                 @Override public void onCompleted() {
                 }
 
-
                 @Override public void onError(Throwable e) {
                     getView().loadFailure();
-                    LogUtil.d(TAG + "+数据库空");
                 }
-
 
                 @Override public void onNext(List<GankDaily> gankDailies) {
                     getView().showDailyData(gankDailies);
-                    LogUtil.d(TAG + "list长度" + gankDailies.size());
                 }
             };
             dailyGankData.getDailyDataFromDB(observer);
@@ -51,9 +45,7 @@ public class DailyGankPresenter extends BasePresenter<IDailyGankView> {
                     dailyGankData.saveDailyDataToDB(mList);
                 }
 
-
                 @Override public void onError(Throwable e) {
-                    LogUtil.e(TAG + e.toString());
                     getView().loadFailure();
                 }
 
@@ -72,7 +64,6 @@ public class DailyGankPresenter extends BasePresenter<IDailyGankView> {
     private String convertContent2Url(String content) {
         int start = content.indexOf("src=") + 5;
         int end = content.indexOf("jpg") + 3;
-        LogUtil.d(TAG + content.substring(start, end));
         return content.substring(start, end);
     }
 

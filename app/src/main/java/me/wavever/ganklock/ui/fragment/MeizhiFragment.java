@@ -14,7 +14,6 @@ import me.wavever.ganklock.event.RxBus;
 import me.wavever.ganklock.presenter.MeiZhiPresenter;
 import me.wavever.ganklock.ui.activity.PhotoActivity;
 import me.wavever.ganklock.ui.adapter.MeizhiRecyclerViewAdapter;
-import me.wavever.ganklock.utils.LogUtil;
 import me.wavever.ganklock.view.IMeiZhiView;
 import rx.functions.Action1;
 
@@ -55,8 +54,10 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
                 @Override public void call(ClickEvent clickEvent) {
                     if (clickEvent.eventType == ClickEvent.CLICK_TYPE_MEIZHI) {
                         Intent intent = new Intent(mContext, PhotoActivity.class);
-                        intent.putExtra(PhotoActivity.KEY_ACTIVITY_JUMPED,PhotoActivity.ACTIVITY_JUMPER_FROM_MEIZHI);
-                        intent.putExtra(PhotoActivity.KEY_PHOTO_URL,mList.get(clickEvent.position));
+                        intent.putExtra(PhotoActivity.KEY_ACTIVITY_JUMPED,
+                            PhotoActivity.ACTIVITY_JUMPER_FROM_MEIZHI);
+                        intent.putExtra(PhotoActivity.KEY_PHOTO_URL,
+                            mList.get(clickEvent.position));
                         startActivity(intent);
                     }
                 }
@@ -91,17 +92,14 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
         mEmptyTip.setVisibility(View.VISIBLE);
     }
 
+
     @Override public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         if (!hidden) {
             sClickCount++;
-            LogUtil.d(TAG + "onHiddenChanged执行--》展示+****点击第"+sClickCount+"次");
-            if(sClickCount%2==0){
+            if (sClickCount % 2 == 0) {
                 getPresenter().loadMeizhi();
-                LogUtil.d(TAG+"Meizhi重新加载");
             }
-        } else {
-            LogUtil.d(TAG + "onHiddenChanged执行--》隐藏");
         }
     }
 }

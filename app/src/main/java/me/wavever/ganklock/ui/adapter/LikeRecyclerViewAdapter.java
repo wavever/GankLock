@@ -23,7 +23,6 @@ public class LikeRecyclerViewAdapter extends Adapter<LikeViewHolder> {
     private Context mContext;
     private List<Gank> mList;
 
-
     public LikeRecyclerViewAdapter(Context context) {
         mContext = context;
     }

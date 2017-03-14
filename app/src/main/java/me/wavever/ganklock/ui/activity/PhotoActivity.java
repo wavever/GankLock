@@ -5,12 +5,15 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
+import android.view.WindowManager.LayoutParams;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -64,8 +67,12 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
             getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LOW_PROFILE |
                     View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                    View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                    View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE);
+                    View.SYSTEM_UI_FLAG_FULLSCREEN);
+        }
+        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(R.color.black);
         }
         mAttacher = new PhotoViewAttacher(mPhoto);
         mAttacher.setOnViewTapListener(new OnViewTapListener() {
@@ -140,7 +147,7 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
                 PhotoUtil.sharePhoto(this, mFile);
                 break;
             case R.id.photo_wallpaper:
-                PhotoUtil.setWallPaper(this,mFile);
+                PhotoUtil.setWallPaper(this, mFile);
                 Snackbar.make(mPhoto, "设置成功", Snackbar.LENGTH_SHORT).show();
                 break;
             case R.id.photo_save:

@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"
+        android:max="100"
         app:progressIndeterminateTint="@color/theme_color_primary"/>
     <WebView
         android:id="@+id/web_view"

@@ -12,6 +12,8 @@ public class BaseRVAdapter<VH extends ViewHolder> extends Adapter<VH>{
 
     @Override public VH onCreateViewHolder(ViewGroup parent, int viewType) {
         return null;
+
+
     }
 
 

@@ -67,6 +67,18 @@ public class DailyGankFragment extends BaseFragment<IDailyGankView, DailyGankPre
         if (mRecyclerView.getOnFlingListener() == null) {
             mSnapHelper.attachToRecyclerView(mRecyclerView);
         }
+        mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                LinearLayoutManager layoutManager
+                    = (LinearLayoutManager) recyclerView.getLayoutManager();
+                int totalItemCount = layoutManager.getItemCount();
+                int lastVisibleItem = layoutManager.findLastVisibleItemPosition();
+                if (totalItemCount <= lastVisibleItem + 1) {
+                    loadDailyData(mPage+=1);
+                }
+
+            }
+        });
         mProgressBar = (ProgressBar) mContext.findViewById(R.id.daily_loading_progress_bar);
         mFailureTextView = (TextView) mContext.findViewById(R.id.daily_get_failure_tip);
     }
@@ -94,7 +106,7 @@ public class DailyGankFragment extends BaseFragment<IDailyGankView, DailyGankPre
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         showLoading();
-        loadDailyData();
+        loadDailyData(mPage);
         mSubscrition = RxBus.getInstance().tObservable(ClickEvent.class).subscribe(
             new Action1<ClickEvent>() {
                 @Override public void call(ClickEvent clickEvent) {
@@ -102,7 +114,8 @@ public class DailyGankFragment extends BaseFragment<IDailyGankView, DailyGankPre
                         Intent intent = new Intent(mContext, PhotoActivity.class);
                         intent.putExtra(PhotoActivity.KEY_PHOTO_URL, clickEvent.gankDaily.content);
                         intent.putExtra(PhotoActivity.KEY_PHOTO_ID, clickEvent.gankDaily._id);
-                        intent.putExtra(PhotoActivity.KEY_ACTIVITY_JUMPED,PhotoActivity.ACTIVITY_JUMPER_FROM_DAILY);
+                        intent.putExtra(PhotoActivity.KEY_ACTIVITY_JUMPED,
+                            PhotoActivity.ACTIVITY_JUMPER_FROM_DAILY);
                         startActivity(intent);
                     } else if (clickEvent.eventType == ClickEvent.CLICK_TYPE_DAILY_TITLE) {
                         jumpToContentActivity(clickEvent.gankDaily.publishedAt.substring(0, 10));
@@ -126,8 +139,8 @@ public class DailyGankFragment extends BaseFragment<IDailyGankView, DailyGankPre
     }
 
 
-    @Override public void loadDailyData() {
-        mPresenter.loadDailyData(mPage);
+    @Override public void loadDailyData(int page) {
+        mPresenter.loadDailyData(page);
     }
 
 
@@ -142,12 +155,15 @@ public class DailyGankFragment extends BaseFragment<IDailyGankView, DailyGankPre
         mRecyclerView.smoothScrollToPosition(0);
     }
 
+
     @Override
     public void showDailyData(List<GankDaily> ganks) {
-        mAdapter = new DailyListAdapter(ganks, mContext);
-        mRecyclerView.setAdapter(mAdapter);
+        if (mAdapter == null) {
+            mAdapter = new DailyListAdapter(ganks, mContext);
+            mRecyclerView.setAdapter(mAdapter);
+            mProgressBar.setVisibility(GONE);
+            mFailureTextView.setVisibility(GONE);
+        }
         mAdapter.notifyDataSetChanged();
-        mProgressBar.setVisibility(GONE);
-        mFailureTextView.setVisibility(GONE);
     }
 }

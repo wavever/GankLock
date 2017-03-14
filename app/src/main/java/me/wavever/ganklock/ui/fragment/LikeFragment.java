@@ -27,7 +27,6 @@ public class LikeFragment extends BaseFragment<ILikeView, LikePresenter> impleme
     private ProgressBar mProgressBar;
     private TextView mTips;
 
-
     @Override
     protected int loadView() {
         return R.layout.fragment_like;

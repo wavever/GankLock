@@ -172,7 +172,6 @@ public class MainActivity extends BaseActivity
         }
     }
 
-
     public void replaceFragmentByTag(Fragment fragment) {
         if (mCurrentFragment == null) {
             manager.beginTransaction().add(R.id.main_activity_container, fragment,

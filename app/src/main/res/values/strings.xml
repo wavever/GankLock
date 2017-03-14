@@ -73,6 +73,9 @@
     <!--GankContentActivity-->
     <string name="content_activity_empty_tip">我说加载失败了你信么</string>
 
-    <!--PhotoActivity-->
+    <!--WebViewActivity-->
+    <string name="webview_action_copy_url">复制链接</string>
+    <string name="webview_action_refresh">刷新</string>
+    <string name="webview_action_open_browser">在浏览器中打开</string>
 
 </resources>

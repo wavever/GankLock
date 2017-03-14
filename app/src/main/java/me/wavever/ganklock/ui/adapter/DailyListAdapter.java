@@ -1,8 +1,8 @@
 package me.wavever.ganklock.ui.adapter;
 
 import android.app.Activity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
+import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,6 +23,9 @@ import me.wavever.ganklock.utils.DateUtil;
 public class DailyListAdapter extends Adapter<DailyListAdapter.DailyListViewHolder> {
 
     private static final String TAG = DailyListAdapter.class.getSimpleName()+"-->";
+
+    private static final int TYPE_DAILY = 0;
+    private static final int TYPE_FOOTER = 1;
 
     private List<GankDaily> mDatas;
     private Activity mContext;
@@ -51,7 +54,12 @@ public class DailyListAdapter extends Adapter<DailyListAdapter.DailyListViewHold
         return mDatas == null ? 0 : mDatas.size();
     }
 
-    public class DailyListViewHolder extends RecyclerView.ViewHolder{
+
+    @Override public int getItemViewType(int position) {
+        return super.getItemViewType(position);
+    }
+
+    public class DailyListViewHolder extends ViewHolder{
 
         GankDaily gankDaily;
         ImageView img;
@@ -62,7 +70,7 @@ public class DailyListAdapter extends Adapter<DailyListAdapter.DailyListViewHold
         public DailyListViewHolder(View itemView) {
             super(itemView);
             img = (ImageView) itemView.findViewById(R.id.daily_item_image);
-            img.setOnClickListener(new View.OnClickListener() {
+            img.setOnClickListener(new OnClickListener() {
                 @Override public void onClick(View v) {
                     RxBus.getInstance().post(new ClickEvent(ClickEvent.CLICK_TYPE_DAILY_PHOTO,gankDaily));
                 }
@@ -78,8 +86,5 @@ public class DailyListAdapter extends Adapter<DailyListAdapter.DailyListViewHold
         }
 
     }
-
-
-
 
 }

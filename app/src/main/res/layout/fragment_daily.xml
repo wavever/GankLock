@@ -19,6 +19,7 @@
             android:background="@color/theme_color_primary"
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
     </com.bilibili.magicasakura.widgets.TintAppBarLayout>
 
     <FrameLayout

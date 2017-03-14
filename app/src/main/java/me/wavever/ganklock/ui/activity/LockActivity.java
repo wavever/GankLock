@@ -1,8 +1,12 @@
 package me.wavever.ganklock.ui.activity;
 
 import android.graphics.Bitmap;
+import android.os.Build.VERSION;
+import android.os.Build.VERSION_CODES;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
+import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
@@ -31,14 +35,11 @@ public class LockActivity extends BaseActivity implements OnSwipeListener {
         return R.layout.activity_lock;
     }
 
+
     @Override protected void initView() {
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
-        getWindow().getDecorView().setSystemUiVisibility(
-            View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_IMMERSIVE);
+        getWindow().addFlags(LayoutParams.FLAG_DISMISS_KEYGUARD);
+        getWindow().addFlags(LayoutParams.FLAG_SHOW_WHEN_LOCKED);
+        setUI();
         SwipeUnLockLayout swipeUnLockLayout = (SwipeUnLockLayout) findViewById(
             R.id.slide_layout);
         swipeUnLockLayout.setOnSwipeListener(this);
@@ -71,5 +72,34 @@ public class LockActivity extends BaseActivity implements OnSwipeListener {
 
     @Override public void onSwipeFinish() {
         finish();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) {
+            setUI();
+        }
+    }
+
+    private void setUI() {
+        Window window = getWindow();
+        window.getDecorView().setSystemUiVisibility(
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+        );
+        if (VERSION.SDK_INT >= VERSION_CODES.KITKAT) {
+            window.addFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        }
+        if (VERSION.SDK_INT >= VERSION_CODES.LOLLIPOP) {
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //这个属性重复设置会导致NAVIGATION BAR显示
+            //window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(0);
+        }
     }
 }
