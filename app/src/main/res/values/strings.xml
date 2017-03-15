@@ -57,6 +57,9 @@
     <!--DailyFragment-->
     <string name="daily_fragment_get_data_failure_tip">嗨呀！好气啊，加载失败了。</string>
 
+    <string name="daily_fragment_rv_item_date">九月·廿一</string>
+    <string name="daily_fragment_rv_item_title">今日力推：Android 漂亮的画廊效果 / Android 着色器和过滤器详解 / Canvas 粒子动画 / iOS 轻量级 Note 开元项目 Dropnote</string>
+
     <!--LikeFragment-->
     <string name="like_fragment_empty_tip">空空如也~</string>
 

@@ -45,13 +45,13 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             style="@style/DailyCardTitleStyle"
-            tools:text="九月·廿一"/>
+            tools:text="@string/daily_fragment_rv_item_date"/>
         <me.wavever.ganklock.ui.widget.CardTitleTextView
             style="@style/DailyCardTitleStyle"
             android:id="@+id/daily_item_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="今日力推：Android 漂亮的画廊效果 / Android 着色器和过滤器详解 / Canvas 粒子动画 / iOS 轻量级 Note 开元项目 Dropnote"/>
+            tools:text="@string/daily_fragment_rv_item_title"/>
     </LinearLayout>
 
 

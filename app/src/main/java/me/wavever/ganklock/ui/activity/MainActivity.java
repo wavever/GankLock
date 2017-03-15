@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.view.View;
 import com.bilibili.magicasakura.utils.ThemeUtils;
 import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
+import it.sephiroth.android.library.bottomnavigation.BottomNavigation.OnMenuItemSelectionListener;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.ui.fragment.DailyGankFragment;
 import me.wavever.ganklock.ui.fragment.LikeFragment;
@@ -17,7 +18,7 @@ import me.wavever.ganklock.ui.fragment.MoreFragment;
  * Created by wavever on 2016/5/28.
  */
 public class MainActivity extends BaseActivity
-    implements BottomNavigation.OnMenuItemSelectionListener {
+    implements OnMenuItemSelectionListener {
 
     private static final String CURRENT_FRAGMENT_TAG = "=CurrentFragmentTag";
     private static final String CURRENT_FRAGMENT_INDEX = "=CurrentFragmentIndex";
@@ -94,7 +95,6 @@ public class MainActivity extends BaseActivity
     @Override
     public void onBackPressed() {
         if (System.currentTimeMillis() - time > 2000) {
-            //ToastUtil.showToastShort(this, R.string.exit_with_two_click);
             Snackbar.make(mContainer, R.string.exit_with_two_click, Snackbar.LENGTH_SHORT).show();
             time = System.currentTimeMillis();
         } else {

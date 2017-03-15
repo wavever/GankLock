@@ -3,6 +3,7 @@ package me.wavever.ganklock.ui.activity;
 import android.R.id;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -97,6 +98,11 @@ public class WebViewActivity extends BaseMvpActivity<IWebView, WebViewPresenter>
                 onBackPressed();
                 break;
             case R.id.action_webview_share:
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_SEND);
+                intent.setType("text/plain");
+                intent.putExtra(Intent.EXTRA_TEXT,mTitle+mUrl);
+                startActivity(Intent.createChooser(intent, "分享到"));
                 break;
             case R.id.action_webview_refresh:
                 mWebView.reload();
@@ -108,6 +114,8 @@ public class WebViewActivity extends BaseMvpActivity<IWebView, WebViewPresenter>
                 ToastUtil.showToastShort(this, "复制成功");
                 break;
             case R.id.action_webview_open_browser:
+                mWebView.setWebViewClient(null);
+                mWebView.loadUrl(mUrl);
                 break;
         }
         return true;

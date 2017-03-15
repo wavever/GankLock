@@ -95,7 +95,7 @@ android {
     //友盟多渠道打包
     productFlavors {
         xiaomi {}
-        wandoujia {}
+        coolapk {}
         baidu {}
         fir {}
         qihu360 {}
