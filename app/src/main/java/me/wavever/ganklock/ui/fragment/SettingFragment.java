@@ -5,6 +5,7 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
+import com.bugtags.library.Bugtags;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.model.bean.GankDaily;
 import me.wavever.ganklock.utils.ToastUtil;
@@ -22,16 +23,11 @@ public class SettingFragment extends PreferenceFragment
 
     private Subscription subscription;
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.preferences);
         findPreference(getString(R.string.key_lock_style)).setOnPreferenceClickListener(this);
-        findPreference(getString(R.string.key_auto_refresh)).setOnPreferenceChangeListener(this);
-        findPreference(getString(R.string.key_statusbar_hide)).setOnPreferenceChangeListener(this);
-        findPreference(getString(R.string.key_statusbar_transparent)).setOnPreferenceChangeListener(
-            this);
         findPreference(getString(R.string.key_shake_feed_back)).setOnPreferenceChangeListener(this);
         findPreference("key_clear_cache").setOnPreferenceClickListener(this);
     }
@@ -40,12 +36,12 @@ public class SettingFragment extends PreferenceFragment
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
         String key = preference.getKey();
-        if (key.equals(getString(R.string.key_is_open))) {
+        if (key.equals(getString(R.string.key_shake_feed_back))) {
             if ((Boolean) newValue) {
+                Bugtags.setInvocationEvent(Bugtags.BTGInvocationEventShake);
             } else {
+                Bugtags.setInvocationEvent(Bugtags.BTGInvocationEventNone);
             }
-        }else if(key.equals(getString(R.string.key_statusbar_hide))){
-
         }
         return true;
     }
@@ -70,7 +66,7 @@ public class SettingFragment extends PreferenceFragment
                 }
             });
         } else if (key.equals(getString(R.string.key_lock_style))) {
-            ToastUtil.showToastShort(getActivity(), "锁屏样式");
+            ToastUtil.showToastShort(getActivity(), "正在开发中哦");
         }
         return false;
     }

@@ -19,13 +19,11 @@ public class SwipeUnLockLayout extends FrameLayout {
 
     private static final int MIN_FLING_VELOCITY = 200;
 
-    private View mCLockView;
-    private View mDateView;
-    private View mUnLockBtn;
-    private View mImg;
     //TODO 只能够移动他的直接子View
     private View mTimeLayout;
     private View mArrow;
+
+    private int mLastInterceptX;
 
     private float mStartX;
     private int mLayoutX;
@@ -58,6 +56,31 @@ public class SwipeUnLockLayout extends FrameLayout {
 
     public void setOnSwipeListener(OnSwipeListener onSwipeListener) {
         this.mOnSwipeListener = onSwipeListener;
+    }
+
+    @Override public boolean onInterceptTouchEvent(MotionEvent ev) {
+        boolean intercepted = false;
+        int x = (int) ev.getX();
+        switch (ev.getAction()){
+            case MotionEvent.ACTION_DOWN:
+                mLastInterceptX = x;
+                intercepted = false;
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if(x==mLastInterceptX){
+                    intercepted = false;
+                }else {
+                    intercepted = true;
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                intercepted = false;
+                break;
+            default:
+                break;
+        }
+
+        return intercepted;
     }
 
 
@@ -107,10 +130,7 @@ public class SwipeUnLockLayout extends FrameLayout {
     @Override protected void onFinishInflate() {
         super.onFinishInflate();
         mTimeLayout = findViewById(R.id.lock_view_time_layout);
-        mCLockView = findViewById(R.id.lock_view_time);
-        mDateView = findViewById(R.id.lock_view_date);
         mArrow = findViewById(R.id.lock_view_arrow);
-        mImg = findViewById(R.id.lock_view_img);
     }
 
 

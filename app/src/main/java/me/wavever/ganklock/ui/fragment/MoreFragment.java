@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
+import android.os.Build.VERSION;
 import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -26,7 +26,6 @@ import me.wavever.ganklock.ui.activity.LicenseActivity;
 import me.wavever.ganklock.ui.activity.SettingActivity;
 import me.wavever.ganklock.ui.fragment.CardPickerDialog.ClickListener;
 import me.wavever.ganklock.utils.PreferenceUtil;
-import me.wavever.ganklock.utils.StringUtil;
 import me.wavever.ganklock.utils.ToastUtil;
 import me.wavever.ganklock.view.IMoreView;
 
@@ -52,7 +51,6 @@ public class MoreFragment extends BaseFragment<IMoreView, MorePresenter>
     @Override protected void initView() {
         mToolbar = (Toolbar) mContext.findViewById(R.id.toolbar_more_fragment);
         mTitle = (TextView) mContext.findViewById(R.id.more_fragment_title);
-        mTitle.setTypeface(StringUtil.getTypeFace("jdjl.TTF"));
         mItemLockSetting = (TextView) mContext.findViewById(R.id.more_fragment_item_lock_setting);
         mItemLockSetting.setOnClickListener(this);
         mItemStyleSetting = (TextView) mContext.findViewById(R.id.more_fragment_item_style_setting);
@@ -101,7 +99,8 @@ public class MoreFragment extends BaseFragment<IMoreView, MorePresenter>
                 dialog.show(getActivity().getFragmentManager(), CardPickerDialog.TAG);
                 break;
             case R.id.more_fragment_item_feedback:
-                ToastUtil.showToastShort(mContext,"意见反馈");
+                FeedbackDialog dialogFeed = new FeedbackDialog();
+                dialogFeed.show(getActivity().getFragmentManager(), FeedbackDialog.TAG);
                 break;
             case R.id.more_fragment_item_open_source:
                 startActivity(new Intent(mContext, LicenseActivity.class));
@@ -126,7 +125,7 @@ public class MoreFragment extends BaseFragment<IMoreView, MorePresenter>
             ThemeHelper.setTheme(currentTheme);
             ThemeUtils.refreshUI(mContext, new ExtraRefreshable() {
                 @Override public void refreshGlobal(Activity activity) {
-                    if (Build.VERSION.SDK_INT >= 21) {
+                    if (VERSION.SDK_INT >= 21) {
                         mContext.getWindow().setStatusBarColor(ThemeUtils.getColorById(mContext,R.color.theme_color_primary_dark));
                     }
                 }
@@ -138,4 +137,5 @@ public class MoreFragment extends BaseFragment<IMoreView, MorePresenter>
             });
         }
     }
+
 }

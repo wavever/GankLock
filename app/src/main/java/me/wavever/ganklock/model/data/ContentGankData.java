@@ -12,7 +12,7 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 /**
- * Created by waveverht on 2016/9/20.
+ * Created by wavever on 2016/9/20.
  */
 
 public class ContentGankData {

@@ -98,6 +98,7 @@ public class GankListAdapter extends Adapter<GankListHolder> {
         ImageView share;
         TextView desc;
 
+
         public GankListHolder(View itemView, boolean isShow) {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.item_gank_card_view);
@@ -119,13 +120,13 @@ public class GankListAdapter extends Adapter<GankListHolder> {
 
 
         @Override public void onClick(View v) {
-            onItemClickListener.onItemClick(v, cardView, like,share,gank);
+            onItemClickListener.onItemClick(v, cardView, like, share, gank);
         }
 
     }
 
 
     public interface OnItemClickListener {
-        void onItemClick(View view, View layout, ImageView like,ImageView share, Gank gank);
+        void onItemClick(View view, View layout, ImageView like, ImageView share, Gank gank);
     }
 }

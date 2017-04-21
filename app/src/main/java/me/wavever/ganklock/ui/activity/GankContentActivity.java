@@ -28,7 +28,7 @@ public class GankContentActivity extends BaseMvpActivity<IGankContentView, GankC
 
     public static final String KEY_DATE = "key_date";
 
-    private static final String TAG = GankContentActivity.class.getSimpleName() + "-->";
+    private static final String TAG = "GankContentActivity-->";
     private String date;
     private RecyclerView mRecyclerView;
     private TextView mEmptyTip;

@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <me.wavever.ganklock.ui.widget.SwipeUnLockLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/slide_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <me.wavever.ganklock.ui.widget.RatioImageView
+    <ImageView
         android:id="@+id/lock_view_img"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:src="@drawable/test_image"
+        android:clickable="true"
         android:scaleType="centerCrop"/>
 
     <me.wavever.ganklock.ui.widget.UnlockArrowHolder
@@ -18,29 +21,48 @@
         android:layout_gravity="center|bottom"
         android:layout_marginBottom="20dp"/>
 
-    <LinearLayout
-        android:id="@+id/lock_view_time_layout"
+    <ViewSwitcher
+        android:id="@+id/lock_view_switcher"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:paddingTop="20dp"
+        android:paddingBottom="30dp"
+        android:background="@drawable/lock_date_mask">
 
-        <TextClock
-            android:id="@+id/lock_view_time"
+        <LinearLayout
+            android:id="@+id/lock_view_time_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-thin"
-            android:format24Hour="H:mm"
-            android:paddingLeft="10dp"
-            android:textColor="@color/white"
-            android:textSize="70sp"/>
+            android:paddingLeft="15dp"
+            android:orientation="vertical">
 
+            <TextClock
+                android:id="@+id/lock_view_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-thin"
+                android:format24Hour="H:mm"
+                android:textColor="@color/white"
+                android:textSize="70sp"/>
+
+            <TextView
+                android:id="@+id/lock_view_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                tools:text="星期五"/>
+        </LinearLayout>
         <TextView
-            android:id="@+id/lock_view_date"
+            android:id="@+id/lock_view_gank_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginRight="15dp"
+            android:paddingLeft="15dp"
             android:textColor="@color/white"
-            android:paddingLeft="10dp"
-            android:textSize="18sp"/>
-    </LinearLayout>
+            android:textSize="16sp"
+            android:gravity="center"
+            android:text="@string/daily_fragment_rv_item_title"/>
+
+    </ViewSwitcher>
 </me.wavever.ganklock.ui.widget.SwipeUnLockLayout>

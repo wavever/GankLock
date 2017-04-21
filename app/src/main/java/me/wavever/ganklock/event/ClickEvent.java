@@ -13,6 +13,8 @@ public class ClickEvent {
 
     public static final int CLICK_TYPE_MEIZHI = 2;
 
+    public static final int CLICK_TYPE_LIKE = 3;
+
     public int eventType;
 
     public GankDaily gankDaily;

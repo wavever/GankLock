@@ -1,12 +1,12 @@
 package me.wavever.ganklock.ui.activity;
 
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import com.bilibili.magicasakura.utils.ThemeUtils;
+import android.view.MotionEvent;
+import com.bugtags.library.Bugtags;
 import me.wavever.ganklock.R;
 
 /**
@@ -25,11 +25,25 @@ public abstract class BaseActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(loadView());
         initToolbar();
-        if (Build.VERSION.SDK_INT >= 21) {
-            //设置statusbar的颜色
-            getWindow().setStatusBarColor(ThemeUtils.getColorById(this, R.color.theme_color_primary_dark));
-        }
         initView();
+    }
+
+
+    @Override protected void onResume() {
+        super.onResume();
+        Bugtags.onResume(this);
+    }
+
+
+    @Override protected void onPause() {
+        super.onPause();
+        Bugtags.onPause(this);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        Bugtags.onDispatchTouchEvent(this, event);
+        return super.dispatchTouchEvent(event);
     }
 
 

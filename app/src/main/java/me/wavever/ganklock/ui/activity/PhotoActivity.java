@@ -56,7 +56,6 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
     private LinearLayout mOptionLayout;
     private TextView mSend;
     private TextView mSetWallPaper;
-    private TextView mDeleteWallPaper;
     private TextView mSave;
 
 
@@ -108,8 +107,6 @@ public class PhotoActivity extends BaseActivity implements OnClickListener {
             mSend.setOnClickListener(this);
             mSetWallPaper = (TextView) findViewById(R.id.photo_wallpaper);
             mSetWallPaper.setOnClickListener(this);
-            mDeleteWallPaper = (TextView) findViewById(R.id.photo_delete);
-            mDeleteWallPaper.setOnClickListener(this);
         }
         new Thread(new Runnable() {
             @Override public void run() {

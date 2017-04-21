@@ -23,8 +23,8 @@ import rx.functions.Action1;
 public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
     implements IMeiZhiView {
 
-    private static final String TAG = MeizhiFragment.class.getSimpleName() + "-->";
-    private static int sClickCount = 0;
+    private static final String TAG = "MeizhiFragment-->";
+    private static int sClickCount;
     private RecyclerView mRecyclerView;
     private MeizhiRecyclerViewAdapter mAdapter;
     private TextView mEmptyTip;

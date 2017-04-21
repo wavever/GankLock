@@ -9,27 +9,6 @@
             android:key="@string/key_lock_style"
             android:summary="默认为滑动解锁"
             android:title="@string/setting_lock_style" />
-        <com.jenzz.materialpreference.CheckBoxPreference
-            android:defaultValue="true"
-            android:key="@string/key_auto_refresh"
-            android:summaryOff="当前为关闭"
-            android:summaryOn="当前为开启（默认）"
-            android:title="@string/setting_auto_refresh" />
-    </com.jenzz.materialpreference.PreferenceCategory>
-
-    <com.jenzz.materialpreference.PreferenceCategory
-        android:key="@string/key_preference_category_statusbar"
-        android:title="@string/setting_statusbar">
-        <com.jenzz.materialpreference.CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/key_statusbar_hide"
-            android:summary="@string/setting_statusbar_hide_summary"
-            android:title="@string/setting_statusbar_hide" />
-        <com.jenzz.materialpreference.CheckBoxPreference
-            android:defaultValue="false"
-            android:key="@string/key_statusbar_transparent"
-            android:summary="@string/setting_statusbar_transparent_summary"
-            android:title="@string/setting_statusbar_transparent" />
     </com.jenzz.materialpreference.PreferenceCategory>
 
     <com.jenzz.materialpreference.PreferenceCategory

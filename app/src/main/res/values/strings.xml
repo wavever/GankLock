@@ -14,23 +14,13 @@
     <string name="title_setting_base">基本设置</string>
     <string name="setting_lock">锁屏设置</string>
     <string name="setting_lock_style">锁屏样式</string>
-    <string name="setting_auto_refresh">每次进入自动刷新</string>
-    <string name="setting_statusbar">状态栏设置</string>
-    <string name="setting_statusbar_hide">隐藏状态栏</string>
-    <string name="setting_statusbar_hide_summary">仅在Android 4.1 以上有效</string>
-    <string name="setting_statusbar_transparent">透明状态栏</string>
-    <string name="setting_statusbar_transparent_summary">仅在Android 4.4 以上有效</string>
     <string name="setting_shake_feed_back">摇一摇发送反馈</string>
     <string name="setting_shake_feed_back_summary">发现了Bug？摇一摇就能反馈了哦</string>
     <string name="setting_clear_cache">清除缓存</string>
     <string name="setting_clear_cache_summary">包括图片、文字缓存</string>
-    
+
     <string name="key_preference_category_lock">key_preference_category_lock</string>
-    <string name="key_auto_refresh">key_auto_refresh</string>
     <string name="key_is_open">key_is_open</string>
-    <string name="key_preference_category_statusbar">key_preference_category_statusbar</string>
-    <string name="key_statusbar_hide">key_statusbar_hide</string>
-    <string name="key_statusbar_transparent">key_statusbar_transparent</string>
     <string name="key_shake_feed_back">key_shake_feed_back</string>
     <string name="key_clear_cache">key_clear_cache</string>
     
@@ -39,14 +29,11 @@
     <string name="app_version_code">当前版本:</string>
 
     <!--Tips about lock-->
-    <string name="introduce">Gank
-        锁屏是一款专属于程序猿的锁屏软件，锁屏界面由每天的高清无码的妹子图片和程序猿干货组成。\n</string>
+    <string name="introduce">干货集中营拥众多客户端之一，简单实现了一个锁屏界面，更新每天的妹子图片。</string>
 
-    <string name="me">wavever 博客：http://wavever.cn\n项目开源地址：http://github.com/wavever/GankLock</string>
-    <string name="thx">所有干货数据来自代码家的干货集中营\nhttp://gank.io</string>
+    <string name="me">wavever http://wavever.cn\n开源地址 http://github.com/wavever/GankLock</string>
+    <string name="thx">数据来源 http://gank.io\n所有所使用开源库的作者</string>
 
-    <!--xml-->
-    <string name="exit_with_two_click">再按一次退出Gank锁屏</string>
 
     <!--bottom bar-->
     <string name="bottom_bar_gank">干货</string>
@@ -73,6 +60,8 @@
     <string name="more_fragment_item_evaluate">去评价</string>
     <string name="more_fragment_item_about">关于</string>
 
+    <!--MainActivity-->
+    <string name="exit_with_two_click">再按一次退出Gank锁屏</string>
     <!--GankContentActivity-->
     <string name="content_activity_empty_tip">我说加载失败了你信么</string>
 

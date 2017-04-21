@@ -2,16 +2,23 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item_like_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:clickable="true"
+    android:paddingTop="10dp"
+    android:foreground="?android:attr/selectableItemBackground">
+
     <me.wavever.ganklock.ui.widget.ColorfulCircleView
         android:id="@+id/item_like_ccv"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="12dp"
+        android:layout_height="12dp"
         app:ccv_random_color_bg="true"
         app:ccv_background_color="@color/orange"
         app:ccv_padding="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
         app:ccv_text="Android"/>
 
     <RelativeLayout
@@ -24,10 +31,9 @@
             android:id="@+id/item_like_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="16sp"
-            tools:text="Android"
-            android:textColor="@color/black"
-            android:layout_marginBottom="4dp"/>
+            android:textSize="13sp"
+            android:layout_marginBottom="5dp"
+            tools:text="Android"/>
 
         <TextView
             android:id="@+id/item_like_date"
@@ -39,16 +45,17 @@
             android:paddingRight="10dp"
             android:gravity="end"
             tools:text="11-29"
-            android:textSize="13sp"/>
+            android:textSize="11sp"/>
 
         <TextView
             android:id="@+id/item_like_desc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="15sp"
+            android:textSize="14sp"
             android:maxLines="2"
             android:ellipsize="end"
             android:paddingRight="10dp"
+            android:textColor="@color/black"
             android:layout_below="@id/item_like_type"
             tools:text="生成随即的用户数据，以后再也不用绞尽脑汁凑测试用户数据了。"/>
 
@@ -56,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@id/item_like_desc"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
             android:background="@color/more_fragment_item_divider_color"/>
     </RelativeLayout>
 </LinearLayout>

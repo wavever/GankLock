@@ -17,7 +17,7 @@ import rx.schedulers.Schedulers;
  */
 public class MeiZhiPresenter extends BasePresenter<IMeiZhiView> {
 
-    private static final String TAG = MeiZhiPresenter.class.getSimpleName()+"-->";
+    private static final String TAG = "MeiZhiPresenter-->";
 
     private List<File> mList = new ArrayList<>();
 

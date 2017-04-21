@@ -9,7 +9,8 @@
 ![](http://ww1.sinaimg.cn/large/ace35ee1gw1fa5x8cl08rj207i0dc0t1.jpg)
 ##下载
 [Fir.im](http://fir.im/ganklock)<br>
-![](http://ww2.sinaimg.cn/large/ace35ee1gw1f1ylxqhxidj205l05c3yr.jpg)
+酷安市场 [http://www.coolapk.com/apk/me.wavever.ganklock]()
+![zhij](http://ww2.sinaimg.cn/large/ace35ee1gw1f1ylxqhxidj205l05c3yr.jpg)
 
 ##感谢
 [代码家](http://weibo.com/daimajia?from=usercardnew&refer_flag=0000020001_&is_all=1)建立的[干货集中营](http://gank.io/)，在刚开始时，Rxjava和Retrofit部分参考了[drakeet](https://github.com/drakeet) 的[妹纸](https://github.com/drakeet/Meizhi)，MVP 架构参考了[咕咚](https://github.com/maoruibin)的[GankDialy](https://github.com/maoruibin/GankDaily)，还有[Rogero0o](https://github.com/Rogero0o)的开源锁屏项目[Mr.Locker](https://github.com/Rogero0o/ScreenLocker)，以及自己使用的一些开源框架（在App内有列表），感谢这些开发者对于开源世界的贡献。 
