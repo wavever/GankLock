@@ -106,12 +106,6 @@ public class LockActivity extends BaseMvpActivity<ILockView,LockPresenter> imple
         }
     }
 
-
-    @Override public void getTodayGankData() {
-
-    }
-
-
     private void getBitmap(){
         Observable.create(new Observable.OnSubscribe<Bitmap>() {
             @Override public void call(Subscriber<? super Bitmap> subscriber) {

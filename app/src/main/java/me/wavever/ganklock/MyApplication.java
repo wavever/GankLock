@@ -7,7 +7,6 @@ import android.support.annotation.ColorRes;
 import com.activeandroid.app.Application;
 import com.bilibili.magicasakura.utils.ThemeUtils;
 import com.bilibili.magicasakura.utils.ThemeUtils.switchColor;
-import com.bugtags.library.Bugtags;
 import me.wavever.ganklock.config.Config;
 import me.wavever.ganklock.service.LockService;
 import me.wavever.ganklock.theme.ThemeHelper;
@@ -29,7 +28,6 @@ public class MyApplication extends Application implements switchColor {
             context.startService(new Intent(context, LockService.class));
         }
         ThemeUtils.setSwitchColor(this);
-        Bugtags.start("9201c17d6c7e7073dbf19f42bceb5f0e", this, Bugtags.BTGInvocationEventNone);
     }
 
 
