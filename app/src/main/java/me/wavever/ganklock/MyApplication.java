@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
+
 import com.activeandroid.app.Application;
 import com.bilibili.magicasakura.utils.ThemeUtils;
 import com.bilibili.magicasakura.utils.ThemeUtils.switchColor;
+
 import me.wavever.ganklock.config.Config;
 import me.wavever.ganklock.service.LockService;
 import me.wavever.ganklock.theme.ThemeHelper;
@@ -21,7 +23,8 @@ public class MyApplication extends Application implements switchColor {
 
     private static PreferenceUtil sp;
 
-    @Override public void onCreate() {
+    @Override
+    public void onCreate() {
         super.onCreate();
         context = getApplicationContext();
         if (PreferenceUtil.getBoolean(Config.GANK_LOCK_IS_OPEN)) {
@@ -38,8 +41,8 @@ public class MyApplication extends Application implements switchColor {
         return context;
     }
 
-
-    @Override public int replaceColorById(Context context, @ColorRes int colorId) {
+    @Override
+    public int replaceColorById(Context context, @ColorRes int colorId) {
         if (ThemeHelper.isDefaultTheme()) {
             return context.getResources().getColor(colorId);
         }
@@ -49,7 +52,6 @@ public class MyApplication extends Application implements switchColor {
         }
         return context.getResources().getColor(colorId);
     }
-
 
     private String getThemes() {
         if (ThemeHelper.getTheme() == ThemeHelper.THEME_PINK) {
@@ -71,7 +73,8 @@ public class MyApplication extends Application implements switchColor {
     }
 
 
-    @Override public int replaceColor(Context context, @ColorInt int originColor) {
+    @Override
+    public int replaceColor(Context context, @ColorInt int originColor) {
         if (ThemeHelper.isDefaultTheme()) {
             return originColor;
         }
@@ -93,14 +96,13 @@ public class MyApplication extends Application implements switchColor {
                 return context.getResources().getIdentifier(theme, "color", getPackageName());
             case R.color.theme_color_primary_dark:
                 return context.getResources()
-                    .getIdentifier(theme + "_dark", "color", getPackageName());
+                        .getIdentifier(theme + "_dark", "color", getPackageName());
             case R.color.theme_color_primary_trans:
                 return context.getResources()
-                    .getIdentifier(theme + "_trans", "color", getPackageName());
+                        .getIdentifier(theme + "_trans", "color", getPackageName());
         }
         return colorId;
     }
-
 
     private
     @ColorRes
@@ -110,10 +112,10 @@ public class MyApplication extends Application implements switchColor {
                 return context.getResources().getIdentifier(theme, "color", getPackageName());
             case 0xffb85671:
                 return context.getResources()
-                    .getIdentifier(theme + "_dark", "color", getPackageName());
+                        .getIdentifier(theme + "_dark", "color", getPackageName());
             case 0x99f0486c:
                 return context.getResources()
-                    .getIdentifier(theme + "_trans", "color", getPackageName());
+                        .getIdentifier(theme + "_trans", "color", getPackageName());
         }
         return -1;
     }

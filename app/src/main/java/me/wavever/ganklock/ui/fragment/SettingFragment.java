@@ -5,7 +5,6 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
-import com.bugtags.library.Bugtags;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.model.bean.GankDaily;
 import me.wavever.ganklock.utils.ToastUtil;
@@ -38,14 +37,11 @@ public class SettingFragment extends PreferenceFragment
         String key = preference.getKey();
         if (key.equals(getString(R.string.key_shake_feed_back))) {
             if ((Boolean) newValue) {
-                Bugtags.setInvocationEvent(Bugtags.BTGInvocationEventShake);
             } else {
-                Bugtags.setInvocationEvent(Bugtags.BTGInvocationEventNone);
             }
         }
         return true;
     }
-
 
     @Override
     public boolean onPreferenceClick(Preference preference) {

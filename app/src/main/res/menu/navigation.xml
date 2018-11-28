@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:bbn_itemAnimationDuration="200"
-    app:bbn_rippleColor="#66ffffff">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
         android:id="@+id/bbn_daliy"
         android:icon="@drawable/ic_cloud_white_24dp"
-        android:title="@string/bottom_bar_gank"/>
+        android:title="@string/bottom_bar_gank" />
     <item
         android:id="@+id/bbn_like"
         android:icon="@drawable/ic_star_white_24dp"
-        android:title="@string/bottom_bar_like"/>
+        android:title="@string/bottom_bar_like" />
     <item
         android:id="@+id/bbn_meizhi"
         android:icon="@drawable/ic_portrait_white_24dp"
-        android:title="@string/bottom_bar_meizhi"/>
+        android:title="@string/bottom_bar_meizhi" />
     <item
         android:id="@+id/bbn_more"
         android:icon="@drawable/ic_format_list_numbered_white_24dp"
-        android:title="@string/bottom_bar_more"/>
+        android:title="@string/bottom_bar_more" />
+
 </menu>

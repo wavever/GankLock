@@ -77,7 +77,7 @@ public class WebViewActivity extends BaseMvpActivity<IWebView, WebViewPresenter>
 
 
     @Override public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.web_view_menu, menu);
+        //getMenuInflater().inflate(R.menu.web_view_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -97,7 +97,7 @@ public class WebViewActivity extends BaseMvpActivity<IWebView, WebViewPresenter>
             case id.home:
                 onBackPressed();
                 break;
-            case R.id.action_webview_share:
+            /*case R.id.action_webview_share:
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
                 intent.setType("text/plain");
@@ -116,7 +116,7 @@ public class WebViewActivity extends BaseMvpActivity<IWebView, WebViewPresenter>
             case R.id.action_webview_open_browser:
                 mWebView.setWebViewClient(null);
                 mWebView.loadUrl(mUrl);
-                break;
+                break;*/
         }
         return true;
     }

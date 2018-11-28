@@ -23,7 +23,7 @@
     <string name="key_is_open">key_is_open</string>
     <string name="key_shake_feed_back">key_shake_feed_back</string>
     <string name="key_clear_cache">key_clear_cache</string>
-    
+
     <string name="key_lock_style">key_lock_style</string>
 
     <string name="app_version_code">当前版本:</string>
@@ -69,5 +69,9 @@
     <string name="webview_action_copy_url">复制链接</string>
     <string name="webview_action_refresh">刷新</string>
     <string name="webview_action_open_browser">在浏览器中打开</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 
 </resources>

@@ -3,17 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
     <FrameLayout
         android:id="@+id/main_activity_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <it.sephiroth.android.library.bottomnavigation.BottomNavigation
-        android:id="@+id/BottomNavigation"
+        android:layout_height="match_parent" />
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:bbn_badgeProvider="@string/bbn_badgeProvider"
-        app:bbn_entries="@menu/bottombar_menu_4items"
-        app:bbn_scrollEnabled="true"
-        app:layout_behavior="@string/bbn_phone_view_behavior"/>
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/navigation"/>
 </android.support.design.widget.CoordinatorLayout>

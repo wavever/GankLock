@@ -3,11 +3,11 @@ package me.wavever.ganklock.ui.activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
+import android.view.MenuItem;
 import android.view.View;
-import it.sephiroth.android.library.bottomnavigation.BottomNavigation;
-import it.sephiroth.android.library.bottomnavigation.BottomNavigation.OnMenuItemSelectionListener;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.ui.fragment.DailyGankFragment;
 import me.wavever.ganklock.ui.fragment.LikeFragment;
@@ -17,10 +17,8 @@ import me.wavever.ganklock.ui.fragment.MoreFragment;
 /**
  * Created by wavever on 2016/5/28.
  */
-public class MainActivity extends BaseActivity
-    implements OnMenuItemSelectionListener {
+public class MainActivity extends BaseActivity {
 
-    private BottomNavigation mBottomNavigation;
     private Fragment mCurrentFragment;
     private DailyGankFragment dailyGankFragment;
     private LikeFragment likeFragment;
@@ -30,6 +28,50 @@ public class MainActivity extends BaseActivity
 
     private View mContainer;
 
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.bbn_daliy:
+                    if (mCurrentFragment != dailyGankFragment) {
+                        if (dailyGankFragment == null) {
+                            dailyGankFragment = DailyGankFragment.getInstance();
+                        }
+                        replaceFragmentByTag(dailyGankFragment);
+                    }
+                    break;
+                case R.id.bbn_like:
+                    if (mCurrentFragment != likeFragment) {
+                        if (likeFragment == null) {
+                            likeFragment = new LikeFragment();
+                        }
+                        replaceFragmentByTag(likeFragment);
+                    }
+                    break;
+                case R.id.bbn_meizhi:
+                    if (mCurrentFragment != meizhiFragment) {
+                        if (meizhiFragment == null) {
+                            meizhiFragment = new MeizhiFragment();
+                        }
+                        replaceFragmentByTag(meizhiFragment);
+                    }
+                    break;
+                case R.id.bbn_more:
+                    if (mCurrentFragment != moreFragment) {
+                        if (moreFragment == null) {
+                            moreFragment = new MoreFragment();
+                        }
+                        replaceFragmentByTag(moreFragment);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            return false;
+        }
+    };
 
     @Override protected int loadView() {
         return R.layout.activity_main;
@@ -38,10 +80,8 @@ public class MainActivity extends BaseActivity
 
     @Override protected void initView() {
         mContainer = findViewById(R.id.main_activity_container);
-        mBottomNavigation = (BottomNavigation) findViewById(R.id.BottomNavigation);
-        if (mBottomNavigation != null) {
-            mBottomNavigation.setOnMenuItemClickListener(this);
-        }
+        BottomNavigationView navigation = findViewById(R.id.navigation);
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         manager = getFragmentManager();
     }
 
@@ -56,7 +96,6 @@ public class MainActivity extends BaseActivity
 
 
     long time = 0;
-
 
     @Override
     public void onBackPressed() {
@@ -83,60 +122,5 @@ public class MainActivity extends BaseActivity
             }
         }
         mCurrentFragment = fragment;
-    }
-
-
-    @Override public void onMenuItemSelect(@IdRes int itemId, int i1, boolean b) {
-        switch (itemId) {
-            case R.id.bbn_daliy:
-                if (mCurrentFragment != dailyGankFragment) {
-                    if (dailyGankFragment == null) {
-                        dailyGankFragment = DailyGankFragment.getInstance();
-                    }
-                    replaceFragmentByTag(dailyGankFragment);
-                }
-                break;
-            case R.id.bbn_like:
-                if (mCurrentFragment != likeFragment) {
-                    if (likeFragment == null) {
-                        likeFragment = new LikeFragment();
-                    }
-                    replaceFragmentByTag(likeFragment);
-                }
-                break;
-            case R.id.bbn_meizhi:
-                if (mCurrentFragment != meizhiFragment) {
-                    if (meizhiFragment == null) {
-                        meizhiFragment = new MeizhiFragment();
-                    }
-                    replaceFragmentByTag(meizhiFragment);
-                }
-                break;
-            case R.id.bbn_more:
-                if (mCurrentFragment != moreFragment) {
-                    if (moreFragment == null) {
-                        moreFragment = new MoreFragment();
-                    }
-                    replaceFragmentByTag(moreFragment);
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-
-    @Override public void onMenuItemReselect(@IdRes int itemId, int i1, boolean b) {
-        switch (itemId) {
-            case R.id.bbn_daliy:
-                dailyGankFragment.loadTodayDailyData();
-                break;
-            case R.id.bbn_like:
-                break;
-            case R.id.bbn_meizhi:
-                break;
-            case R.id.bbn_more:
-                break;
-        }
     }
 }

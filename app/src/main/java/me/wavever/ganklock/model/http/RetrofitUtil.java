@@ -20,7 +20,6 @@ public class RetrofitUtil {
     private static Gson sGson;
     private static OkHttpClient sOkHttpClient;
 
-
     static {
         sGson = new GsonBuilder()
             .excludeFieldsWithModifiers(Modifier.FINAL, Modifier.TRANSIENT, Modifier.STATIC)

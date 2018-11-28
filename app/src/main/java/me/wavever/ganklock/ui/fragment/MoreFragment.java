@@ -99,8 +99,6 @@ public class MoreFragment extends BaseFragment<IMoreView, MorePresenter>
                 dialog.show(getActivity().getFragmentManager(), CardPickerDialog.TAG);
                 break;
             case R.id.more_fragment_item_feedback:
-                FeedbackDialog dialogFeed = new FeedbackDialog();
-                dialogFeed.show(getActivity().getFragmentManager(), FeedbackDialog.TAG);
                 break;
             case R.id.more_fragment_item_open_source:
                 startActivity(new Intent(mContext, LicenseActivity.class));
@@ -121,21 +119,7 @@ public class MoreFragment extends BaseFragment<IMoreView, MorePresenter>
     }
 
     @Override public void onConfirm(int currentTheme) {
-        if (ThemeHelper.getTheme() != currentTheme) {
-            ThemeHelper.setTheme(currentTheme);
-            ThemeUtils.refreshUI(mContext, new ExtraRefreshable() {
-                @Override public void refreshGlobal(Activity activity) {
-                    if (VERSION.SDK_INT >= 21) {
-                        mContext.getWindow().setStatusBarColor(ThemeUtils.getColorById(mContext,R.color.theme_color_primary_dark));
-                    }
-                }
-                @Override public void refreshSpecificView(View view) {
-                    mContext.findViewById(R.id.BottomNavigation)
-                        .setBackgroundColor(
-                            ThemeUtils.getColorById(mContext, R.color.theme_color_primary));
-                }
-            });
-        }
+
     }
 
 }

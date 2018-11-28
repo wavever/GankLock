@@ -12,6 +12,7 @@ android {
         versionCode rootProject.ext.android.versionCode
         versionName rootProject.ext.android.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -46,9 +47,8 @@ dependencies {
     implementation rootProject.ext.dependencies.photoView
     implementation rootProject.ext.dependencies.magicAsakura
     implementation rootProject.ext.dependencies.licence_fragment
-    implementation rootProject.ext.dependencies.bottomNavigation
-    implementation rootProject.ext.dependencies.bugtags
-
+    implementation rootProject.ext.dependencies.constraint_layout
+    //noinspection GradleCompatible
     testImplementation 'junit:junit:4.12'
     //noinspection GradleCompatible
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
