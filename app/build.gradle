@@ -35,7 +35,7 @@ dependencies {
     implementation rootProject.ext.dependencies.cardView
     implementation rootProject.ext.dependencies.design
     implementation rootProject.ext.dependencies.gson
-    implementation rootProject.ext.dependencies.rxAndroid
+    implementation rootProject.ext.dependencies.rxJava
     implementation rootProject.ext.dependencies.retrofit2
     implementation rootProject.ext.dependencies.retrofit2_converter_gson
     implementation rootProject.ext.dependencies.retrofit2_adapter_rxjava
@@ -43,9 +43,7 @@ dependencies {
     implementation rootProject.ext.dependencies.okhttp3_logging_interceptor
     implementation rootProject.ext.dependencies.materialPreference
     implementation rootProject.ext.dependencies.activeAndroid
-    implementation rootProject.ext.dependencies.bottomNavigation
     implementation rootProject.ext.dependencies.photoView
-    implementation rootProject.ext.dependencies.magicAsakura
     implementation rootProject.ext.dependencies.licence_fragment
     implementation rootProject.ext.dependencies.constraint_layout
     //noinspection GradleCompatible
