@@ -2,6 +2,8 @@ package me.wavever.ganklock.model.data;
 
 import com.activeandroid.query.Select;
 import java.util.List;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import me.wavever.ganklock.model.bean.GankDaily;
 import me.wavever.ganklock.model.bean.GankDailyContent;
 import me.wavever.ganklock.model.http.GankService;
@@ -10,7 +12,6 @@ import me.wavever.ganklock.utils.LogUtil;
 import rx.Observable;
 import rx.Observer;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -26,7 +27,6 @@ public class DailyGankData {
 
     private List<GankDaily> mList;
 
-
     public List<GankDaily> getDailyDataFromDB(Observer<List<GankDaily>> observer) {
         Observable.create(new Observable.OnSubscribe<List<GankDaily>>() {
             @Override public void call(Subscriber<? super List<GankDaily>> subscriber) {
@@ -36,7 +36,6 @@ public class DailyGankData {
                 subscriber.onNext(list);
             }
         }).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(observer);
         return mList;
     }
@@ -49,7 +48,6 @@ public class DailyGankData {
                     return Observable.from(gankDailyContent.results);
                 }
             }).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe(observer);
     }
 

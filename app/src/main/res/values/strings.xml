@@ -41,6 +41,11 @@
     <string name="bottom_bar_meizhi">妹纸</string>
     <string name="bottom_bar_more">更多</string>
 
+    <string name="bottom_item_find_tile">发现</string>
+    <string name="bottom_item_xiandu_tile">闲读</string>
+    <string name="bottom_item_square_tile">广场</string>
+    <string name="bottom_item_me_tile">我</string>
+
     <!--DailyFragment-->
     <string name="daily_fragment_get_data_failure_tip">嗨呀！好气啊，加载失败了。</string>
 

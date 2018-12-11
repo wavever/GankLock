@@ -4,8 +4,8 @@ import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import com.bilibili.magicasakura.widgets.TintProgressBar;
 import java.io.File;
 import java.util.List;
 import me.wavever.ganklock.R;
@@ -28,15 +28,13 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
     private RecyclerView mRecyclerView;
     private MeizhiRecyclerViewAdapter mAdapter;
     private TextView mEmptyTip;
-    private TintProgressBar mProgressBar;
+    private ProgressBar mProgressBar;
     private List<File> mList;
-
 
     @Override
     protected int loadView() {
         return R.layout.fragment_meizhi;
     }
-
 
     @Override
     protected void initView() {
@@ -44,7 +42,7 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
         GridLayoutManager manager = new GridLayoutManager(mContext, 2);
         mRecyclerView.setLayoutManager(manager);
         mEmptyTip = (TextView) mContext.findViewById(R.id.empty_tip_meizhi_fragment);
-        mProgressBar = (TintProgressBar) mContext.findViewById(R.id.progress_bar_meizhi_fragment);
+        mProgressBar = (ProgressBar) mContext.findViewById(R.id.progress_bar_meizhi_fragment);
         mAdapter = new MeizhiRecyclerViewAdapter(mContext);
         mRecyclerView.setAdapter(mAdapter);
         mProgressBar.setVisibility(View.VISIBLE);
@@ -64,12 +62,10 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
             });
     }
 
-
     @Override
     public MeiZhiPresenter createPresenter() {
         return new MeiZhiPresenter();
     }
-
 
     @Override public void showMeizhi(List<File> list) {
         mProgressBar.setVisibility(View.GONE);
@@ -79,19 +75,16 @@ public class MeizhiFragment extends BaseFragment<IMeiZhiView, MeiZhiPresenter>
         mAdapter.notifyDataSetChanged();
     }
 
-
     @Override public void showEmptyView() {
         mProgressBar.setVisibility(View.GONE);
         mEmptyTip.setVisibility(View.VISIBLE);
     }
-
 
     @Override public void showErrorView() {
         mProgressBar.setVisibility(View.GONE);
         mEmptyTip.setText("出问题了");
         mEmptyTip.setVisibility(View.VISIBLE);
     }
-
 
     @Override public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);

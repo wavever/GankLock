@@ -13,18 +13,14 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.bilibili.magicasakura.utils.ThemeUtils;
-import com.bilibili.magicasakura.utils.ThemeUtils.ExtraRefreshable;
 import me.wavever.ganklock.MyApplication;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.config.Config;
 import me.wavever.ganklock.presenter.MorePresenter;
 import me.wavever.ganklock.service.LockService;
-import me.wavever.ganklock.theme.ThemeHelper;
 import me.wavever.ganklock.ui.activity.AboutActivity;
 import me.wavever.ganklock.ui.activity.LicenseActivity;
 import me.wavever.ganklock.ui.activity.SettingActivity;
-import me.wavever.ganklock.ui.fragment.CardPickerDialog.ClickListener;
 import me.wavever.ganklock.utils.PreferenceUtil;
 import me.wavever.ganklock.utils.ToastUtil;
 import me.wavever.ganklock.view.IMoreView;
@@ -33,15 +29,13 @@ import me.wavever.ganklock.view.IMoreView;
  * Created by wavever on 2016/9/18.
  */
 
-public class MoreFragment extends BaseFragment<IMoreView, MorePresenter>
-    implements OnClickListener, ClickListener {
+public class MoreFragment extends BaseFragment<IMoreView, MorePresenter> implements OnClickListener {
 
     private TextView mTitle;
     private SwitchCompat mSwitch;
     private TextView mItemLockSetting, mItemStyleSetting, mItemFeedBack, mItemOpenSource,
         mItemEvaluate, mItemAbout;
     private Toolbar mToolbar;
-
 
     @Override protected int loadView() {
         return R.layout.fragment_more;
@@ -93,11 +87,6 @@ public class MoreFragment extends BaseFragment<IMoreView, MorePresenter>
             case R.id.more_fragment_item_lock_setting:
                 startActivity(new Intent(mContext, SettingActivity.class));
                 break;
-            case R.id.more_fragment_item_style_setting:
-                CardPickerDialog dialog = new CardPickerDialog();
-                dialog.setClickListener(this);
-                dialog.show(getActivity().getFragmentManager(), CardPickerDialog.TAG);
-                break;
             case R.id.more_fragment_item_feedback:
                 break;
             case R.id.more_fragment_item_open_source:
@@ -116,10 +105,6 @@ public class MoreFragment extends BaseFragment<IMoreView, MorePresenter>
                 startActivity(new Intent(mContext, AboutActivity.class));
                 break;
         }
-    }
-
-    @Override public void onConfirm(int currentTheme) {
-
     }
 
 }

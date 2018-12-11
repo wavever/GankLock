@@ -5,13 +5,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
     <include layout="@layout/toolbar"/>
-    <com.bilibili.magicasakura.widgets.TintProgressBar
+    <ProgressBar
         android:id="@+id/progress_bar_web_view"
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:max="100"
-        app:progressIndeterminateTint="@color/theme_color_primary"/>
+        android:max="100" />
     <WebView
         android:id="@+id/web_view"
         android:layout_width="match_parent"

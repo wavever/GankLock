@@ -30,22 +30,23 @@ repositories {
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation rootProject.ext.dependencies.appcompat_v7
-    implementation rootProject.ext.dependencies.recyclerView
-    implementation rootProject.ext.dependencies.cardView
-    implementation rootProject.ext.dependencies.design
-    implementation rootProject.ext.dependencies.gson
-    implementation rootProject.ext.dependencies.rxJava
-    implementation rootProject.ext.dependencies.retrofit2
-    implementation rootProject.ext.dependencies.retrofit2_converter_gson
-    implementation rootProject.ext.dependencies.retrofit2_adapter_rxjava
-    implementation rootProject.ext.dependencies.okhttp3
-    implementation rootProject.ext.dependencies.okhttp3_logging_interceptor
-    implementation rootProject.ext.dependencies.materialPreference
-    implementation rootProject.ext.dependencies.activeAndroid
-    implementation rootProject.ext.dependencies.photoView
-    implementation rootProject.ext.dependencies.licence_fragment
-    implementation rootProject.ext.dependencies.constraint_layout
+    implementation libraries.appcompat_v7
+    implementation libraries.recyclerView
+    implementation libraries.cardView
+    implementation libraries.design
+    implementation libraries.gson
+    implementation libraries.rxJava
+    implementation libraries.rxAndroid
+    implementation libraries.retrofit2
+    implementation libraries.retrofit2_converter_gson
+    implementation libraries.retrofit2_adapter_rxjava
+    implementation libraries.okhttp3
+    implementation libraries.okhttp3_logging_interceptor
+    implementation libraries.materialPreference
+    implementation libraries.activeAndroid
+    implementation libraries.photoView
+    implementation libraries.licence_fragment
+    implementation libraries.constraint_layout
     //noinspection GradleCompatible
     testImplementation 'junit:junit:4.12'
     //noinspection GradleCompatible

@@ -26,13 +26,12 @@
             android:text="@string/content_activity_empty_tip"
             android:visibility="gone"/>
 
-        <com.bilibili.magicasakura.widgets.TintProgressBar
+        <ProgressBar
             android:id="@+id/progress_bar_gank_content"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            app:progressIndeterminateTint="@color/theme_color_primary"
             android:visibility="gone"/>
 
     </FrameLayout>

@@ -6,13 +6,13 @@
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    <com.bilibili.magicasakura.widgets.TintAppBarLayout
+    <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar_layout_daily_fragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-        <com.bilibili.magicasakura.widgets.TintToolbar
+        <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar_daily_fragment"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
@@ -20,19 +20,18 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
-    </com.bilibili.magicasakura.widgets.TintAppBarLayout>
+    </android.support.design.widget.AppBarLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.bilibili.magicasakura.widgets.TintProgressBar
+        <ProgressBar
             android:id="@+id/daily_loading_progress_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:indeterminate="true"
-            app:progressIndeterminateTint="@color/theme_color_primary"
             android:visibility="gone"/>
 
         <TextView
