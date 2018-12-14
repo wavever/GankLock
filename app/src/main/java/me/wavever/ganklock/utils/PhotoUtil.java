@@ -11,12 +11,14 @@ import android.widget.Toast;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import rx.Observable;
-import rx.Observable.OnSubscribe;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by wavever on 2016/9/27.
@@ -43,18 +45,21 @@ public class PhotoUtil {
                 }
             }
         }
-        Observable.create(new OnSubscribe<String>() {
-            @Override public void call(Subscriber<? super String> subscriber) {
+
+        Observable.create(new ObservableOnSubscribe<String>() {
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 String photoUrl = createPhoto(context, fileDir, fileName, bitmap);
-                subscriber.onNext("图片已保存至" + photoUrl);
+                emitter.onNext("图片已保存至" + photoUrl);
             }
         }).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Action1<String>() {
-                @Override public void call(String s) {
-                    Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
-                }
-            });
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<String>() {
+                    @Override
+                    public void accept(String s) throws Exception {
+                        Toast.makeText(context, s, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 

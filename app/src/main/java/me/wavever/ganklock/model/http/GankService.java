@@ -1,11 +1,11 @@
 package me.wavever.ganklock.model.http;
 
+import io.reactivex.Observable;
 import me.wavever.ganklock.model.bean.GankContent;
 import me.wavever.ganklock.model.bean.GankDailyContent;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-import rx.Observable;
 
 /**
  * Created by wavever on 2016/3/4.

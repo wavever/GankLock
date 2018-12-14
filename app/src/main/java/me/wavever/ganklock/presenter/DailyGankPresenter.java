@@ -2,12 +2,14 @@ package me.wavever.ganklock.presenter;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 import me.wavever.ganklock.model.bean.GankDaily;
 import me.wavever.ganklock.model.data.DailyGankData;
 import me.wavever.ganklock.utils.PreferenceUtil;
 import me.wavever.ganklock.utils.SystemUtil;
 import me.wavever.ganklock.view.IDailyGankView;
-import rx.Observer;
 
 /**
  * Created by wavever on 2016/8/14.
@@ -24,11 +26,19 @@ public class DailyGankPresenter extends BasePresenter<IDailyGankView> {
     public void loadDailyData(int page) {
         if (!SystemUtil.isNetworkAvailable()) {
             Observer<List<GankDaily>> observer = new Observer<List<GankDaily>>() {
-                @Override public void onCompleted() {
-                }
 
                 @Override public void onError(Throwable e) {
                     getView().loadFailure();
+                }
+
+                @Override
+                public void onComplete() {
+
+                }
+
+                @Override
+                public void onSubscribe(Disposable d) {
+
                 }
 
                 @Override public void onNext(List<GankDaily> gankDailies) {
@@ -39,16 +49,22 @@ public class DailyGankPresenter extends BasePresenter<IDailyGankView> {
 
         } else {
             Observer<GankDaily> observer = new Observer<GankDaily>() {
-                @Override public void onCompleted() {
-                    getView().showDailyData(mList);
-                    PreferenceUtil.putString("url", mList.get(0).content);
-                    dailyGankData.saveDailyDataToDB(mList);
-                }
 
                 @Override public void onError(Throwable e) {
                     getView().loadFailure();
                 }
 
+                @Override
+                public void onComplete() {
+                    getView().showDailyData(mList);
+                    PreferenceUtil.putString("url", mList.get(0).content);
+                    dailyGankData.saveDailyDataToDB(mList);
+                }
+
+                @Override
+                public void onSubscribe(Disposable d) {
+
+                }
 
                 @Override public void onNext(GankDaily gankDaily) {
                     gankDaily.content = convertContent2Url(gankDaily.content);

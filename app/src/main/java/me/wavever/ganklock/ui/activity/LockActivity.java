@@ -12,17 +12,19 @@ import android.widget.TextView;
 import android.widget.ViewSwitcher;
 import com.squareup.picasso.Picasso;
 import java.io.IOException;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.schedulers.Schedulers;
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.presenter.LockPresenter;
 import me.wavever.ganklock.ui.widget.SwipeUnLockLayout;
 import me.wavever.ganklock.utils.DateUtil;
 import me.wavever.ganklock.utils.PreferenceUtil;
 import me.wavever.ganklock.view.ILockView;
-import rx.Observable;
-import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by wavever on 2016/10/14.
@@ -107,23 +109,25 @@ public class LockActivity extends BaseMvpActivity<ILockView,LockPresenter> imple
     }
 
     private void getBitmap(){
-        Observable.create(new Observable.OnSubscribe<Bitmap>() {
-            @Override public void call(Subscriber<? super Bitmap> subscriber) {
+
+        Observable.create(new ObservableOnSubscribe<Bitmap>() {
+            @Override
+            public void subscribe(ObservableEmitter<Bitmap> emitter) throws Exception {
                 try {
                     bitmap = Picasso.with(LockActivity.this).load(url).get();
-                    subscriber.onNext(bitmap);
+                    emitter.onNext(bitmap);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
         }).subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .unsubscribeOn(Schedulers.io())
-            .subscribe(new Action1<Bitmap>() {
-                @Override public void call(Bitmap bitmap) {
-                    mImg.setImageBitmap(bitmap);
-                }
-            });
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<Bitmap>() {
+                    @Override
+                    public void accept(Bitmap bitmap) throws Exception {
+                        mImg.setImageBitmap(bitmap);
+                    }
+                });
 
     }
 }

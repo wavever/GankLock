@@ -5,13 +5,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import me.wavever.ganklock.utils.LogUtil;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Predicate;
+import io.reactivex.schedulers.Schedulers;
 import me.wavever.ganklock.view.IMeiZhiView;
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.Observable;
 
 /**
  * Created by wavever on 2016/9/2.
@@ -31,27 +31,36 @@ public class MeiZhiPresenter extends BasePresenter<IMeiZhiView> {
         if(!mList.isEmpty()){
             mList.clear();
         }
-        Observable.from(fileDir.listFiles())
-            .filter(new Func1<File, Boolean>() {
-                @Override public Boolean call(File file) {
-                    return file.getName().endsWith(".jpg");
-                }
-            })
+        Observable.fromArray(fileDir.listFiles())
+                .filter(new Predicate<File>() {
+                    @Override
+                    public boolean test(File file) {
+                        return file.getName().endsWith(".jpg");
+                    }
+                })
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .unsubscribeOn(AndroidSchedulers.mainThread())
-            .subscribe(new Subscriber<File>() {
-                @Override public void onCompleted() {
-                    getView().showMeizhi(mList);
+            .subscribe(new Observer<File>() {
+                @Override
+                public void onSubscribe(Disposable d) {
+
                 }
 
-                @Override public void onError(Throwable e) {
-                    LogUtil.d(TAG+e.getMessage());
-                    getView().showErrorView();
-                }
-
-                @Override public void onNext(File file) {
+                @Override
+                public void onNext(File file) {
                     mList.add(file);
+                }
+
+                @Override
+                public void onError(Throwable e) {
+                }
+
+                @Override
+                public void onComplete() {
+                    if (getView() != null) {
+                        getView().showMeizhi(mList);
+                    }
                 }
             });
     }

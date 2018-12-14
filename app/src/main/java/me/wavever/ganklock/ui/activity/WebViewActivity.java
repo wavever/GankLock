@@ -1,9 +1,6 @@
 package me.wavever.ganklock.ui.activity;
 
 import android.R.id;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.Intent;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,10 +8,10 @@ import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import com.bilibili.magicasakura.widgets.TintProgressBar;
+import android.widget.ProgressBar;
+
 import me.wavever.ganklock.R;
 import me.wavever.ganklock.presenter.WebViewPresenter;
-import me.wavever.ganklock.utils.ToastUtil;
 import me.wavever.ganklock.view.IWebView;
 
 import static android.view.View.GONE;
@@ -29,7 +26,7 @@ public class WebViewActivity extends BaseMvpActivity<IWebView, WebViewPresenter>
     private static final String TAG = WebViewActivity.class.getSimpleName();
     public static final String KEY_TITLE = "key_title";
     public static final String KEY_URL = "key_url";
-    private TintProgressBar mProgressBar;
+    private ProgressBar mProgressBar;
     private WebView mWebView;
     private String mTitle;
     private String mUrl;
@@ -45,8 +42,8 @@ public class WebViewActivity extends BaseMvpActivity<IWebView, WebViewPresenter>
         mTitle = getIntent().getStringExtra(KEY_TITLE);
         setTitle(mTitle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        mProgressBar = (TintProgressBar) findViewById(R.id.progress_bar_web_view);
-        mWebView = (WebView) findViewById(R.id.web_view);
+        mProgressBar = findViewById(R.id.progress_bar_web_view);
+        mWebView = findViewById(R.id.web_view);
         mWebView.getSettings().setJavaScriptEnabled(true);//支持JavaScript
         mWebView.setWebViewClient(new WebViewClient() {
             @Override public boolean shouldOverrideUrlLoading(WebView view, String url) {

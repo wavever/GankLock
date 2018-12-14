@@ -44,21 +44,19 @@ public class DailyGankFragment extends BaseFragment<IDailyGankView, DailyGankPre
 
     private int mPage = 1;
 
-
     @Override
     protected int loadView() {
         return R.layout.fragment_daily;
     }
 
-
     @Override
     protected void initView() {
         mActivity = (AppCompatActivity) mContext;
-        mToolbar = (Toolbar) mContext.findViewById(R.id.toolbar_daily_fragment);
+        mToolbar = mContext.findViewById(R.id.toolbar_daily_fragment);
         mActivity.setSupportActionBar(mToolbar);
         mActivity.setTitle(R.string.bottom_bar_gank);
         mToolbar.inflateMenu(R.menu.main_menu);
-        mRecyclerView = (RecyclerView) mContext.findViewById(R.id.daily_recycler_view);
+        mRecyclerView = mContext.findViewById(R.id.daily_recycler_view);
         LinearLayoutManager manager = new LinearLayoutManager(mContext);
         manager.setOrientation(LinearLayoutManager.HORIZONTAL);
         mRecyclerView.setLayoutManager(manager);
@@ -79,10 +77,9 @@ public class DailyGankFragment extends BaseFragment<IDailyGankView, DailyGankPre
 
             }
         });
-        mProgressBar = (ProgressBar) mContext.findViewById(R.id.daily_loading_progress_bar);
-        mFailureTextView = (TextView) mContext.findViewById(R.id.daily_get_failure_tip);
+        mProgressBar = mContext.findViewById(R.id.daily_loading_progress_bar);
+        mFailureTextView = mContext.findViewById(R.id.daily_get_failure_tip);
     }
-
 
     public static DailyGankFragment getInstance() {
         if (sFragment == null) {
@@ -95,12 +92,10 @@ public class DailyGankFragment extends BaseFragment<IDailyGankView, DailyGankPre
         return sFragment;
     }
 
-
     @Override
     public DailyGankPresenter createPresenter() {
         return new DailyGankPresenter();
     }
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -124,14 +119,12 @@ public class DailyGankFragment extends BaseFragment<IDailyGankView, DailyGankPre
             });
     }
 
-
     private void jumpToContentActivity(String date) {
         date = date.replace('-', '/');
         Intent intent = new Intent(mContext, GankContentActivity.class);
         intent.putExtra(GankContentActivity.KEY_DATE, date);
         startActivity(intent);
     }
-
 
     @Override
     public void showLoading() {
@@ -150,11 +143,9 @@ public class DailyGankFragment extends BaseFragment<IDailyGankView, DailyGankPre
         mFailureTextView.setVisibility(View.VISIBLE);
     }
 
-
     @Override public void loadTodayDailyData() {
         mRecyclerView.smoothScrollToPosition(0);
     }
-
 
     @Override
     public void showDailyData(List<GankDaily> ganks) {
